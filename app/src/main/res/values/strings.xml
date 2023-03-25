@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">NZTA_Booking_App</string>
+    <string name="normal_register">Don\'t have a road user account?<u> <b>Register</b></u></string>
+    <string name="instructor_register">Don\'t have an instructor account?<u> <b>Register</b></u></string>
+    <string name="img_desc">Nzta coloured logo</string>
+    <string name="normal_login_txt">LOGIN AS ROAD USER</string>
+    <string name="email_lbl">Email:</string>
+    <string name="pass_lbl">Password:</string>
+    <string name="login_btn">Login</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="instructor_txt">INSTRUCTOR</string>
+    <string name="register_txt">REGISTER</string>
+    <string name="normal_txt">ROAD USER</string>
+    <string name="instructor_login_txt">LOGIN AS INSTRUCTOR</string>
+    <string name="normal_registration_txt">ROAD USER REGISTRATION</string>
+    <string name="fn">First Name:</string>
+    <string name="ln">Last Name:</string>
+    <string name="confirm_pass_lbl">Confirm Password:</string>
+    <string name="dl">Driver Licence:</string>
+    <string name="vn">Version Number:</string>
+    <string name="instructor_registration">INSTRUCTOR REGISTRATION</string>
+</resources>
