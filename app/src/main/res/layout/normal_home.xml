@@ -74,6 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BOOKING"
+                    android:textStyle="bold"
                     android:textColor="@color/dark"
                     android:textSize="16sp" />
 
@@ -110,6 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="GRAPHS"
+                    android:textStyle="bold"
                     android:textColor="@color/dark"
                     android:textSize="16sp" />
 
@@ -146,6 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="PROFILE"
+                    android:textStyle="bold"
                     android:textColor="@color/dark"
                     android:textSize="16sp" />
 
@@ -182,6 +185,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="LOGOUT"
+                    android:textStyle="bold"
                     android:textColor="@color/dark"
                     android:textSize="16sp" />
 
