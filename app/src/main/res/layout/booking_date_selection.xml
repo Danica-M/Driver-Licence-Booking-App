@@ -53,21 +53,20 @@
             android:layout_width="30dp"
             android:layout_height="40dp"
             android:background="@drawable/plain_border"
-            android:text="<< CANCEL"
+            android:text="CANCEL"
             android:textSize="16sp"
             android:textColor="@color/light"
             android:layout_marginRight="20dp"
-            android:onClick="normalRegister"
             android:layout_weight="2"/>
         <Button
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/plain_border"
-            android:text="NEXT >>"
+            android:text="NEXT"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:layout_marginLeft="20dp"
-            android:onClick="normalLogin"
+            android:onClick="bookingSession"
             android:layout_weight="2"/>
     </LinearLayout>
 
