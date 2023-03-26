@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:src="@drawable/whitelogo" />
+            android:src="@drawable/white_logo" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="128dp"
@@ -66,15 +66,7 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <!--        <TextView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="MANAGE BOOKING"-->
-        <!--            android:textSize="20sp"-->
-        <!--            android:textStyle="bold"-->
-        <!--            android:textAlignment="center"-->
-        <!--            android:textColor="@color/dark"-->
-        <!--            android:layout_marginBottom="10dp"/>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,7 +89,8 @@
                 android:background="@drawable/light_border"
                 android:text="BOOK"
                 android:textColor="@color/dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:onClick="bookTest"/>
 
         </LinearLayout>
 
@@ -148,132 +141,7 @@
 
             </LinearLayout>
 
-
-
-
         </FrameLayout>
-        <!--        <TableLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="150dp"-->
-        <!--            android:background="@color/light">-->
-
-        <!--            <TableRow-->
-        <!--                android:background="@color/dark">-->
-
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text="Date"-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text="Time"-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text=""-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--            </TableRow>-->
-        <!--            <TableRow-->
-        <!--                android:background="@color/light">-->
-
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text=""-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text=""-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text=""-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--            </TableRow>-->
-        <!--        </TableLayout>-->
-
-        <!--        <TextView-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-
-        <!--            android:text="Past Bookings:"-->
-        <!--            android:textColor="@color/dark"-->
-        <!--            android:textSize="18sp"-->
-        <!--            android:textStyle="bold" />-->
-        <!--        <TableLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:background="@color/light">-->
-
-        <!--            <TableRow-->
-        <!--                android:background="@drawable/plain_border">-->
-
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text="Date"-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text="Time"-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text="Result"-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--            </TableRow>-->
-        <!--            <TableRow-->
-        <!--                android:background="@color/light">-->
-
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text=""-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text=""-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--                <TextView-->
-        <!--                    android:textColor="@color/light"-->
-        <!--                    android:text=""-->
-        <!--                    android:textSize="20sp"-->
-        <!--                    android:textStyle="bold"-->
-        <!--                    android:layout_weight="4"-->
-        <!--                    android:gravity="center_horizontal"/>-->
-        <!--            </TableRow>-->
-        <!--        </TableLayout>-->
-
     </LinearLayout>
 
 

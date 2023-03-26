@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dark"
+    android:padding="20dp"
+    tools:context=".Booking_Date_Selection">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:src="@drawable/white_logo"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PRACTICAL TEST BOOKING"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/light"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select your preferred date:"
+        android:textSize="18sp"
+        android:textAlignment="textStart"
+        android:textColor="@color/light"/>
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        style="@android:style/Widget.DeviceDefault.CalendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light"
+        android:dateTextAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:showWeekNumber="true"
+        android:weekNumberColor="@color/dark"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:layout_weight="1"
+        android:layout_margin="10dp">
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:background="@drawable/plain_border"
+            android:text="<< CANCEL"
+            android:textSize="16sp"
+            android:textColor="@color/light"
+            android:layout_marginRight="20dp"
+            android:onClick="normalRegister"
+            android:layout_weight="2"/>
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/plain_border"
+            android:text="NEXT >>"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:onClick="normalLogin"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

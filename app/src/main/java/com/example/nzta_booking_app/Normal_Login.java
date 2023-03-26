@@ -19,6 +19,10 @@ public class Normal_Login extends AppCompatActivity {
         startActivity(lpIntent);
     }
 
+    public void normalHome(View view) {
+        Intent nhIntent = new Intent(this, Normal_Home.class);
+        startActivity(nhIntent);
+    }
 
     public void normalRegister(View view) {
         Intent nrIntent = new Intent(this, Normal_Registration.class);
