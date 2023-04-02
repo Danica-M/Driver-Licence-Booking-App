@@ -259,7 +259,7 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:layout_marginLeft="20dp"
-            android:onClick="bookingSession"
+            android:onClick="bookingRev"
             android:layout_weight="2"/>
     </LinearLayout>
 

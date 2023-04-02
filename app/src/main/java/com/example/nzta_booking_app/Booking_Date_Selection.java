@@ -8,12 +8,13 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CalendarView;
-
+import android.widget.Toast;
 
 
 public class Booking_Date_Selection extends AppCompatActivity {
 
     CalendarView calendarView;
+    String selectedDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +44,20 @@ public class Booking_Date_Selection extends AppCompatActivity {
         calendarView.setMinDate(minD);
         calendarView.setMaxDate(maxDate);
 
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
+                // Retrieve the selected date and do something with it
+                selectedDate= dayOfMonth + "/" + (month + 1) + "/" + year;
+                Toast.makeText(getApplicationContext(),selectedDate.toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
     public void bookingSession(View view) {
+
+
         Intent nlIntent = new Intent(this, Booking_Session_Selection.class);
         startActivity(nlIntent);
     }

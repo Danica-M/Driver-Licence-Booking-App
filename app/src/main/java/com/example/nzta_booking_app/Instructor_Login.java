@@ -13,10 +13,7 @@ public class Instructor_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.instructor_login);
     }
-    public void normalLogin(View view) {
-        Intent nlIntent = new Intent(this, Normal_Login.class);
-        startActivity(nlIntent);
-    }
+
     public void normalRegister(View view) {
         Intent nrIntent = new Intent(this, Normal_Registration.class);
         startActivity(nrIntent);
@@ -25,5 +22,11 @@ public class Instructor_Login extends AppCompatActivity {
         Intent irIntent = new Intent(this, Instructor_Registration.class);
         startActivity(irIntent);
     }
+
+    public void instructorLogin(View view) {
+        Intent nlIntent = new Intent(this, Instructor_Home.class);
+        startActivity(nlIntent);
+    }
+
 
 }

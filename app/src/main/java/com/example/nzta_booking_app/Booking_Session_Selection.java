@@ -2,6 +2,7 @@ package com.example.nzta_booking_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,6 +36,11 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public void bookingRev(View view) {
+        Intent nlIntent = new Intent(this, Booking_Review.class);
+        startActivity(nlIntent);
     }
 
 }
