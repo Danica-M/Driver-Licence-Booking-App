@@ -1,16 +1,23 @@
 package com.example.nzta_booking_app.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String userID;
     private String fName;
     private String lName;
+    private String licenceNum;
     private String email;
     private String password;
 
-    public User(String userID, String fName, String lName, String email, String password) {
+    public User() {
+    }
+
+    public User(String userID, String fName, String lName, String licenceNum, String email, String password) {
         this.userID = userID;
         this.fName = fName;
         this.lName = lName;
+        this.licenceNum = licenceNum;
         this.email = email;
         this.password = password;
     }
@@ -19,11 +26,11 @@ public class User {
         return userID;
     }
 
-    public String getfName() {
+    public String getUserFName() {
         return fName;
     }
 
-    public String getlName() {
+    public String getUserLName() {
         return lName;
     }
 
@@ -33,6 +40,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getLicenceNum() {
+        return licenceNum;
     }
 
     public void setfName(String fName) {

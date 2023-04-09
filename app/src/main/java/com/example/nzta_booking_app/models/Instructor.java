@@ -1,12 +1,17 @@
 package com.example.nzta_booking_app.models;
 
-public class Instructor {
+import java.io.Serializable;
+
+public class Instructor implements Serializable {
     private String instructorID;
     private String fName;
     private String lName;
     private String licenceNum;
     private String email;
     private String password;
+
+    public Instructor() {
+    }
 
     public Instructor(String instructorID, String fName, String lName, String licenceNum, String email, String password) {
         this.instructorID = instructorID;
@@ -21,11 +26,11 @@ public class Instructor {
         return instructorID;
     }
 
-    public String getfName() {
+    public String getFirstName() {
         return fName;
     }
 
-    public String getlName() {
+    public String getLastName() {
         return lName;
     }
 
@@ -41,11 +46,11 @@ public class Instructor {
         return password;
     }
 
-    public void setfName(String fName) {
+    public void setFName(String fName) {
         this.fName = fName;
     }
 
-    public void setlName(String lName) {
+    public void setLName(String lName) {
         this.lName = lName;
     }
 

@@ -7,10 +7,10 @@ public class Booking {
     private String userID;
     private String InstructorID;
     private Boolean isResulted;
-    private Boolean results;
+    private String results;
     private String comments;
 
-    public Booking(String bookingID, String bookingDate, String bookingTime, String userID, String instructorID, Boolean isResulted, Boolean results, String comments) {
+    public Booking(String bookingID, String bookingDate, String bookingTime, String userID, String instructorID, Boolean isResulted, String results, String comments) {
         this.bookingID = bookingID;
         this.bookingDate = bookingDate;
         this.bookingTime = bookingTime;
@@ -45,7 +45,7 @@ public class Booking {
         return isResulted;
     }
 
-    public Boolean getResults() {
+    public String getResults() {
         return results;
     }
 
@@ -73,7 +73,7 @@ public class Booking {
         isResulted = resulted;
     }
 
-    public void setResults(Boolean results) {
+    public void setResults(String results) {
         this.results = results;
     }
 

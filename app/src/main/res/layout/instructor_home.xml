@@ -34,6 +34,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/i_welMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hi, Instructor"
@@ -95,7 +96,7 @@
             android:layout_column="0"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            android:onClick="mBooking"
+
             app:cardBackgroundColor="@color/accent2"
             app:cardCornerRadius="10dp"
             app:cardElevation="8dp">
