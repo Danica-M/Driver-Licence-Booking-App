@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.nzta_booking_app.adapters.HistoryAdapter;
+
 public class Manage_Booking extends AppCompatActivity {
 
     RecyclerView rv;

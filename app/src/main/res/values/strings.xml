@@ -16,7 +16,6 @@
     <string name="fn">First Name:</string>
     <string name="ln">Last Name:</string>
     <string name="confirm_pass_lbl">Confirm Password:</string>
-    <string name="dl">Driver Licence:</string>
-    <string name="vn">Version Number:</string>
+    <string name="dl">Driver Licence Number:</string>
     <string name="instructor_registration">INSTRUCTOR REGISTRATION</string>
 </resources>
