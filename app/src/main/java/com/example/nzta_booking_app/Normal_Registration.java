@@ -67,12 +67,12 @@ public class Normal_Registration extends AppCompatActivity {
                                         User newUser = controller.registerUser(userid, fname, lname, "", email, pass);
                                         if (newUser != null) {
                                             Toast.makeText(Normal_Registration.this, "Registration Successful.", Toast.LENGTH_SHORT).show();
+                                            FirebaseAuth.getInstance().signOut();
                                             Intent nlIntent = new Intent(Normal_Registration.this, Normal_Login.class);
                                             startActivity(nlIntent);
                                         }
                                         else{
-                                            Toast.makeText(Normal_Registration.this, "Registration failed.",
-                                                    Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Normal_Registration.this, "Registration failed.", Toast.LENGTH_SHORT).show();
                                         }
 
                                     } else {

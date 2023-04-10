@@ -18,6 +18,9 @@ public class Controller {
         return reference;
     }
 
+    public static User user;
+    public static Instructor instructor;
+
     public User registerUser(String userID, String fName, String lName, String licenceNum, String email, String password){
         try{
 //            String userID = reference.push().getKey();

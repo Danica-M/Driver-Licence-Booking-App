@@ -4,18 +4,18 @@ public class Booking {
     private String bookingID;
     private String bookingDate;
     private String bookingTime;
-    private String userID;
-    private String InstructorID;
+    private String user;
+    private String instructor;
     private Boolean isResulted;
     private String results;
     private String comments;
 
-    public Booking(String bookingID, String bookingDate, String bookingTime, String userID, String instructorID, Boolean isResulted, String results, String comments) {
+    public Booking(String bookingID, String bookingDate, String bookingTime, String user, String instructor, Boolean isResulted, String results, String comments) {
         this.bookingID = bookingID;
         this.bookingDate = bookingDate;
         this.bookingTime = bookingTime;
-        this.userID = userID;
-        InstructorID = instructorID;
+        this.user = user;
+        this.instructor = instructor;
         this.isResulted = isResulted;
         this.results = results;
         this.comments = comments;
@@ -33,12 +33,12 @@ public class Booking {
         return bookingTime;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getBookingUser() {
+        return user;
     }
 
-    public String getInstructorID() {
-        return InstructorID;
+    public String getBookingInstructor() {
+        return instructor;
     }
 
     public Boolean getResulted() {
@@ -61,12 +61,12 @@ public class Booking {
         this.bookingTime = bookingTime;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setBookingUser(String userID) {
+        this.user = user;
     }
 
-    public void setInstructorID(String instructorID) {
-        InstructorID = instructorID;
+    public void setBookingInstructor(String instructorID) {
+        this.instructor = instructor;
     }
 
     public void setResulted(Boolean resulted) {

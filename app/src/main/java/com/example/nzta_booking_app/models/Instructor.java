@@ -1,64 +1,71 @@
 package com.example.nzta_booking_app.models;
 
-import java.io.Serializable;
 
-public class Instructor implements Serializable {
+
+public class Instructor {
     private String instructorID;
-    private String fName;
-    private String lName;
-    private String licenceNum;
-    private String email;
-    private String password;
+    private String instructorFirstName;
+    private String instructorLastName;
+    private String instructorLicenceNum;
+    private String instructorEmail;
+    private String instructorPassword;
 
     public Instructor() {
     }
 
-    public Instructor(String instructorID, String fName, String lName, String licenceNum, String email, String password) {
+    public Instructor(String instructorID, String instructorFirstName, String instructorLastName, String instructorLicenceNum, String instructorEmail, String instructorPassword) {
         this.instructorID = instructorID;
-        this.fName = fName;
-        this.lName = lName;
-        this.licenceNum = licenceNum;
-        this.email = email;
-        this.password = password;
+        this.instructorFirstName = instructorFirstName;
+        this.instructorLastName = instructorLastName;
+        this.instructorLicenceNum = instructorLicenceNum;
+        this.instructorEmail = instructorEmail;
+        this.instructorPassword = instructorPassword;
     }
 
     public String getInstructorID() {
         return instructorID;
     }
 
-    public String getFirstName() {
-        return fName;
+    public String getInstructorFirstName() {
+        return instructorFirstName;
     }
 
-    public String getLastName() {
-        return lName;
+    public String getInstructorLastName() {
+        return instructorLastName;
     }
 
-    public String getLicenceNum() {
-        return licenceNum;
+    public String getInstructorLicenceNum() {
+        return instructorLicenceNum;
     }
 
-    public String getEmail() {
-        return email;
+    public String getInstructorEmail() {
+        return instructorEmail;
     }
 
-    public String getPassword() {
-        return password;
+    public String getInstructorPassword() {
+        return instructorPassword;
     }
 
-    public void setFName(String fName) {
-        this.fName = fName;
+    public void setInstructorFirstName(String instructorFirstName) {
+        this.instructorFirstName = instructorFirstName;
     }
 
-    public void setLName(String lName) {
-        this.lName = lName;
+    public void setInstructorLastName(String instructorLastName) {
+        this.instructorLastName = instructorLastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setInstructorLicenceNum(String instructorLicenceNum) {
+        this.instructorLicenceNum = instructorLicenceNum;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setInstructorEmail(String instructorEmail) {
+        this.instructorEmail = instructorEmail;
+    }
+
+    public void setInstructorPassword(String instructorPassword) {
+        this.instructorPassword = instructorPassword;
+    }
+    public String instructorFullName() {
+        return instructorFirstName+" "+instructorLastName;
     }
 }

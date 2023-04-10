@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.nzta_booking_app.models.Controller;
 import com.example.nzta_booking_app.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,9 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 
-public class Normal_Login extends AppCompatActivity implements Serializable{
+public class Normal_Login extends AppCompatActivity{
 
     EditText l_email , l_pass;
     Button login;
@@ -52,30 +52,7 @@ public class Normal_Login extends AppCompatActivity implements Serializable{
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                String userID = mAuth.getCurrentUser().getUid();
-
-                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
-                                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        // retrieve the user object
-                                        if(dataSnapshot.exists()){
-                                            User user = dataSnapshot.getValue(User.class);
-                                            Intent intent = new Intent(Normal_Login.this, Normal_Home.class);
-                                            intent.putExtra("user", user);
-                                            startActivity(intent);
-                                        }else{
-                                            Toast.makeText(Normal_Login.this, "Road User account does not exist", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    }
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-
-                                });
-
+                                checkLoggedInUser();
                             }else{
                                 Toast.makeText(Normal_Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             }
@@ -84,6 +61,36 @@ public class Normal_Login extends AppCompatActivity implements Serializable{
                 }
 
             }
+        });
+    }
+
+
+
+    public void checkLoggedInUser(){
+        String userID = mAuth.getCurrentUser().getUid();
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Controller.user = dataSnapshot.getValue(User.class);
+                // retrieve the user object
+                if(Controller.user!=null){
+                    finishAffinity();
+                    Intent intent = new Intent(Normal_Login.this, Normal_Home.class);
+                    startActivity(intent);
+                    Toast.makeText(Normal_Login.this,"you are logged in successfully!",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(Normal_Login.this, "Road User account does not exist", Toast.LENGTH_SHORT).show();
+                    FirebaseAuth.getInstance().signOut();
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Normal_Login.this, "Error Occurred: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
         });
     }
 

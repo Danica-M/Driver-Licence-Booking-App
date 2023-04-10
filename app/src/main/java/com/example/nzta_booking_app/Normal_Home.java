@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.nzta_booking_app.models.Controller;
 import com.example.nzta_booking_app.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -16,12 +17,8 @@ public class Normal_Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.normal_home);
-        User user = (User) getIntent().getSerializableExtra("user");
-        String fName = user.getUserFName();
-        String lName = user.getUserLName();
-        String userID = user.getUserID();
         wMessage = findViewById(R.id.welMessage);
-        wMessage.setText("Kia Ora, "+fName+" "+lName);
+        wMessage.setText("Kia Ora, "+ Controller.user.userFullName());
 
 
     }

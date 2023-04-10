@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -19,8 +20,8 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
     Context context;
     String[] slots;
     String[] unavailable_slots;
-
     int selectedPosition = RecyclerView.NO_POSITION;
+
 
 
     public SessionAdapter(Context context, String[] slots, String[] unavailable_slots) {
@@ -58,15 +59,15 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
 
         if (selectedPosition == position) {
             holder.session_time.setBackground(ContextCompat.getDrawable(context,R.drawable.radio_selected));
-        } else {
-            if (!isAvailableTimeSlot(slots[position])) {
-                holder.session_time.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_unavailable));
-                holder.session_time.setEnabled(false);
-            }
-            else {
-                holder.session_time.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_normal));
-            }
+        } else if(!isAvailableTimeSlot(slots[position])) {
+            holder.session_time.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_unavailable));
+            holder.session_time.setEnabled(false);
         }
+        else {
+            holder.session_time.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_normal));
+            holder.session_time.setEnabled(true);
+        }
+
 
         holder.session_time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,30 +77,39 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
                 notifyItemChanged(selectedPosition);
                 selectedPosition = holder.getAdapterPosition();
                 notifyItemChanged(selectedPosition);
-
-
-
                 // Perform any additional actions on item click here
             }
         });
     }
 
-
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
     private boolean isAvailableTimeSlot(String timeSlot) {
-        boolean contain = true;
+
         for (String item : unavailable_slots) {
             if (item.equals(timeSlot)) {
-                contain = false;
-                break;
+                return false;
             }
         }
-        return contain;
+        return true;
     }
 
     @Override
     public int getItemCount() {
         return slots.length;
+    }
+
+    public int getSelectedPosition() {
+        return selectedPosition;
+    }
+    public String getSelectedItem() {
+        if (selectedPosition != RecyclerView.NO_POSITION) {
+            return slots[selectedPosition];
+        } else {
+            return null;
+        }
     }
 
 }

@@ -1,11 +1,9 @@
 package com.example.nzta_booking_app.models;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
+public class User{
     private String userID;
-    private String fName;
-    private String lName;
+    private String firstName;
+    private String lastName;
     private String licenceNum;
     private String email;
     private String password;
@@ -13,25 +11,25 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String userID, String fName, String lName, String licenceNum, String email, String password) {
+    public User(String userID, String firstName, String lastName, String licenceNum, String email, String password) {
         this.userID = userID;
-        this.fName = fName;
-        this.lName = lName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.licenceNum = licenceNum;
         this.email = email;
         this.password = password;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getUserFName() {
-        return fName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public String getUserLName() {
-        return lName;
+    public String getLicenceNum() {
+        return licenceNum;
     }
 
     public String getEmail() {
@@ -42,16 +40,16 @@ public class User implements Serializable {
         return password;
     }
 
-    public String getLicenceNum() {
-        return licenceNum;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setfName(String fName) {
-        this.fName = fName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setLicenceNum(String licenceNum) {
+        this.licenceNum = licenceNum;
     }
 
     public void setEmail(String email) {
@@ -60,5 +58,9 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String userFullName() {
+        return firstName+" "+lastName;
     }
 }

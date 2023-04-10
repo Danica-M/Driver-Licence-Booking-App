@@ -19,8 +19,6 @@ public class Booking_Date_Selection extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booking_date_selection);
-
-
         calendarView = findViewById(R.id.calendarView);
 
         Calendar calendar = Calendar.getInstance();
@@ -57,8 +55,8 @@ public class Booking_Date_Selection extends AppCompatActivity {
     }
     public void bookingSession(View view) {
 
-
         Intent nlIntent = new Intent(this, Booking_Session_Selection.class);
+        nlIntent.putExtra("date", selectedDate);
         startActivity(nlIntent);
     }
 }

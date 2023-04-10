@@ -67,7 +67,7 @@ public class Instructor_Registration extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                /*instructor object instructorid is the same as the authentication userid
+                                /*instructor object instructorID is the same as the authentication userid
                                   if instructor is successfully added using the registerInstructor method in controller
                                   user will be redirected to the login page
                                  */
@@ -75,6 +75,7 @@ public class Instructor_Registration extends AppCompatActivity {
                                 Instructor newInstructor = controller.registerInstructor(userid, fname, lname, licence, email, pass);
                                 if (newInstructor != null) {
                                     Toast.makeText(Instructor_Registration.this, "Registration Successful.", Toast.LENGTH_SHORT).show();
+                                    FirebaseAuth.getInstance().signOut();
                                     Intent nlIntent = new Intent(Instructor_Registration.this, Instructor_Login.class);
                                     startActivity(nlIntent);
                                 }
