@@ -18,7 +18,7 @@ public class Normal_Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.normal_home);
         wMessage = findViewById(R.id.welMessage);
-        wMessage.setText("Kia Ora, "+ Controller.user.userFullName());
+        wMessage.setText("Kia Ora, "+ Controller.getCurrentUser().userFullName());
 
 
     }

@@ -38,7 +38,7 @@ public class Booking_Review extends AppCompatActivity {
         backButton = findViewById(R.id.backBtn);
         bookButton =findViewById(R.id.bookBtn);
 
-        User bUser= Controller.user;
+        User bUser= Controller.getCurrentUser();
         rIntent = getIntent();
         date=rIntent.getStringExtra("date");
         time=rIntent.getStringExtra("time");
@@ -56,7 +56,7 @@ public class Booking_Review extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
-                    Log.d("TAG", "user: " + Controller.user.userFullName());
+                    Log.d("TAG", "user: " + Controller.getCurrentUser().userFullName());
                     Booking booking = controller.bookTest(date, time, bookingUser, instructor);
                     if (booking != null) {
                         AlertDialog builder = new AlertDialog.Builder(Booking_Review.this)

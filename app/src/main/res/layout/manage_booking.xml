@@ -28,7 +28,8 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@color/accent2"
-            app:cardBackgroundColor="@color/dark">
+            app:cardBackgroundColor="@color/dark"
+            android:onClick="home">
 
 
             <LinearLayout
@@ -95,11 +96,11 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerBook"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recyclerBook"
-            android:scrollbars="vertical"
-            android:scrollbarSize="20dp"/>
+            android:scrollbarSize="20dp"
+            android:scrollbars="vertical" />
 
 
     </LinearLayout>

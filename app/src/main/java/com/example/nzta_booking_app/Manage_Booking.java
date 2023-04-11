@@ -1,14 +1,27 @@
 package com.example.nzta_booking_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.nzta_booking_app.adapters.HistoryAdapter;
+import com.example.nzta_booking_app.models.Booking;
+import com.example.nzta_booking_app.models.Controller;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Manage_Booking extends AppCompatActivity {
 
@@ -16,9 +29,9 @@ public class Manage_Booking extends AppCompatActivity {
     RecyclerView.Adapter rv_adapter;
     RecyclerView.LayoutManager rv_lm;
 
-    String [] dates= {"20/01/2023", "23/01/2023", "24/01/2023", "25/01/2023", "26/01/2023", "27/01/2023", "28/01/2023", "31/01/2023", "01/02/2023", "02/02/2023", "03/04/2023"};
-    String [] time= {"9:00", "11:00", "9:00", "9:30", "9:00", "9:00", "12:00", "9:00", "13:00", "9:00", "9:00"};
-    String [] status= {"Fail", "Fail", "Fail", "Fail", "Fail", "Fail", "Fail", "Fail", "Fail", "Fail", "Booked"};
+    ArrayList<Booking> userBookings;
+    FirebaseDatabase firebaseDB;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +41,44 @@ public class Manage_Booking extends AppCompatActivity {
         rv.setHasFixedSize(true);
         rv_lm = new LinearLayoutManager(this);
         rv.setLayoutManager(rv_lm);
-        rv_adapter = new HistoryAdapter(this, dates, time, status);
-        rv.setAdapter(rv_adapter);
+        getBookingHistory();
 
     }
+
+    public void getBookingHistory(){
+        DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference("bookings");
+        String fName= Controller.getCurrentUser().userFullName();
+        Query query = bookingsRef.orderByChild("bookingUser").equalTo(fName);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userBookings = new ArrayList<>();
+
+                for (DataSnapshot bookingSnapshot : snapshot.getChildren()) {
+                    Booking booking = bookingSnapshot.getValue(Booking.class);
+                    userBookings.add(booking);
+                }
+                rv_adapter = new HistoryAdapter(getApplicationContext(), userBookings);
+                rv.setAdapter(rv_adapter);
+                Log.d("TAG", "user: " + fName);
+                Log.d("TAG", "booked: " + userBookings.size());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     public void bookTest(View view) {
         Intent bIntent = new Intent(this, Booking_Date_Selection.class);
+        startActivity(bIntent);
+    }
+
+    public void home(View view) {
+        Intent bIntent = new Intent(this, Normal_Home.class);
         startActivity(bIntent);
     }
 }

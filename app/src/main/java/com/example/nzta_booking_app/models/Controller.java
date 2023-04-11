@@ -7,20 +7,38 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Controller {
     private FirebaseDatabase firebaseDB;
-    private DatabaseReference reference;
+    private static DatabaseReference reference;
+    private static User currentUser;
+    private static Instructor currentInstructor;
 
     public Controller(){
         firebaseDB = FirebaseDatabase.getInstance();
         reference = firebaseDB.getReference();
 
     }
-    public DatabaseReference getReference() {
+
+    public static DatabaseReference getReference() {
         return reference;
     }
 
-    public static User user;
+
     public static Instructor instructor;
 
+    public static Instructor getCurrentInstructor() {
+        return currentInstructor;
+    }
+
+    public static void setCurrentInstructor(Instructor currentInstructor) {
+        Controller.currentInstructor = currentInstructor;
+    }
+
+    public static void setCurrentUser(User user) {
+        currentUser = user;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
     public User registerUser(String userID, String fName, String lName, String licenceNum, String email, String password){
         try{
 //            String userID = reference.push().getKey();

@@ -61,6 +61,7 @@ public class Booking_Date_Selection extends AppCompatActivity {
         calendarView.setOnDateChangeListener((calendarView, year, month, dayOfMonth) -> {
             // Retrieve the selected date and do something with it
             // Get the selected date in milliseconds
+
 //            long selectedDateInMillis1 = calendarView.getDate();
         // Convert the date to a string in the desired format
 //            selectedDate = sdf.format(new Date(selectedDateInMillis1));

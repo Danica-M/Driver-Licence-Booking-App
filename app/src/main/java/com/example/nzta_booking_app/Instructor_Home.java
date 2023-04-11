@@ -20,7 +20,7 @@ public class Instructor_Home extends AppCompatActivity {
         setContentView(R.layout.instructor_home);
 
         wMessage = findViewById(R.id.i_welMessage);
-        wMessage.setText("Kia Ora, Instructor "+ Controller.instructor.instructorFullName());
+        wMessage.setText("Kia Ora, Instructor "+ Controller.getCurrentInstructor().instructorFullName());
     }
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();

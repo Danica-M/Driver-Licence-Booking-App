@@ -47,7 +47,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         for (String item : unavailable_slots) {
             if (item.equals(slots.get(position))) {
                 holder.session_time.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_unavailable));
-//                holder.session_time.setClickable(false);
+                holder.session_time.setClickable(false);
                 holder.session_time.setEnabled(false);
             } else{
                 holder.session_time.setEnabled(true);

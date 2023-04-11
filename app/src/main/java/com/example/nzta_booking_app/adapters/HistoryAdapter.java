@@ -1,6 +1,7 @@
 package com.example.nzta_booking_app.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +12,29 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nzta_booking_app.R;
+import com.example.nzta_booking_app.models.Booking;
+
+import java.util.ArrayList;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder>{
     Context context;
+    ArrayList<Booking> bookingList;
 
-    String[] dates;
-    String[] time;
-    String[] status;
+//    String[] dates;
+//    String[] time;
+//    String[] status;
 
-    public HistoryAdapter(Context context, String[] dates, String[] time, String[] status) {
+    public HistoryAdapter(Context context, ArrayList<Booking> bookingList) {
         this.context = context;
-        this.dates = dates;
-        this.time = time;
-        this.status = status;
+        this.bookingList = bookingList;
     }
+
+//    public HistoryAdapter(Context context, String[] dates, String[] time, String[] status) {
+//        this.context = context;
+//        this.dates = dates;
+//        this.time = time;
+//        this.status = status;
+//    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView test_date;
@@ -33,7 +43,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             test_date = itemView.findViewById(R.id.test_date);
-            instructor = itemView.findViewById(R.id.instructor);
+            instructor = itemView.findViewById(R.id.txInstructor);
             status_img = itemView.findViewById(R.id.status_img);
         }
     }
@@ -42,27 +52,44 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public HistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.booking_items,parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        Log.d("TAG", "list: " + bookingList.size());
+        return new ViewHolder(view);
     }
+
+//    @Override
+//    public void onBindViewHolder(@NonNull HistoryAdapter.ViewHolder holder, int position) {
+//        holder.test_date.setText(dates[position]);
+//        holder.instructor.setText(time[position]);
+//        if (status[position] == "Fail")
+//            holder.status_img.setImageResource(R.drawable.fail);
+//        else if (status[position] == "Booked") {
+//            holder.status_img.setImageResource(R.drawable.booked);
+//        } else {
+//            holder.status_img.setImageResource(R.drawable.pass);
+//        }
+//    }
+
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.ViewHolder holder, int position) {
-        holder.test_date.setText(dates[position]);
-        holder.instructor.setText(time[position]);
-        if (status[position] == "Fail")
-            holder.status_img.setImageResource(R.drawable.fail);
-        else if (status[position] == "Booked") {
+        holder.test_date.setText(bookingList.get(position).getBookingDate()+" - "+bookingList.get(position).getBookingTime());
+        holder.instructor.setText("Instructor: "+ bookingList.get(position).getBookingInstructor());
+        if (!bookingList.get(position).getResulted()){
             holder.status_img.setImageResource(R.drawable.booked);
-        } else {
-            holder.status_img.setImageResource(R.drawable.pass);
+        } else{
+            if(bookingList.get(position).getResults().equals("Passed")){holder.status_img.setImageResource(R.drawable.pass);}
+            else{holder.status_img.setImageResource(R.drawable.fail);}
         }
     }
 
     @Override
     public int getItemCount() {
-        return dates.length;
+        return bookingList.size();
     }
+//    @Override
+//    public int getItemCount() {
+//        return bookingList.size();
+//    }
 
 
 }

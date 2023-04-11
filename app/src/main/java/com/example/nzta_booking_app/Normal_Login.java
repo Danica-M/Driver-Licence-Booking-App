@@ -73,9 +73,9 @@ public class Normal_Login extends AppCompatActivity{
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Controller.user = dataSnapshot.getValue(User.class);
+                Controller.setCurrentUser(dataSnapshot.getValue(User.class));
                 // retrieve the user object
-                if(Controller.user!=null){
+                if(Controller.getCurrentUser()!=null){
                     finishAffinity();
                     Intent intent = new Intent(Normal_Login.this, Normal_Home.class);
                     startActivity(intent);

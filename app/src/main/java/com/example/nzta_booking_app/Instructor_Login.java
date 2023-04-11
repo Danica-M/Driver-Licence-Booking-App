@@ -71,7 +71,7 @@ public class Instructor_Login extends AppCompatActivity {
         insRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Controller.instructor = dataSnapshot.getValue(Instructor.class);
+                Controller.setCurrentInstructor(dataSnapshot.getValue(Instructor.class));
                 if (Controller.instructor != null){
                     // retrieve the instructor object
                     finishAffinity();
