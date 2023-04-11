@@ -1,5 +1,6 @@
 package com.example.nzta_booking_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -56,12 +57,14 @@ public class Booking_Date_Selection extends AppCompatActivity {
         // Convert the date to a string in the desired format
         selectedDate = sdf.format(new Date(selectedDateInMillis));
 
+
         calendarView.setOnDateChangeListener((calendarView, year, month, dayOfMonth) -> {
             // Retrieve the selected date and do something with it
             // Get the selected date in milliseconds
-            long selectedDateInMillis1 = calendarView.getDate();
-            // Convert the date to a string in the desired format
-            selectedDate = sdf.format(new Date(selectedDateInMillis1));
+//            long selectedDateInMillis1 = calendarView.getDate();
+        // Convert the date to a string in the desired format
+//            selectedDate = sdf.format(new Date(selectedDateInMillis1));
+                selectedDate= dayOfMonth + "/" + (month + 1) + "/" + year;
             Toast.makeText(getApplicationContext(),selectedDate,Toast.LENGTH_SHORT).show();
         });
 
@@ -71,7 +74,7 @@ public class Booking_Date_Selection extends AppCompatActivity {
 
         Intent nlIntent = new Intent(this, Booking_Session_Selection.class);
         nlIntent.putExtra("date", selectedDate);
-        nlIntent.putExtra("user", Controller.user.userFullName());
+
         startActivity(nlIntent);
     }
 }

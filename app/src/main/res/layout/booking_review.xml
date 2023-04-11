@@ -47,7 +47,7 @@
             android:layout_weight="2"/>
 
         <TextView
-            android:id="@+id/sumDate"
+            android:id="@+id/reviewDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="13/04/2023"
@@ -73,7 +73,7 @@
             android:layout_weight="2"/>
 
         <TextView
-            android:id="@+id/sumTime"
+            android:id="@+id/reviewTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="12:00"
@@ -99,7 +99,7 @@
             android:layout_weight="2"/>
 
         <TextView
-            android:id="@+id/sumInstruct"
+            android:id="@+id/reviewInstruct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Andrew Matthews"
@@ -134,7 +134,6 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:layout_marginLeft="20dp"
-            android:onClick="bookingSession"
             android:layout_weight="2"/>
     </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.example.nzta_booking_app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.nzta_booking_app.adapters.SessionAdapter;
+import com.example.nzta_booking_app.models.Controller;
 import com.example.nzta_booking_app.models.Instructor;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,22 +49,20 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
 
         Intent intent = getIntent();
         selectedDate = intent.getStringExtra("date");
-        bookingUser = intent.getStringExtra("user");
 
         spin=findViewById(R.id.spinner);
         getInstructorsNames(reference);
         spin.setOnItemSelectedListener(this);
 
+
+
+
         rv = findViewById(R.id.recyclerSession);
-        itemClickListener = s -> {
-            rv.post(() -> adapter.notifyDataSetChanged());
-            selectedTime = s;
-            Log.d("TAG", "Session: " + s);
-            Log.d("TAG","taken slots: "+ getTakenSlots(selectedDate,"John Doe").size());
-        };
-        rv.setHasFixedSize(true);
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setVisibility(View.INVISIBLE);
+//        rv.setHasFixedSize(true);
+//        rv.setLayoutManager(new LinearLayoutManager(this));
+//        adapter = new SessionAdapter(this,  getBookingSlots(),getTakenSlots(selectedDate," "), itemClickListener);
+//        rv.setAdapter(adapter);
+//        rv.setVisibility(View.INVISIBLE);
         Log.d("TAG", "Received message: " + selectedDate);
     }
 
@@ -70,18 +70,21 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         selectedInstructor = instructorNames.get(i);
         if(instructorNames.get(i).equals("Select Instructor")){
-            rv.setVisibility(View.INVISIBLE);
+//            rv.setVisibility(View.INVISIBLE);
             selectedTime = null;
         }else {
-            adapter = new SessionAdapter(this,  getBookingSlots(),getTakenSlots(selectedDate,selectedInstructor), itemClickListener);
-            rv.setAdapter(adapter);
-            rv.setVisibility(View.VISIBLE);
+            setRecyclerview();
+
+
+            Log.d("TAG","taken slots: "+ getTakenSlots(selectedDate,selectedInstructor).toString());
         }
         Toast.makeText(this,instructorNames.get(i),Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 
     public void nextReview(View view) {
 
@@ -92,7 +95,6 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
             reviewIntent.putExtra("date",selectedDate);
             reviewIntent.putExtra("time",selectedTime);
             reviewIntent.putExtra("instructor",selectedInstructor);
-            reviewIntent.putExtra("user",bookingUser);
             startActivity(reviewIntent);
         }
 
@@ -110,15 +112,19 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
     }
 
     public ArrayList<String> getTakenSlots(String date, String instructor) {
-        DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference().child("bookings").child(date).child(instructor);
+        DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference().child("bookings");
         final ArrayList<String> takenSlots = new ArrayList<>();
         bookingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot bookingSnapshot : dataSnapshot.getChildren()) {
-                    String booking = bookingSnapshot.child("bookingTime").getValue(String.class);
-                    takenSlots.add(booking);
-                    Log.d("TAG","taken slots: "+ takenSlots.size());
+                    if(bookingSnapshot.child("bookingDate").getValue(String.class).equals(date)
+                            && bookingSnapshot.child("bookingInstructor").getValue(String.class).equals(instructor)){
+                        String booking = bookingSnapshot.child("bookingTime").getValue(String.class);
+                        takenSlots.add(booking);
+                        Log.d("TAG","taken slots: "+ takenSlots.size());
+                    }
+
                 }
             }
             @Override
@@ -128,13 +134,13 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
     }
 
     public void getInstructorsNames(DatabaseReference databaseReference) {
-        databaseReference.child("instructors");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.child("instructors").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot instructorSnapshot : dataSnapshot.getChildren()) {
                     Instructor instructor = instructorSnapshot.getValue(Instructor.class);
                     instructorNames.add(instructor.instructorFullName());
+                    Log.d("TAG","instructor name:" +instructor.instructorFullName());
                 }
                 ArrayAdapter<String> aa = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, instructorNames);
                 aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -147,4 +153,20 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
             }
         });
     }
+
+    public void setRecyclerview(){
+//        rv = findViewById(R.id.recyclerSession);
+        rv.setHasFixedSize(true);
+        itemClickListener = s -> {
+            rv.post(() -> adapter.notifyDataSetChanged() );
+            selectedTime = s;
+            Log.d("TAG", "Session: " + s);
+            Log.d("TAG","taken slots: "+ getTakenSlots(selectedDate,"John Doe").size());
+        };
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new SessionAdapter(this,  getBookingSlots(),getTakenSlots(selectedDate,selectedInstructor), itemClickListener);
+        rv.setAdapter(adapter);
+        rv.setVisibility(View.VISIBLE);
+    }
+
 }

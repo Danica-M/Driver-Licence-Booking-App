@@ -77,7 +77,7 @@ public class Instructor_Login extends AppCompatActivity {
                     finishAffinity();
                     Intent intent = new Intent(Instructor_Login.this, Instructor_Home.class);
                     startActivity(intent);
-                    Toast.makeText(Instructor_Login.this,"Account created successfully. Please log in",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Instructor_Login.this,"You are logged in successfully!",Toast.LENGTH_LONG).show();
                 }else{ Toast.makeText(Instructor_Login.this, "Instructor account does not exist", Toast.LENGTH_SHORT).show();}
 
             }

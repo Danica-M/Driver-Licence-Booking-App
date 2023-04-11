@@ -7,14 +7,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Controller {
     private FirebaseDatabase firebaseDB;
-    private static DatabaseReference reference;
+    private DatabaseReference reference;
 
     public Controller(){
         firebaseDB = FirebaseDatabase.getInstance();
         reference = firebaseDB.getReference();
 
     }
-    public static DatabaseReference getReference() {
+    public DatabaseReference getReference() {
         return reference;
     }
 
@@ -46,10 +46,10 @@ public class Controller {
     }
 
 
-    public Booking bookTest(String bookingDate, String bookingTime, String userID, String instructorID, Boolean isResulted, String results, String comments){
+    public Booking bookTest(String bookingDate, String bookingTime, String user, String instructor){
         try{
             String bookingID = reference.push().getKey();
-            Booking booking = new Booking(bookingID,bookingDate, bookingTime, userID, instructorID, isResulted, results, comments);
+            Booking booking = new Booking(bookingID,bookingDate, bookingTime, user, instructor, false, "", "");
             reference.child("bookings").child(bookingID).setValue(booking);
             return booking;
 
