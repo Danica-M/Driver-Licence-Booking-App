@@ -1,6 +1,5 @@
 package com.example.nzta_booking_app;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,6 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.Toast;
+
+import com.example.nzta_booking_app.models.Controller;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class Booking_Date_Selection extends AppCompatActivity {
@@ -42,13 +47,22 @@ public class Booking_Date_Selection extends AppCompatActivity {
         calendarView.setMinDate(minD);
         calendarView.setMaxDate(maxDate);
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
-                // Retrieve the selected date and do something with it
-                selectedDate= dayOfMonth + "/" + (month + 1) + "/" + year;
-                Toast.makeText(getApplicationContext(),selectedDate.toString(),Toast.LENGTH_SHORT).show();
-            }
+        // Set the date format
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        // Get the selected date in milliseconds
+        long selectedDateInMillis = calendarView.getDate();
+
+        // Convert the date to a string in the desired format
+        selectedDate = sdf.format(new Date(selectedDateInMillis));
+
+        calendarView.setOnDateChangeListener((calendarView, year, month, dayOfMonth) -> {
+            // Retrieve the selected date and do something with it
+            // Get the selected date in milliseconds
+            long selectedDateInMillis1 = calendarView.getDate();
+            // Convert the date to a string in the desired format
+            selectedDate = sdf.format(new Date(selectedDateInMillis1));
+            Toast.makeText(getApplicationContext(),selectedDate,Toast.LENGTH_SHORT).show();
         });
 
 
@@ -57,6 +71,7 @@ public class Booking_Date_Selection extends AppCompatActivity {
 
         Intent nlIntent = new Intent(this, Booking_Session_Selection.class);
         nlIntent.putExtra("date", selectedDate);
+        nlIntent.putExtra("user", Controller.user.userFullName());
         startActivity(nlIntent);
     }
 }

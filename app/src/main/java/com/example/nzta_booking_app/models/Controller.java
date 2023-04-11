@@ -7,14 +7,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Controller {
     private FirebaseDatabase firebaseDB;
-    private DatabaseReference reference;
+    private static DatabaseReference reference;
 
     public Controller(){
         firebaseDB = FirebaseDatabase.getInstance();
         reference = firebaseDB.getReference();
 
     }
-    public DatabaseReference getReference() {
+    public static DatabaseReference getReference() {
         return reference;
     }
 
