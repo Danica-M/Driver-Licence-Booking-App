@@ -1,8 +1,9 @@
-package com.example.nzta_booking_app;
+package com.example.nzta_booking_app.user;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -10,7 +11,7 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
-import com.example.nzta_booking_app.models.Controller;
+import com.example.nzta_booking_app.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -71,6 +72,27 @@ public class Booking_Date_Selection extends AppCompatActivity {
 
 
     }
+    public void cancelBooking(View view){
+        AlertDialog builder = new AlertDialog.Builder(Booking_Date_Selection.this)
+                .setTitle("Booking Cancellation Confirmation")
+                .setMessage("Are you sure you want to cancel booking process?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent nlIntent = new Intent(Booking_Date_Selection.this, Manage_Booking.class);
+                        startActivity(nlIntent);
+                        finishAffinity();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).show();
+
+    }
+
     public void bookingSession(View view) {
 
         Intent nlIntent = new Intent(this, Booking_Session_Selection.class);

@@ -1,4 +1,4 @@
-package com.example.nzta_booking_app;
+package com.example.nzta_booking_app.instructor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,19 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Controller;
 import com.example.nzta_booking_app.models.Instructor;
 
-import com.example.nzta_booking_app.models.Licence;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class Instructor_Registration extends AppCompatActivity {
     EditText ed_fname, ed_lname, ed_licence, ed_email, ed_pass, ed_pass2;

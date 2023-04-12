@@ -52,7 +52,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public HistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.booking_items,parent, false);
-        Log.d("TAG", "list: " + bookingList.size());
         return new ViewHolder(view);
     }
 
@@ -86,10 +85,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public int getItemCount() {
         return bookingList.size();
     }
-//    @Override
-//    public int getItemCount() {
-//        return bookingList.size();
-//    }
+
 
 
 }

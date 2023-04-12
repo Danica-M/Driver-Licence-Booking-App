@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nzta_booking_app.ItemClickListener;
 import com.example.nzta_booking_app.R;
 
 import java.util.ArrayList;

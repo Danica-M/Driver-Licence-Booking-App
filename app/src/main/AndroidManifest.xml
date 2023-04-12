@@ -12,34 +12,34 @@
         android:theme="@style/Theme.NZTA_Booking_App"
         tools:targetApi="31">
         <activity
-            android:name=".Instructor_Home"
+            android:name=".instructor.Instructor_Home"
             android:exported="false" />
         <activity
-            android:name=".Booking_Review"
+            android:name=".user.Booking_Review"
             android:exported="false" />
         <activity
-            android:name=".Booking_Session_Selection"
+            android:name=".user.Booking_Session_Selection"
             android:exported="false" />
         <activity
-            android:name=".Booking_Date_Selection"
+            android:name=".user.Booking_Date_Selection"
             android:exported="false" />
         <activity
-            android:name=".Manage_Booking"
+            android:name=".user.Manage_Booking"
             android:exported="false" />
         <activity
-            android:name=".Normal_Home"
+            android:name=".user.Normal_Home"
             android:exported="false" />
         <activity
-            android:name=".Instructor_Registration"
+            android:name=".instructor.Instructor_Registration"
             android:exported="false" />
         <activity
-            android:name=".Normal_Registration"
+            android:name=".user.Normal_Registration"
             android:exported="false" />
         <activity
-            android:name=".Instructor_Login"
+            android:name=".instructor.Instructor_Login"
             android:exported="false" />
         <activity
-            android:name=".Normal_Login"
+            android:name=".user.Normal_Login"
             android:exported="false" />
         <activity
             android:name=".Landing_Page"

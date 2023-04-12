@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.nzta_booking_app.user.Normal_Login;
+
 public class Landing_Page extends AppCompatActivity {
 
     @Override

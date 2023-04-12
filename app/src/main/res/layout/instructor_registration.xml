@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/light"
     android:orientation="vertical"
-    tools:context=".Normal_Login"
+    tools:context=".user.Normal_Login"
     android:padding="10dp">
 
     <ImageView

@@ -1,8 +1,7 @@
-package com.example.nzta_booking_app;
+package com.example.nzta_booking_app.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,8 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.nzta_booking_app.R;
+import com.example.nzta_booking_app.adapters.ItemClickListener;
 import com.example.nzta_booking_app.adapters.SessionAdapter;
-import com.example.nzta_booking_app.models.Controller;
 import com.example.nzta_booking_app.models.Instructor;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

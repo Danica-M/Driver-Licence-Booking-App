@@ -1,4 +1,4 @@
-package com.example.nzta_booking_app;
+package com.example.nzta_booking_app.instructor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.nzta_booking_app.user.Normal_Login;
+import com.example.nzta_booking_app.user.Normal_Registration;
+import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Controller;
-import com.example.nzta_booking_app.models.User;
+import com.example.nzta_booking_app.models.Instructor;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,8 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-public class Normal_Login extends AppCompatActivity{
+public class Instructor_Login extends AppCompatActivity {
 
     EditText l_email , l_pass;
     Button login;
@@ -32,7 +35,7 @@ public class Normal_Login extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.normal_login);
+        setContentView(R.layout.instructor_login);
         l_email = findViewById(R.id.email);
         l_pass = findViewById(R.id.pass);
         login = findViewById(R.id.loginBtn);
@@ -46,15 +49,15 @@ public class Normal_Login extends AppCompatActivity{
                 pass = l_pass.getText().toString();
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
-                    Toast.makeText(Normal_Login.this, "Login form incomplete", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Instructor_Login.this, "Login form incomplete", Toast.LENGTH_SHORT).show();
                 }else{
                     mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                checkLoggedInUser();
+                                checkLoggedInInstructor();
                             }else{
-                                Toast.makeText(Normal_Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Instructor_Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -64,54 +67,49 @@ public class Normal_Login extends AppCompatActivity{
         });
     }
 
+    public void checkLoggedInInstructor(){
+        String instructorID = mAuth.getCurrentUser().getUid();
 
-
-    public void checkLoggedInUser(){
-        String userID = mAuth.getCurrentUser().getUid();
-
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference insRef = FirebaseDatabase.getInstance().getReference().child("instructors").child(instructorID);
+        insRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Controller.setCurrentUser(dataSnapshot.getValue(User.class));
-                // retrieve the user object
-                if(Controller.getCurrentUser()!=null){
+                Controller.setCurrentInstructor(dataSnapshot.getValue(Instructor.class));
+                if (Controller.instructor != null){
+                    // retrieve the instructor object
                     finishAffinity();
-                    Intent intent = new Intent(Normal_Login.this, Normal_Home.class);
+                    Intent intent = new Intent(Instructor_Login.this, Instructor_Home.class);
                     startActivity(intent);
-                    Toast.makeText(Normal_Login.this,"you are logged in successfully!",Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(Normal_Login.this, "Road User account does not exist", Toast.LENGTH_SHORT).show();
-                    FirebaseAuth.getInstance().signOut();
-                }
+                    Toast.makeText(Instructor_Login.this,"You are logged in successfully!",Toast.LENGTH_LONG).show();
+                }else{ Toast.makeText(Instructor_Login.this, "Instructor account does not exist", Toast.LENGTH_SHORT).show();}
 
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Normal_Login.this, "Error Occurred: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Instructor_Login.this, "Error Occurred: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
 
         });
-    }
 
-    public void landingPage(View view) {
-        Intent lpIntent = new Intent(this, Landing_Page.class);
-        startActivity(lpIntent);
     }
-
 
     public void normalRegister(View view) {
         Intent nrIntent = new Intent(this, Normal_Registration.class);
         startActivity(nrIntent);
     }
-
-    public void instructorLogin(View view) {
-        Intent ilIntent = new Intent(Normal_Login.this, Instructor_Login.class);
-        startActivity(ilIntent);
+    public void normalLogin(View view) {
+        Intent nrIntent = new Intent(this, Normal_Login.class);
+        startActivity(nrIntent);
     }
-
     public void instructorRegister(View view) {
-        Intent irIntent = new Intent(Normal_Login.this, Instructor_Registration.class);
+        Intent irIntent = new Intent(this, Instructor_Registration.class);
         startActivity(irIntent);
     }
+
+    public void instructorLogin(View view) {
+        Intent nlIntent = new Intent(this, Instructor_Home.class);
+        startActivity(nlIntent);
+    }
+
+
 }

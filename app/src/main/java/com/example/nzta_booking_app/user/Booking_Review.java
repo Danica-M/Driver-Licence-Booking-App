@@ -1,4 +1,4 @@
-package com.example.nzta_booking_app;
+package com.example.nzta_booking_app.user;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,17 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.controls.Control;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Booking;
 import com.example.nzta_booking_app.models.Controller;
 import com.example.nzta_booking_app.models.User;
-import com.google.firebase.auth.FirebaseAuth;
 
 
 public class Booking_Review extends AppCompatActivity {
@@ -67,7 +66,7 @@ public class Booking_Review extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent nlIntent = new Intent(Booking_Review.this, Manage_Booking.class);
                                         startActivity(nlIntent);
-                                        finish();
+                                        finishAffinity();
                                     }
                                 }).show();
 

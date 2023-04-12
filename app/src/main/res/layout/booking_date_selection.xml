@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/dark"
     android:padding="20dp"
-    tools:context=".Booking_Date_Selection">
+    tools:context=".user.Booking_Date_Selection">
 
     <ImageView
         android:layout_width="match_parent"
@@ -54,6 +54,7 @@
             android:layout_height="60dp"
             android:background="@drawable/plain_border"
             android:text="CANCEL"
+            android:onClick="cancelBooking"
             android:textSize="20sp"
             android:textColor="@color/light"
             android:layout_marginRight="20dp"

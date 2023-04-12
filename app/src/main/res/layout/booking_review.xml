@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/dark"
     android:padding="20dp"
-    tools:context=".Booking_Date_Selection">
+    tools:context=".user.Booking_Date_Selection">
 
     <ImageView
         android:layout_width="match_parent"
