@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
@@ -22,32 +24,33 @@ public class Booking_Date_Selection extends AppCompatActivity {
 
     CalendarView calendarView;
     String selectedDate;
+    Button nextBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booking_date_selection);
         calendarView = findViewById(R.id.calendarView);
+        nextBtn = findViewById(R.id.nextBtn);
 
         Calendar calendar = Calendar.getInstance();
-        Calendar calendar2 = Calendar.getInstance();
-
         // Check if selected date is a weekend day (Saturday or Sunday)
         if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY){
             // Reset selected date to previous weekday (Friday)
             calendar.add(Calendar.DAY_OF_MONTH,2);
-
         } else if(calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
             calendar.add(Calendar.DAY_OF_MONTH,1);
-
         }else{
             calendar.add(Calendar.DAY_OF_MONTH,0);
         }
-        calendar2.add(Calendar.YEAR, 2);
+
         long minD = calendar.getTimeInMillis();
-        long maxDate = calendar2.getTimeInMillis();
+        calendar.add(Calendar.YEAR, 2);
+        long maxDate = calendar.getTimeInMillis();
+
 
         calendarView.setMinDate(minD);
         calendarView.setMaxDate(maxDate);
+
 
         // Set the date format
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -60,18 +63,26 @@ public class Booking_Date_Selection extends AppCompatActivity {
 
 
         calendarView.setOnDateChangeListener((calendarView, year, month, dayOfMonth) -> {
-            // Retrieve the selected date and do something with it
-            // Get the selected date in milliseconds
+            Calendar calendar2 = Calendar.getInstance();
+            calendar.set(year, month, dayOfMonth);
+//             Retrieve the selected date and do something with it
+           if(calendar2.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar2.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY){
+            Toast.makeText(getApplicationContext(),"Select weekdays only",Toast.LENGTH_SHORT).show();
+            nextBtn.setEnabled(false);
+             }
+           else{
+                // Convert the calendar date to a string
+               selectedDate = sdf.format(calendar.getTime());
+               nextBtn.setEnabled(true);
+           }
 
-//            long selectedDateInMillis1 = calendarView.getDate();
-        // Convert the date to a string in the desired format
-//            selectedDate = sdf.format(new Date(selectedDateInMillis1));
-                selectedDate= dayOfMonth + "/" + (month + 1) + "/" + year;
-            Toast.makeText(getApplicationContext(),selectedDate,Toast.LENGTH_SHORT).show();
+
         });
 
 
     }
+
+
     public void cancelBooking(View view){
         AlertDialog builder = new AlertDialog.Builder(Booking_Date_Selection.this)
                 .setTitle("Booking Cancellation Confirmation")

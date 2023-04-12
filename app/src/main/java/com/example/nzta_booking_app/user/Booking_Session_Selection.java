@@ -54,9 +54,6 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
         getInstructorsNames(reference);
         spin.setOnItemSelectedListener(this);
 
-
-
-
         rv = findViewById(R.id.recyclerSession);
 //        rv.setHasFixedSize(true);
 //        rv.setLayoutManager(new LinearLayoutManager(this));
@@ -124,7 +121,6 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
                         takenSlots.add(booking);
                         Log.d("TAG","taken slots: "+ takenSlots.size());
                     }
-
                 }
             }
             @Override
@@ -161,7 +157,9 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
             rv.post(() -> adapter.notifyDataSetChanged() );
             selectedTime = s;
             Log.d("TAG", "Session: " + s);
-            Log.d("TAG","taken slots: "+ getTakenSlots(selectedDate,"John Doe").size());
+            Log.d("TAG", "date: " + selectedDate);
+            Log.d("TAG", "date: " + selectedInstructor);
+            Log.d("TAG","taken slots: "+ getTakenSlots(selectedDate,selectedInstructor).size());
         };
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SessionAdapter(this,  getBookingSlots(),getTakenSlots(selectedDate,selectedInstructor), itemClickListener);

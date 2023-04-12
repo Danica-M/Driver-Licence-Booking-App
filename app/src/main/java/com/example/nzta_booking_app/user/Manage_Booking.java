@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.adapters.HistoryAdapter;
@@ -23,6 +26,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Manage_Booking extends AppCompatActivity {
 
@@ -30,43 +35,67 @@ public class Manage_Booking extends AppCompatActivity {
     HistoryAdapter rv_adapter;
     RecyclerView.LayoutManager rv_lm;
     Button bookBtn;
+    Booking currentBooking;
     ArrayList<Booking> userBookings;
-
+    TextView test_date, instructor, noCurrent;
+    ImageView status_img;
+    LinearLayout holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userBookings = new ArrayList<>();
+
         setContentView(R.layout.manage_booking);
         bookBtn = findViewById(R.id.book);
+
+
+
+        test_date = findViewById(R.id.test_date);
+        instructor = findViewById(R.id.txInstructor);
+        status_img = findViewById(R.id.status_img);
+        holder = findViewById(R.id.holder);
+        noCurrent= findViewById(R.id.noCurrent);
 
 
         rv = findViewById(R.id.recyclerBook);
         rv.setHasFixedSize(true);
         rv_lm = new LinearLayoutManager(this);
         rv.setLayoutManager(rv_lm);
+        getBookingHistory();
 
+    }
 
-//        getBookingHistory();
-        DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference("bookings");
+    public void getBookingHistory(){
+
+        DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference().child("bookings");
         String fName= Controller.getCurrentUser().userFullName();
-        Query query = bookingsRef.orderByChild("bookingUser").equalTo(fName);
-        query.addValueEventListener(new ValueEventListener() {
+        Query query = bookingsRef.orderByChild("bookingDate");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userBookings = new ArrayList<>();
+                currentBooking = null;
                 for (DataSnapshot bookingSnapshot : snapshot.getChildren()) {
                     Booking booking = bookingSnapshot.getValue(Booking.class);
-                    userBookings.add(booking);
+                    if(booking.getBookingUser().equals(fName)){
+                        if(booking.getResulted()){userBookings.add(booking);}
+                        else{currentBooking = booking;}
+                    }
                 }
+
                 rv_adapter = new HistoryAdapter(getApplicationContext(), userBookings);
                 rv.setAdapter(rv_adapter);
-                if(!canUserBook(userBookings)){
+                if(currentBooking!=null){
                     bookBtn.setEnabled(false);
+                    noCurrent.setVisibility(View.GONE);
+                    holder.setVisibility(View.VISIBLE);
+                    test_date.setText(currentBooking.getBookingDate()+" - "+currentBooking.getBookingTime());
+                    instructor.setText(currentBooking.getBookingInstructor());
+                    status_img.setImageResource(R.drawable.booked);
+                }else{
+                    holder.setVisibility(View.GONE);
+                    noCurrent.setVisibility(View.VISIBLE);
                 }
-                Log.d("TAG", "can book?:  " +canUserBook(userBookings).toString());
-                Log.d("TAG", "can book?:  " +userBookings.size());
-
-
             }
 
             @Override
@@ -76,13 +105,6 @@ public class Manage_Booking extends AppCompatActivity {
         });
 
 
-
-
-
-
-    }
-
-    public void getBookingHistory(){
 //        DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference("bookings");
 //        String fName= Controller.getCurrentUser().userFullName();
 //        Query query = bookingsRef.orderByChild("bookingUser").equalTo(fName);
@@ -105,21 +127,6 @@ public class Manage_Booking extends AppCompatActivity {
 //            }
 //        });
 
-    }
-
-    public Boolean canUserBook(ArrayList<Booking> bookings) {
-        Boolean can = true;
-        if (bookings.size()>=1) {
-            Log.d("TAG", "book?:  " +userBookings.size());
-            for (Booking book : bookings) {
-                Log.d("TAG", "in loop: " + book.getResulted());
-                if(book.getResulted()==false) {
-                    Log.d("TAG", "res: " + book.getResulted());
-                    can= false;
-                }
-            }
-        }
-        return can;
     }
 
     public void bookTest(View view) {
