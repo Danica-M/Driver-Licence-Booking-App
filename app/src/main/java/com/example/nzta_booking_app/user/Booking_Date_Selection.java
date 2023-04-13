@@ -64,7 +64,7 @@ public class Booking_Date_Selection extends AppCompatActivity {
 
         calendarView.setOnDateChangeListener((calendarView, year, month, dayOfMonth) -> {
             Calendar calendar2 = Calendar.getInstance();
-            calendar.set(year, month, dayOfMonth);
+            calendar2.set(year, month, dayOfMonth);
 //             Retrieve the selected date and do something with it
            if(calendar2.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar2.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY){
             Toast.makeText(getApplicationContext(),"Select weekdays only",Toast.LENGTH_SHORT).show();
@@ -72,7 +72,7 @@ public class Booking_Date_Selection extends AppCompatActivity {
              }
            else{
                 // Convert the calendar date to a string
-               selectedDate = sdf.format(calendar.getTime());
+               selectedDate = sdf.format(calendar2.getTime());
                nextBtn.setEnabled(true);
            }
 

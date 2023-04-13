@@ -95,7 +95,8 @@
             android:layout_margin="10dp"
             app:cardBackgroundColor="@color/accent2"
             app:cardCornerRadius="10dp"
-            app:cardElevation="8dp">
+            app:cardElevation="8dp"
+            android:onClick="graph">
 
             <LinearLayout
                 android:layout_width="wrap_content"

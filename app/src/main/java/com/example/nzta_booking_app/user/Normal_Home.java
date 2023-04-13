@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.nzta_booking_app.Histogram;
 import com.example.nzta_booking_app.Landing_Page;
 import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Controller;
@@ -28,6 +29,10 @@ public class Normal_Home extends AppCompatActivity {
         startActivity(bIntent);
     }
 
+    public void graph(View view) {
+        Intent bIntent = new Intent(this, Histogram.class);
+        startActivity(bIntent);
+    }
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
         Intent bIntent = new Intent(this, Landing_Page.class);
