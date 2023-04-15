@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.nzta_booking_app.instructor.Instructor_Home;
 import com.example.nzta_booking_app.models.Booking;
 import com.example.nzta_booking_app.user.Normal_Home;
 import com.github.mikephil.charting.charts.BarChart;
@@ -33,11 +34,16 @@ import java.util.Locale;
 
 public class Histogram extends AppCompatActivity {
     private BarChart barChart;
+    String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.histogram);
+
+        Intent intent = getIntent();
+        userType = intent.getStringExtra("userType");
+
 
         // Initialize BarChart view
         barChart = findViewById(R.id.bar_chart);
@@ -126,7 +132,13 @@ public class Histogram extends AppCompatActivity {
     }
 
     public void nhome(View view) {
-        Intent bIntent = new Intent(this, Normal_Home.class);
-        startActivity(bIntent);
+        if(userType.equals("user")){
+            Intent bIntent = new Intent(this, Normal_Home.class);
+            startActivity(bIntent);
+        }else{
+            Intent bIntent = new Intent(this, Instructor_Home.class);
+            startActivity(bIntent);
+        }
+
     }
 }

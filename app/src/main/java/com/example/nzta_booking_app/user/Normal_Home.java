@@ -31,6 +31,7 @@ public class Normal_Home extends AppCompatActivity {
 
     public void graph(View view) {
         Intent bIntent = new Intent(this, Histogram.class);
+        bIntent.putExtra("userType","user");
         startActivity(bIntent);
     }
     public void logout(View view) {

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:padding="5dp"
+    android:gravity="center_horizontal"
+    android:background="@drawable/border">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time: 9:00am"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:id="@+id/test_time"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Applicant: Danica Montano"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:id="@+id/test_user"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Result: Unresulted"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:id="@+id/test_result"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESULT"
+        android:layout_margin="10dp"
+        android:background="@drawable/light_border"
+        android:id="@+id/resultBtn"/>
+
+
+</LinearLayout>

@@ -20,21 +20,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     Context context;
     ArrayList<Booking> bookingList;
 
-//    String[] dates;
-//    String[] time;
-//    String[] status;
 
     public HistoryAdapter(Context context, ArrayList<Booking> bookingList) {
         this.context = context;
         this.bookingList = bookingList;
     }
-
-//    public HistoryAdapter(Context context, String[] dates, String[] time, String[] status) {
-//        this.context = context;
-//        this.dates = dates;
-//        this.time = time;
-//        this.status = status;
-//    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView test_date;
@@ -55,31 +45,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         return new ViewHolder(view);
     }
 
-//    @Override
-//    public void onBindViewHolder(@NonNull HistoryAdapter.ViewHolder holder, int position) {
-//        holder.test_date.setText(dates[position]);
-//        holder.instructor.setText(time[position]);
-//        if (status[position] == "Fail")
-//            holder.status_img.setImageResource(R.drawable.fail);
-//        else if (status[position] == "Booked") {
-//            holder.status_img.setImageResource(R.drawable.booked);
-//        } else {
-//            holder.status_img.setImageResource(R.drawable.pass);
-//        }
-//    }
-
-
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.ViewHolder holder, int position) {
         holder.test_date.setText(bookingList.get(position).getBookingDate()+" - "+bookingList.get(position).getBookingTime());
         holder.instructor.setText("Instructor: "+ bookingList.get(position).getBookingInstructor());
         if(bookingList.get(position).getResults().equals("Passed")){holder.status_img.setImageResource(R.drawable.pass);}
         else{holder.status_img.setImageResource(R.drawable.fail);}
-//        if (!bookingList.get(position).getResulted()){
-//            holder.status_img.setImageResource(R.drawable.booked);
-//        } else{
-//
-//        }
     }
 
     @Override

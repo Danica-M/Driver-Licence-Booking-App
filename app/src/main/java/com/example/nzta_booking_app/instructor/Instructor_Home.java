@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nzta_booking_app.Histogram;
+import com.example.nzta_booking_app.Instructor_Tests;
 import com.example.nzta_booking_app.Landing_Page;
 import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Booking;
@@ -38,24 +40,17 @@ public class Instructor_Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ArrayList<Booking> bookedTest = new ArrayList<>();
         firebaseDB = FirebaseDatabase.getInstance();
+
+        Calendar calendar = Calendar.getInstance();
+        String dateFormat = "dd/MM/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        String todayDate = sdf.format(calendar.getTime());
         instructorBookedTest(Controller.getCurrentInstructor().instructorFullName(),"14/04/2023");
         controller = new Controller();
         setContentView(R.layout.instructor_home);
         wMessage = findViewById(R.id.i_welMessage);
         tv_booked = findViewById(R.id.booked);
         wMessage.setText("Kia Ora, Instructor "+ Controller.getCurrentInstructor().instructorFullName());
-
-        Calendar calendar = Calendar.getInstance();
-        String dateFormat = "dd/MM/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-        String todayDate = sdf.format(calendar.getTime());
-
-
-
-
-//        for(Booking book:controller.instructorBookedTest(Controller.getCurrentInstructor().instructorFullName(),"14/04/2023")){
-//            Log.d("TAG","booking id "+book.getBookingID());
-//        }
     }
 
 
@@ -78,24 +73,29 @@ public class Instructor_Home extends AppCompatActivity {
                         bookedTest.add(booking);
                         Log.d("TAG","booking id "+booking.getBookingInstructor());
                         Log.d("TAG","booking id "+booking.getBookingDate());
-
                     }
-
-
-//                    Log.d("TAG","booking id "+booking.getBookingDate());
-//                    if (booking != null && booking.getBookingDate() != null && booking.getBookingDate().equals(bookingDate)) {
-//                        bookedTest.add(booking);
-//                    }
                 }
                 tv_booked.setText("You have "+ bookedTest.size() + " test/s booked today!");
                 Log.d("TAG","list id "+ bookedTest.size());
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+    }
+
+    public void graph(View view) {
+        Intent bIntent = new Intent(this, Histogram.class);
+        bIntent.putExtra("userType","instructor");
+        startActivity(bIntent);
+    }
+
+
+    public void scheduledTests(View view) {
+        Intent bIntent = new Intent(this, Instructor_Tests.class);
+        bIntent.putExtra("date","14/04/2023");
+        startActivity(bIntent);
     }
 
 
