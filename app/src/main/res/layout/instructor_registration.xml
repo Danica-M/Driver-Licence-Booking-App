@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light"
+    android:background="@color/dark"
     android:orientation="vertical"
     tools:context=".user.Normal_Login"
     android:padding="10dp">
@@ -12,19 +12,18 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/colored_logo"
-        android:contentDescription="@string/img_desc" />
+        android:layout_height="100dp"
+        android:contentDescription="@string/img_desc"
+        app:srcCompat="@drawable/white_logo" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/instructor_registration"
         android:textAlignment="center"
-        android:textColor="@color/blue"
+        android:textColor="@color/light"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"/>
+        android:textStyle="bold" />
 
 
     <LinearLayout
@@ -55,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ln"
-            android:textColor="@color/dark"
+            android:textColor="@color/light"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -73,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/dl"
-            android:textColor="@color/dark"
+            android:textColor="@color/light"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -92,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/email_lbl"
-            android:textColor="@color/dark"
+            android:textColor="@color/light"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -110,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pass_lbl"
-            android:textColor="@color/dark"
+            android:textColor="@color/light"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -127,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/confirm_pass_lbl"
-            android:textColor="@color/dark"
+            android:textColor="@color/light"
             android:textSize="18sp"
             android:textStyle="bold" />
 

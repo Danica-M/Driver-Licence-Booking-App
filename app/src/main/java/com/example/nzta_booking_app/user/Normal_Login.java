@@ -89,6 +89,7 @@ public class Normal_Login extends AppCompatActivity{
                     FirebaseAuth.getInstance().signOut();
                 }
 
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

@@ -56,6 +56,10 @@ public class Booking {
         return comments;
     }
 
+    public void setBookingID(String bookingID) {
+        this.bookingID = bookingID;
+    }
+
     public void setBookingDate(String bookingDate) {
         this.bookingDate = bookingDate;
     }
@@ -73,7 +77,7 @@ public class Booking {
     }
 
     public void setResulted(Boolean resulted) {
-        isResulted = resulted;
+        this.isResulted = resulted;
     }
 
     public void setResults(String results) {

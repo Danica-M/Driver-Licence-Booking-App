@@ -62,7 +62,6 @@ public class Instructor_Login extends AppCompatActivity {
                         }
                     });
                 }
-
             }
         });
     }
@@ -75,13 +74,14 @@ public class Instructor_Login extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Controller.setCurrentInstructor(dataSnapshot.getValue(Instructor.class));
-                if (Controller.instructor != null){
+                if (Controller.getCurrentInstructor() != null){
                     // retrieve the instructor object
                     finishAffinity();
                     Intent intent = new Intent(Instructor_Login.this, Instructor_Home.class);
                     startActivity(intent);
                     Toast.makeText(Instructor_Login.this,"You are logged in successfully!",Toast.LENGTH_LONG).show();
                 }else{ Toast.makeText(Instructor_Login.this, "Instructor account does not exist", Toast.LENGTH_SHORT).show();}
+
 
             }
             @Override
@@ -105,11 +105,11 @@ public class Instructor_Login extends AppCompatActivity {
         Intent irIntent = new Intent(this, Instructor_Registration.class);
         startActivity(irIntent);
     }
-
-    public void instructorLogin(View view) {
-        Intent nlIntent = new Intent(this, Instructor_Home.class);
-        startActivity(nlIntent);
-    }
+//
+//    public void instructorLogin(View view) {
+//        Intent nlIntent = new Intent(this, Instructor_Home.class);
+//        startActivity(nlIntent);
+//    }
 
 
 }

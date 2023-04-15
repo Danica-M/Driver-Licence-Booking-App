@@ -77,7 +77,8 @@ public class Manage_Booking extends AppCompatActivity {
                 currentBooking = null;
                 for (DataSnapshot bookingSnapshot : snapshot.getChildren()) {
                     Booking booking = bookingSnapshot.getValue(Booking.class);
-                    if(booking.getBookingUser().equals(fName)){
+
+                    if(booking != null && booking.getBookingUser().equals(fName)){
                         if(booking.getResulted()){userBookings.add(booking);}
                         else{currentBooking = booking;}
                     }
@@ -96,6 +97,7 @@ public class Manage_Booking extends AppCompatActivity {
                     holder.setVisibility(View.GONE);
                     noCurrent.setVisibility(View.VISIBLE);
                 }
+
             }
 
             @Override

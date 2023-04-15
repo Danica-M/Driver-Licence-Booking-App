@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light"
+    android:background="@color/dark"
     android:orientation="vertical"
     tools:context=".user.Normal_Login">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_marginTop="10dp"
+        android:contentDescription="@string/img_desc"
         android:padding="10dp"
-        app:srcCompat="@drawable/colored_logo"
-        android:contentDescription="@string/img_desc" />
+        app:srcCompat="@drawable/white_logo" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/instructor_login_txt"
         android:textAlignment="center"
-        android:textColor="@color/blue"
+        android:textColor="@color/light"
         android:textSize="20sp"
         android:textStyle="bold"/>
 
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/email_lbl"
-            android:textColor="@color/dark"
+            android:textColor="@color/light"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/pass_lbl"
-            android:textColor="@color/dark"
+            android:textColor="@color/light"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -98,7 +98,7 @@
             android:onClick="instructorRegister"
             android:text="@string/instructor_register"
             android:textAlignment="center"
-            android:textColor="@color/dark"
+            android:textColor="@color/light"
             android:textSize="15sp"
             android:textStyle="normal"/>
 

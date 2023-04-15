@@ -62,6 +62,7 @@ public class Histogram extends AppCompatActivity {
                             Date date = sdf.parse(bookingDate);
                             long dateInMillis = date.getTime();
                             calendar.setTimeInMillis(dateInMillis);
+
                             int bookingWeekNumber = calendar.get(Calendar.WEEK_OF_YEAR);
                             if (bookingWeekNumber == currentWeek) {
                                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -113,8 +114,8 @@ public class Histogram extends AppCompatActivity {
                         }
                     }
                 });
-            }
 
+            }
 
 
             @Override

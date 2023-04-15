@@ -71,8 +71,6 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
             selectedTime = null;
         }else {
             setRecyclerview();
-
-
             Log.d("TAG","taken slots: "+ getTakenSlots(selectedDate,selectedInstructor).toString());
         }
         Toast.makeText(this,instructorNames.get(i),Toast.LENGTH_SHORT).show();
