@@ -54,6 +54,7 @@ public class Histogram extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<BarEntry> entries = new ArrayList<>();
+                ArrayList<String> labels = new ArrayList<>();
 
                 int[] weeklyBookings = new int[5];
                 Calendar calendar = Calendar.getInstance();
@@ -74,6 +75,7 @@ public class Histogram extends AppCompatActivity {
                                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
                                 if (dayOfWeek == 2 || dayOfWeek == 3 ||dayOfWeek == 4 ||dayOfWeek == 5 ||dayOfWeek == 6) {
                                     weeklyBookings[dayOfWeek - 2]++;
+                                    labels.add(sdf.format(date));
                                 }
                             }
                             // do something with the timeInMillis value
@@ -89,6 +91,7 @@ public class Histogram extends AppCompatActivity {
                 BarDataSet dataSet = new BarDataSet(entries, "Weekly Booking");
                 BarData barData = new BarData(dataSet);
                 barChart.setData(barData);
+                barChart.getLegend().setEnabled(false);
 
                 // Customize the chart
                 dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -120,6 +123,8 @@ public class Histogram extends AppCompatActivity {
                         }
                     }
                 });
+
+
 
             }
 

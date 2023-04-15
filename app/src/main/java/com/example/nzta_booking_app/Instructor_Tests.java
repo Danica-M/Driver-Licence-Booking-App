@@ -11,8 +11,10 @@ import android.view.View;
 
 import com.example.nzta_booking_app.adapters.HistoryAdapter;
 import com.example.nzta_booking_app.adapters.TestAdapter;
+import com.example.nzta_booking_app.instructor.Instructor_Home;
 import com.example.nzta_booking_app.models.Booking;
 import com.example.nzta_booking_app.models.Controller;
+import com.example.nzta_booking_app.user.Normal_Home;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +38,7 @@ public class Instructor_Tests extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.instructor_tests);
 
+        instructorTests = new ArrayList<>();
         Intent intent = getIntent();
         testDate = intent.getStringExtra("date");
 
@@ -54,7 +57,7 @@ public class Instructor_Tests extends AppCompatActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                instructorTests = new ArrayList<>();
+
 
                 for (DataSnapshot bookingSnapshot : snapshot.getChildren()) {
                     Booking booking = bookingSnapshot.getValue(Booking.class);
@@ -71,5 +74,9 @@ public class Instructor_Tests extends AppCompatActivity {
 
             }
         });
+    }
+    public void home(View view) {
+        Intent bIntent = new Intent(this, Instructor_Home.class);
+        startActivity(bIntent);
     }
 }

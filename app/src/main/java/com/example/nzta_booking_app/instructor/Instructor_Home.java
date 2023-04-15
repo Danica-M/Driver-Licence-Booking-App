@@ -1,9 +1,11 @@
 package com.example.nzta_booking_app.instructor;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nzta_booking_app.Histogram;
+import com.example.nzta_booking_app.Instructor_Result_Test;
 import com.example.nzta_booking_app.Instructor_Tests;
 import com.example.nzta_booking_app.Landing_Page;
 import com.example.nzta_booking_app.R;
@@ -33,6 +36,7 @@ import java.util.Calendar;
 public class Instructor_Home extends AppCompatActivity {
     TextView wMessage, tv_booked;
     Controller controller;
+    String todayDate;
     FirebaseDatabase firebaseDB;
     @SuppressLint("SetTextI18n")
     @Override
@@ -44,8 +48,8 @@ public class Instructor_Home extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         String dateFormat = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-        String todayDate = sdf.format(calendar.getTime());
-        instructorBookedTest(Controller.getCurrentInstructor().instructorFullName(),"14/04/2023");
+        todayDate = sdf.format(calendar.getTime());
+        instructorBookedTest(Controller.getCurrentInstructor().instructorFullName(),todayDate);
         controller = new Controller();
         setContentView(R.layout.instructor_home);
         wMessage = findViewById(R.id.i_welMessage);
@@ -55,9 +59,26 @@ public class Instructor_Home extends AppCompatActivity {
 
 
     public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        Intent bIntent = new Intent(this, Landing_Page.class);
-        startActivity(bIntent);
+
+        AlertDialog builder = new AlertDialog.Builder(Instructor_Home.this)
+                .setTitle("Exit Confirmation")
+                .setMessage("Are you sure you want to log out?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent nlIntent = new Intent(Instructor_Home.this, Landing_Page.class);
+                        startActivity(nlIntent);
+                        finishAffinity();
+                        FirebaseAuth.getInstance().signOut();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).show();
+
     }
 
     public void instructorBookedTest(String instructorName, String bookingDate) {
@@ -94,7 +115,7 @@ public class Instructor_Home extends AppCompatActivity {
 
     public void scheduledTests(View view) {
         Intent bIntent = new Intent(this, Instructor_Tests.class);
-        bIntent.putExtra("date","14/04/2023");
+        bIntent.putExtra("date",todayDate);
         startActivity(bIntent);
     }
 

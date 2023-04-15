@@ -1,6 +1,8 @@
 package com.example.nzta_booking_app.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nzta_booking_app.Histogram;
+import com.example.nzta_booking_app.Instructor_Result_Test;
 import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Booking;
 
@@ -47,6 +51,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TestAdapter.ViewHolder holder, int position) {
+        Log.d("TAG","testlist: "+testList.size());
         holder.test_time.setText("Time: "+testList.get(position).getBookingTime());
         holder.test_user.setText("Applicant: "+ testList.get(position).getBookingUser());
 
@@ -59,6 +64,17 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             holder.resultBtn.setBackgroundResource(R.drawable.light_border);
             holder.test_result.setText("Result: Unresulted");
         }
+
+        final int finalPosition = position;
+        holder.resultBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent bIntent = new Intent(context, Instructor_Result_Test.class);
+                bIntent.putExtra("bookingID",testList.get(finalPosition).getBookingID());
+                bIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(bIntent);
+            }
+        });
 
     }
 

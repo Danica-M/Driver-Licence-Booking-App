@@ -72,13 +72,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10 Tests Booked today"
-                android:textStyle="bold"
                 android:textColor="@color/light"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="118dp" />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -203,5 +207,6 @@
 
 
     </GridLayout>
+
 
 </LinearLayout>
