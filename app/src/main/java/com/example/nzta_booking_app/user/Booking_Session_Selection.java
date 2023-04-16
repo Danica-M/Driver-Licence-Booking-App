@@ -55,11 +55,6 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
         spin.setOnItemSelectedListener(this);
 
         rv = findViewById(R.id.recyclerSession);
-//        rv.setHasFixedSize(true);
-//        rv.setLayoutManager(new LinearLayoutManager(this));
-//        adapter = new SessionAdapter(this,  getBookingSlots(),getTakenSlots(selectedDate," "), itemClickListener);
-//        rv.setAdapter(adapter);
-//        rv.setVisibility(View.INVISIBLE);
         Log.d("TAG", "Received message: " + selectedDate);
     }
 
@@ -97,7 +92,7 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
 
     public ArrayList<String> getBookingSlots(){
         ArrayList<String> bookingSlots = new ArrayList<>();
-        for(int i=9; i<=17; i++){
+        for(int i=9; i<17; i++){
             String time = String.format(Locale.getDefault(),"%02d:00", i);
             String time1 = String.format(Locale.getDefault(), "%02d:30", i);
             bookingSlots.add(time);
