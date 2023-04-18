@@ -69,7 +69,8 @@
         android:textAllCaps="true"
         android:textColor="@color/dark"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:id="@+id/scheDate"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTest"

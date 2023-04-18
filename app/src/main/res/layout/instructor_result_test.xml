@@ -78,30 +78,101 @@
             android:textStyle="bold" />
 
 
-        <TextView
-            android:layout_width="match_parent"
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date:"
-            android:textAllCaps="true"
-            android:textColor="@color/dark"
-            android:textSize="18sp"
-            android:id="@+id/resDate"/>
-        <TextView
-            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date:  "
+                android:textAllCaps="true"
+                android:textColor="@color/dark"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="23/04/2023"
+                android:textAllCaps="true"
+                android:textColor="@color/dark"
+                android:textSize="18sp"
+                android:id="@+id/resDate"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time:"
-            android:textAllCaps="true"
-            android:textColor="@color/dark"
-            android:textSize="18sp"
-            android:id="@+id/resTime"/>
-        <TextView
-            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Time:  "
+                android:textAllCaps="true"
+                android:textColor="@color/dark"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="12:00"
+                android:textAllCaps="true"
+                android:textColor="@color/dark"
+                android:textSize="18sp"
+                android:id="@+id/resTime"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Applicant:"
-            android:textAllCaps="true"
-            android:textColor="@color/dark"
-            android:textSize="18sp"
-            android:id="@+id/resApplicant"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Applicant:  "
+                android:textAllCaps="true"
+                android:textColor="@color/dark"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DANICA MONTANO"
+                android:textAllCaps="true"
+                android:textColor="@color/dark"
+                android:textSize="18sp"
+                android:id="@+id/resApplicant"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Licence:  "
+                android:textAllCaps="true"
+                android:textColor="@color/dark"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="AB123456"
+                android:textAllCaps="true"
+                android:textColor="@color/dark"
+                android:textSize="18sp"
+                android:id="@+id/resDl"/>
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,7 +186,8 @@
                 android:textAllCaps="true"
                 android:textColor="@color/dark"
                 android:textSize="18sp"
-                android:layout_marginRight="50dp"/>
+                android:layout_marginRight="50dp"
+                android:textStyle="bold"/>
 
             <RadioGroup
                 android:id="@+id/radioResult"
@@ -157,7 +229,8 @@
             android:textAllCaps="true"
             android:textColor="@color/dark"
             android:textSize="18sp"
-            android:layout_marginRight="50dp"/>
+            android:layout_marginRight="50dp"
+            android:textStyle="bold"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -193,6 +266,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save"
+                android:onClick="saveResults"
                 android:textAllCaps="true"
                 android:textStyle="bold"
                 android:textSize="18sp"

@@ -71,6 +71,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             public void onClick(View view) {
                 Intent bIntent = new Intent(context, Instructor_Result_Test.class);
                 bIntent.putExtra("bookingID",testList.get(finalPosition).getBookingID());
+                bIntent.putExtra("instructor",testList.get(finalPosition).getBookingInstructor());
                 bIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(bIntent);
             }

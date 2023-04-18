@@ -107,28 +107,6 @@ public class Manage_Booking extends AppCompatActivity {
         });
 
 
-//        DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference("bookings");
-//        String fName= Controller.getCurrentUser().userFullName();
-//        Query query = bookingsRef.orderByChild("bookingUser").equalTo(fName);
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot bookingSnapshot : snapshot.getChildren()) {
-//                    Booking booking = bookingSnapshot.getValue(Booking.class);
-//                    userBookings.add(booking);
-//                }
-//                rv_adapter = new HistoryAdapter(getApplicationContext(), userBookings);
-//                rv.setAdapter(rv_adapter);
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
     }
 
     public void bookTest(View view) {

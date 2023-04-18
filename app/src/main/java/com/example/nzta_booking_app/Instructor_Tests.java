@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.nzta_booking_app.adapters.HistoryAdapter;
 import com.example.nzta_booking_app.adapters.TestAdapter;
@@ -30,6 +31,7 @@ public class Instructor_Tests extends AppCompatActivity {
     ArrayList<Booking> instructorTests;
     RecyclerView rv_test;
     TestAdapter rv_testAdapter;
+    TextView scheTest;
     RecyclerView.LayoutManager rv_lm;
     String testDate;
 
@@ -41,7 +43,8 @@ public class Instructor_Tests extends AppCompatActivity {
         instructorTests = new ArrayList<>();
         Intent intent = getIntent();
         testDate = intent.getStringExtra("date");
-
+        scheTest = findViewById(R.id.scheDate);
+        scheTest.setText("Scheduled Tests - "+testDate);
         rv_test = findViewById(R.id.recyclerTest);
         rv_test.setHasFixedSize(true);
         rv_lm = new LinearLayoutManager(this);

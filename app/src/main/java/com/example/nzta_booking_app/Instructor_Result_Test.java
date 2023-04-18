@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nzta_booking_app.adapters.TestAdapter;
 import com.example.nzta_booking_app.instructor.Instructor_Home;
@@ -31,22 +33,27 @@ import java.util.ArrayList;
 
 public class Instructor_Result_Test extends AppCompatActivity {
 
-    String bookingID;
-    TextView testDate, testTime, testApplicant;
+    String bookingID, instructor;
+    TextView testDate, testTime, testApplicant, testLicence;
     RadioGroup results;
     RadioButton pass,fail;
     Button savebtn, cancelBtn;
     EditText testComment;
+
+    FirebaseDatabase firebaseDB;
+    DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.instructor_result_test);
         Intent intent = getIntent();
         bookingID = intent.getStringExtra("bookingID");
+        instructor = intent.getStringExtra("instructor");
 
         testDate = findViewById(R.id.resDate);
         testTime = findViewById(R.id.resTime);
         testApplicant = findViewById(R.id.resApplicant);
+        testLicence = findViewById(R.id.resDl);
         results = findViewById(R.id.radioResult);
         savebtn = findViewById(R.id.saveRes);
         cancelBtn = findViewById(R.id.cancelRes);
@@ -54,6 +61,8 @@ public class Instructor_Result_Test extends AppCompatActivity {
         pass = findViewById(R.id.radioPass);
         fail = findViewById(R.id.radioFail);
         getBooking();
+        firebaseDB = FirebaseDatabase.getInstance();
+        reference = firebaseDB.getReference();
 
 
 
@@ -62,15 +71,18 @@ public class Instructor_Result_Test extends AppCompatActivity {
 
     public void getBooking(){
 
+        Log.d("TAG","list id "+ bookingID);
         DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference().child("bookings").child(bookingID);
         bookingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot!=null){
                     Booking booking = snapshot.getValue(Booking.class);
-                    testDate.setText("Date: "+booking.getBookingDate());
-                    testTime.setText("Time: "+booking.getBookingTime());
-                    testApplicant.setText("Applicant: "+booking.getBookingUser());
+
+                    testDate.setText(booking.getBookingDate());
+                    testTime.setText(booking.getBookingTime());
+                    testApplicant.setText(booking.getBookingUser());
+                    testLicence.setText(booking.getBookingUserDL());
                     if(booking.getResulted()){
                         if(booking.getResults().equals("passed")){pass.setChecked(true);}
                         else{fail.setChecked(true);}
@@ -86,6 +98,23 @@ public class Instructor_Result_Test extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void saveResults(View view){
+
+        if (results.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(this, "Please select test result.", Toast.LENGTH_SHORT).show();
+        } else {
+            RadioButton radioButton = findViewById(results.getCheckedRadioButtonId());
+            String testResult = radioButton.getText().toString();
+            Booking booking = new Booking(bookingID,testDate.getText().toString(), testTime.getText().toString(), testApplicant.getText().toString(), testLicence.getText().toString(), instructor, true, testResult, testComment.getText().toString());
+            reference.child("bookings").child(bookingID).setValue(booking);
+            Toast.makeText(this, "Test Resulted Successfully", Toast.LENGTH_SHORT).show();
+            Intent nlIntent = new Intent(Instructor_Result_Test.this, Instructor_Home.class);
+            startActivity(nlIntent);
+            finishAffinity();
+        }
+
     }
 
     public void CancelResult(View view){

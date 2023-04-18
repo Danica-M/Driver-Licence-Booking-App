@@ -20,8 +20,8 @@ import com.example.nzta_booking_app.models.User;
 
 public class Booking_Review extends AppCompatActivity {
 
-    TextView tx_date, tx_time, tx_instructor;
-    String bookingUser,date,time,instructor;
+    TextView tx_date, tx_time, tx_instructor, tx_name, tx_dl;
+    String bookingUser,date,time,instructor, bookingDL;
     Button bookButton, backButton;
     Intent rIntent;
     Controller controller;
@@ -34,6 +34,8 @@ public class Booking_Review extends AppCompatActivity {
         tx_date = findViewById(R.id.reviewDate);
         tx_time = findViewById(R.id.reviewTime);
         tx_instructor = findViewById(R.id.reviewInstruct);
+        tx_name = findViewById(R.id.reviewName);
+        tx_dl = findViewById(R.id.reviewDL);
         backButton = findViewById(R.id.backBtn);
         bookButton =findViewById(R.id.bookBtn);
 
@@ -43,9 +45,11 @@ public class Booking_Review extends AppCompatActivity {
         time=rIntent.getStringExtra("time");
         instructor=rIntent.getStringExtra("instructor");
         bookingUser = bUser.userFullName();
+        bookingDL =  bUser.getLicenceNum();
 
 
-
+        tx_name.setText(bookingUser);
+        tx_dl.setText(bookingDL);
         tx_date.setText(date);
         tx_time.setText(time);
         tx_instructor.setText(instructor);
@@ -56,7 +60,7 @@ public class Booking_Review extends AppCompatActivity {
             public void onClick(View view) {
                 try{
                     Log.d("TAG", "user: " + Controller.getCurrentUser().userFullName());
-                    Booking booking = controller.bookTest(date, time, bookingUser, instructor);
+                    Booking booking = controller.bookTest(date, time, bookingUser,bookingDL, instructor);
                     if (booking != null) {
                         AlertDialog builder = new AlertDialog.Builder(Booking_Review.this)
                                 .setTitle("Booking Confirmation")

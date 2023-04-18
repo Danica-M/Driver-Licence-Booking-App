@@ -83,7 +83,7 @@ public class Instructor_Home extends AppCompatActivity {
 
     public void instructorBookedTest(String instructorName, String bookingDate) {
         ArrayList<Booking> bookedTest = new ArrayList<>();
-        Query query = firebaseDB.getReference("bookings");
+        Query query = firebaseDB.getReference().child("bookings");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -58,7 +58,7 @@ public class Normal_Login extends AppCompatActivity{
                             if (task.isSuccessful()){
                                 checkLoggedInUser();
                             }else{
-                                Toast.makeText(Normal_Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Normal_Login.this, "Incorrect Email or Password", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

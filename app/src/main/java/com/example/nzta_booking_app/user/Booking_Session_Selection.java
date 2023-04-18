@@ -62,7 +62,6 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         selectedInstructor = instructorNames.get(i);
         if(instructorNames.get(i).equals("Select Instructor")){
-//            rv.setVisibility(View.INVISIBLE);
             selectedTime = null;
         }else {
             setRecyclerview();
@@ -144,7 +143,6 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
     }
 
     public void setRecyclerview(){
-//        rv = findViewById(R.id.recyclerSession);
         rv.setHasFixedSize(true);
         itemClickListener = s -> {
             rv.post(() -> adapter.notifyDataSetChanged() );

@@ -57,7 +57,7 @@ public class Instructor_Login extends AppCompatActivity {
                             if (task.isSuccessful()){
                                 checkLoggedInInstructor();
                             }else{
-                                Toast.makeText(Instructor_Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Instructor_Login.this, "Incorrect Email or Password", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
