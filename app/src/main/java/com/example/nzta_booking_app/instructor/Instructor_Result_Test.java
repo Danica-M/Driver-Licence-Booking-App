@@ -1,4 +1,4 @@
-package com.example.nzta_booking_app;
+package com.example.nzta_booking_app.instructor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,20 +16,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nzta_booking_app.adapters.TestAdapter;
-import com.example.nzta_booking_app.instructor.Instructor_Home;
+import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Booking;
-import com.example.nzta_booking_app.models.Controller;
-import com.example.nzta_booking_app.user.Booking_Date_Selection;
-import com.example.nzta_booking_app.user.Manage_Booking;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 public class Instructor_Result_Test extends AppCompatActivity {
 

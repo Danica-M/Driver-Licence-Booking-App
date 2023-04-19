@@ -59,12 +59,13 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
                     selectedPosition = holder.getAdapterPosition();
-//                    holder.session_time.setBackground(ContextCompat.getDrawable(context,R.drawable.radio_selected));
-                    itemClickListener.onClick(holder.session_time.getText().toString());
-                }
-                else {
-//                    holder.session_time.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_normal));
-                    holder.session_time.setEnabled(true);
+                    if(unavailable_slots.contains(slots.get(selectedPosition))){
+                        holder.session_time.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_unavailable));
+                        holder.session_time.setClickable(false);
+                        holder.session_time.setEnabled(false);
+                    }else{
+                        itemClickListener.onClick(holder.session_time.getText().toString());
+                    }
                 }
             }
         });

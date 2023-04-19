@@ -35,6 +35,7 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
     RecyclerView rv;
     ItemClickListener itemClickListener;
     SessionAdapter adapter;
+    DatabaseReference reference;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,7 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
         instructorNames = new ArrayList<>();
         instructorNames.add("Select Instructor");
 
-        FirebaseDatabase firebaseDB = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDB.getReference();
+        reference = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
         selectedDate = intent.getStringExtra("date");
@@ -55,7 +55,9 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
         spin.setOnItemSelectedListener(this);
 
         rv = findViewById(R.id.recyclerSession);
+        selectedInstructor = " ";
         Log.d("TAG", "Received message: " + selectedDate);
+        setRecyclerview();
     }
 
     @Override
@@ -64,6 +66,7 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
         if(instructorNames.get(i).equals("Select Instructor")){
             selectedTime = null;
         }else {
+            getTakenSlots(selectedDate, selectedInstructor);
             setRecyclerview();
             Log.d("TAG","taken slots: "+ getTakenSlots(selectedDate,selectedInstructor).toString());
         }
@@ -77,7 +80,7 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
 
     public void nextReview(View view) {
 
-        if(selectedTime == null){
+        if(selectedTime == null || selectedInstructor.equals("Select Instructor")){
             Toast.makeText(this,"Please select instructor and time slot to continue.",Toast.LENGTH_SHORT).show();
         }else{
             Intent reviewIntent =new Intent(Booking_Session_Selection.this, Booking_Review.class);
@@ -101,7 +104,7 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
     }
 
     public ArrayList<String> getTakenSlots(String date, String instructor) {
-        DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference().child("bookings");
+        DatabaseReference bookingsRef = reference.child("bookings");
         final ArrayList<String> takenSlots = new ArrayList<>();
         bookingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -122,7 +125,7 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
     }
 
     public void getInstructorsNames(DatabaseReference databaseReference) {
-        databaseReference.child("instructors").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("instructors").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot instructorSnapshot : dataSnapshot.getChildren()) {
@@ -144,18 +147,29 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
 
     public void setRecyclerview(){
         rv.setHasFixedSize(true);
-        itemClickListener = s -> {
-            rv.post(() -> adapter.notifyDataSetChanged() );
-            selectedTime = s;
-            Log.d("TAG", "Session: " + s);
-            Log.d("TAG", "date: " + selectedDate);
-            Log.d("TAG", "date: " + selectedInstructor);
-            Log.d("TAG","taken slots: "+ getTakenSlots(selectedDate,selectedInstructor).size());
+        itemClickListener = new ItemClickListener() {
+            @Override
+            public void onClick(String s) {
+                rv.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                selectedTime = s;
+            }
         };
         rv.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SessionAdapter(this,  getBookingSlots(),getTakenSlots(selectedDate,selectedInstructor), itemClickListener);
+        adapter = new SessionAdapter(this, getBookingSlots(), getTakenSlots(selectedDate, selectedInstructor), itemClickListener);
         rv.setAdapter(adapter);
         rv.setVisibility(View.VISIBLE);
+
+    }
+
+    public void backToDate(View view) {
+        Intent intent =  new Intent(Booking_Session_Selection.this, Booking_Date_Selection.class);
+        startActivity(intent);
+
     }
 
 }

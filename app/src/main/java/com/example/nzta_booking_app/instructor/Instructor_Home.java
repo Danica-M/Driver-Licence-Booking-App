@@ -11,16 +11,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.nzta_booking_app.Histogram;
-import com.example.nzta_booking_app.Instructor_Result_Test;
-import com.example.nzta_booking_app.Instructor_Tests;
 import com.example.nzta_booking_app.Landing_Page;
 import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Booking;
 import com.example.nzta_booking_app.models.Controller;
-import com.example.nzta_booking_app.models.Instructor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

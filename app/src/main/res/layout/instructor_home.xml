@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark"
+    android:background="@drawable/background_image"
     android:orientation="vertical"
     tools:context=".user.Normal_Home">
 
@@ -19,14 +19,15 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/white_logo" />
+            android:src="@drawable/white_logo"
+            android:contentDescription="@string/nzta_white_logo"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="-40dp"
-            android:text="DASHBOARD"
+            android:text="@string/dashboard"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@color/light"
@@ -37,7 +38,7 @@
             android:id="@+id/i_welMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hi, Instructor"
+            android:text="@string/hi_instructor"
             android:textAlignment="center"
             android:textColor="@color/light"
             android:textSize="20sp"
@@ -53,7 +54,7 @@
         app:cardBackgroundColor="@color/accent1"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
-        android:layout_weight="2">
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,18 +81,15 @@
 
     </androidx.cardview.widget.CardView>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="118dp" />
 
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="0dp"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_margin="20dp"
         android:columnCount="3"
         android:rowCount="1"
-        android:layout_weight="1">
+        android:layout_weight="2">
 
         <androidx.cardview.widget.CardView
             android:layout_width="80dp"

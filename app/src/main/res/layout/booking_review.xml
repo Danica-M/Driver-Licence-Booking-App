@@ -173,6 +173,7 @@
             android:layout_height="60dp"
             android:background="@drawable/plain_border"
             android:text="CANCEL"
+            android:onClick="backToSession"
             android:textSize="20sp"
             android:textColor="@color/light"
             android:layout_marginRight="20dp"

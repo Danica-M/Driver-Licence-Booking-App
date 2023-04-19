@@ -12,7 +12,6 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:contentDescription="@string/img_desc"
         android:padding="10dp"
         app:srcCompat="@drawable/colored_logo" />
@@ -24,6 +23,7 @@
         android:textAlignment="center"
         android:textColor="@color/blue"
         android:textSize="20sp"
+        android:layout_marginTop="-30dp"
         android:textStyle="bold" />
 
 
@@ -45,12 +45,13 @@
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:autofillHints="emailAddress"
             android:background="@drawable/rounded_edittext"
             android:inputType="textEmailAddress"
             android:padding="10dp"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:contentDescription="@string/enter_your_email_address"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -64,33 +65,33 @@
         <EditText
             android:id="@+id/pass"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:autofillHints="password"
             android:background="@drawable/rounded_edittext"
             android:inputType="textPassword"
             android:padding="10dp"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/loginBtn"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/light_border"
             android:text="@string/login_btn"
             android:textColor="@color/dark"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/cancelBtn"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/plain_border"
             android:onClick="landingPage"
             android:text="@string/cancel_btn"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -100,28 +101,25 @@
             android:text="@string/normal_register"
             android:textAlignment="center"
             android:textColor="@color/dark"
-            android:textSize="15sp"
-            android:textStyle="normal" />
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
         android:gravity="bottom"
         android:orientation="vertical"
         android:background="@drawable/border"
-        android:layout_margin="20dp">
+        android:layout_margin="10dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/instructor_txt"
             android:textAlignment="center"
-            android:textColor="@color/dark_grey"
+            android:textColor="@color/dark"
             android:textSize="20sp"
-            android:layout_marginBottom="30dp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -131,24 +129,24 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:layout_weight="2"
                 android:background="@drawable/plain_border"
                 android:onClick="instructorLogin"
                 android:text="@string/login_btn"
-                android:textColor="@color/white"
+                android:textColor="@color/light"
                 android:textSize="16sp" />
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:layout_weight="2"
                 android:background="@drawable/plain_border"
                 android:onClick="instructorRegister"
                 android:text="@string/register_txt"
-                android:textColor="@color/white"
+                android:textColor="@color/light"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>

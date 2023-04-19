@@ -88,6 +88,7 @@ public class Manage_Booking extends AppCompatActivity {
                 rv.setAdapter(rv_adapter);
                 if(currentBooking!=null){
                     bookBtn.setEnabled(false);
+                    bookBtn.setBackgroundResource(R.drawable.plain_border);
                     noCurrent.setVisibility(View.GONE);
                     holder.setVisibility(View.VISIBLE);
                     test_date.setText(currentBooking.getBookingDate()+" - "+currentBooking.getBookingTime());

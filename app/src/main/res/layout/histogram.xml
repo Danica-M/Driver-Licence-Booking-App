@@ -66,94 +66,139 @@
         android:text="Booking Histogram"
         android:textStyle="bold"
         android:textSize="20sp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/dark_grey"
-        android:text="(Weekly Bookings)"
-        android:textStyle="italic"
-        android:textSize="16sp"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/border"
         android:padding="5dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/dark_grey"
+            android:text="(Weekly Bookings)"
+            android:textStyle="italic"
+            android:textSize="16sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Low"
+                android:background="@color/green"
+                android:layout_margin="5dp"
+                android:clickable="false"/>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Moderate"
+                android:background="@color/yellow"
+                android:layout_margin="5dp"
+                android:clickable="false"/>
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="High"
+                android:background="@color/red"
+                android:layout_margin="5dp"
+                android:clickable="false"/>
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:id="@+id/weekBarChart"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btn0"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:background="@drawable/plain_border"
+                android:text="MON"
+                android:textSize="12sp"
+                android:layout_margin="5dp"/>
+            <Button
+                android:id="@+id/btn1"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:background="@drawable/plain_border"
+                android:text="TUE"
+                android:textSize="12sp"
+                android:layout_margin="5dp"/>
+            <Button
+                android:id="@+id/btn2"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:background="@drawable/plain_border"
+                android:text="WED"
+                android:textSize="12sp"
+                android:layout_margin="5dp"/>
+            <Button
+                android:id="@+id/btn3"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:background="@drawable/plain_border"
+                android:text="THU"
+                android:textSize="12sp"
+                android:layout_margin="5dp"/>
+            <Button
+                android:id="@+id/btn4"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:background="@drawable/plain_border"
+                android:text="FRI"
+                android:textSize="12sp"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/hourSummary"
+        android:visibility="invisible"
+        android:layout_weight="2">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/dark_grey"
+            android:text="(Hourly Bookings)"
+            android:textStyle="italic"
+            android:textSize="16sp"
+            android:id="@+id/tvHourly"/>
+
         <com.github.mikephil.charting.charts.BarChart
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/bar_chart"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:gravity="center_horizontal">
-
-        <Button
-            android:id="@+id/btn0"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:background="@drawable/plain_border"
-            android:text="MON"
-            android:textSize="12sp"
-            android:layout_margin="5dp"/>
-        <Button
-            android:id="@+id/btn1"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:background="@drawable/plain_border"
-            android:text="TUE"
-            android:textSize="12sp"
-            android:layout_margin="5dp"/>
-        <Button
-            android:id="@+id/btn2"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:background="@drawable/plain_border"
-            android:text="WED"
-            android:textSize="12sp"
-            android:layout_margin="5dp"/>
-        <Button
-            android:id="@+id/btn3"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:background="@drawable/plain_border"
-            android:text="THU"
-            android:textSize="12sp"
-            android:layout_margin="5dp"/>
-        <Button
-            android:id="@+id/btn4"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:background="@drawable/plain_border"
-            android:text="FRI"
-            android:textSize="12sp"
-            android:layout_margin="5dp"/>
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/dark_grey"
-        android:text="(Hour Bookings)"
-        android:textStyle="italic"
-        android:textSize="16sp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:orientation="vertical"
-        android:background="@drawable/border"
-        android:padding="5dp">
-        <com.github.mikephil.charting.charts.PieChart
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/pie_chart"/>
+            android:id="@+id/hourBarChart"/>
 
     </LinearLayout>
 

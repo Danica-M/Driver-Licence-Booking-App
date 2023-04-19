@@ -1,4 +1,4 @@
-package com.example.nzta_booking_app;
+package com.example.nzta_booking_app.instructor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.adapters.HistoryAdapter;
 import com.example.nzta_booking_app.adapters.TestAdapter;
 import com.example.nzta_booking_app.instructor.Instructor_Home;
@@ -56,7 +57,7 @@ public class Instructor_Tests extends AppCompatActivity {
     public void getScheduleTests(){
         DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference().child("bookings");
         String fName= Controller.getCurrentInstructor().instructorFullName();
-        Query query = bookingsRef.orderByChild("bookingDate");
+        Query query = bookingsRef.orderByChild("bookingTime");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

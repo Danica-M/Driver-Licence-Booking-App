@@ -34,7 +34,7 @@ public class Booking_Date_Selection extends AppCompatActivity {
         setUpCalendar();
 
 
-        // setting the selectedDate in case user clicks next without changeing the default selected date
+        // setting the selectedDate in case user clicks next without changing the default selected date
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         // Get the selected date in milliseconds
         long selectedDateInMillis = calendarView.getDate();

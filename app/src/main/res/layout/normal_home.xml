@@ -4,28 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark"
+    android:background="@drawable/background_image"
     android:orientation="vertical"
     tools:context=".user.Normal_Home">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="2">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="200dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:layout_weight="0.5"
-            android:src="@drawable/white_logo" />
+            android:src="@drawable/white_logo"
+            android:contentDescription="@string/nzta_white_logo"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="DASHBOARD"
+            android:layout_marginTop="-40dp"
+            android:text="@string/dashboard"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@color/light"
@@ -36,7 +38,7 @@
             android:id="@+id/welMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hi, Road User"
+            android:text="@string/hi_road_user"
             android:textAlignment="center"
             android:textColor="@color/light"
             android:textSize="20sp"
@@ -45,17 +47,17 @@
     </LinearLayout>
 
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="284dp" />
+<!--    <Space-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="175dp" />-->
 
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="20dp"
         android:columnCount="3"
         android:rowCount="1"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:layout_gravity="bottom|center_horizontal">
 
         <androidx.cardview.widget.CardView
@@ -82,12 +84,13 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/book" />
+                    android:src="@drawable/book"
+                    android:contentDescription="booking icon"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="BOOKING"
+                    android:text="@string/booking"
                     android:textStyle="bold"
                     android:textColor="@color/light"
                     android:textSize="20sp" />

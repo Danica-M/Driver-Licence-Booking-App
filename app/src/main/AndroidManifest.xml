@@ -12,10 +12,10 @@
         android:theme="@style/Theme.NZTA_Booking_App"
         tools:targetApi="31">
         <activity
-            android:name=".Instructor_Result_Test"
+            android:name=".instructor.Instructor_Result_Test"
             android:exported="false" />
         <activity
-            android:name=".Instructor_Tests"
+            android:name=".instructor.Instructor_Tests"
             android:exported="false" />
         <activity
             android:name=".Histogram"

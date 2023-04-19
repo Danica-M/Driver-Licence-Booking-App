@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Instructor_Tests"
+    tools:context=".instructor.Instructor_Tests"
     android:orientation="vertical"
     android:background="@color/dark"
     android:padding="20dp">

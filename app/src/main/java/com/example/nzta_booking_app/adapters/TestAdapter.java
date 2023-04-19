@@ -7,14 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nzta_booking_app.Histogram;
-import com.example.nzta_booking_app.Instructor_Result_Test;
+import com.example.nzta_booking_app.instructor.Instructor_Result_Test;
 import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Booking;
 

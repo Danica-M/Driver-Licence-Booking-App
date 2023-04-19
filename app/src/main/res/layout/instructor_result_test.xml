@@ -7,7 +7,7 @@
     android:background="@color/dark"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".Instructor_Result_Test">
+    tools:context=".instructor.Instructor_Result_Test">
 
     <LinearLayout
         android:layout_width="match_parent"

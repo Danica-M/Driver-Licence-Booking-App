@@ -85,8 +85,21 @@ public class Booking_Review extends AppCompatActivity {
                 }
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =  new Intent(Booking_Review.this, Booking_Session_Selection.class);
+                intent.putExtra("date", date);
+                startActivity(intent);
+            }
+        });
     }
 
+    public void backToSession() {
+
+
+    }
 
 
 

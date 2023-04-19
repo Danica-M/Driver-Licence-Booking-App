@@ -4,8 +4,8 @@
     <string name="instructor_register">Don\'t have an instructor account?<u> <b>Register</b></u></string>
     <string name="img_desc">Nzta coloured logo</string>
     <string name="normal_login_txt">LOGIN AS ROAD USER</string>
-    <string name="email_lbl">Email:</string>
-    <string name="pass_lbl">Password:</string>
+    <string name="email_lbl">EMAIL:</string>
+    <string name="pass_lbl">PASSWORD:</string>
     <string name="login_btn">Login</string>
     <string name="cancel_btn">Cancel</string>
     <string name="instructor_txt">INSTRUCTOR</string>
@@ -18,4 +18,11 @@
     <string name="confirm_pass_lbl">Confirm Password:</string>
     <string name="dl">Driver Licence Number:</string>
     <string name="instructor_registration">INSTRUCTOR REGISTRATION</string>
+    <string name="get_started">Get Started</string>
+    <string name="nzta_white_logo">nzta white logo</string>
+    <string name="enter_your_email_address">Enter your email address</string>
+    <string name="hi_road_user">Hi, Road User</string>
+    <string name="dashboard">DASHBOARD</string>
+    <string name="booking">BOOKING</string>
+    <string name="hi_instructor">Hi, Instructor</string>
 </resources>
