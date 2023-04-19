@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Booking_Session_Selection extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class Booking_Session_Selection extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner spin;
     String selectedDate, selectedTime, selectedInstructor, bookingUser;
     ArrayList<String> instructorNames;
@@ -50,27 +50,25 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
         Intent intent = getIntent();
         selectedDate = intent.getStringExtra("date");
 
-        spin=findViewById(R.id.spinner);
+        spin = findViewById(R.id.spinner);
         getInstructorsNames(reference);
         spin.setOnItemSelectedListener(this);
 
         rv = findViewById(R.id.recyclerSession);
         selectedInstructor = " ";
-        Log.d("TAG", "Received message: " + selectedDate);
         setRecyclerview();
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         selectedInstructor = instructorNames.get(i);
-        if(instructorNames.get(i).equals("Select Instructor")){
+        if (instructorNames.get(i).equals("Select Instructor")) {
             selectedTime = null;
-        }else {
+        } else {
             getTakenSlots(selectedDate, selectedInstructor);
             setRecyclerview();
-            Log.d("TAG","taken slots: "+ getTakenSlots(selectedDate,selectedInstructor).toString());
         }
-        Toast.makeText(this,instructorNames.get(i),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, instructorNames.get(i), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -80,22 +78,22 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
 
     public void nextReview(View view) {
 
-        if(selectedTime == null || selectedInstructor.equals("Select Instructor")){
-            Toast.makeText(this,"Please select instructor and time slot to continue.",Toast.LENGTH_SHORT).show();
-        }else{
-            Intent reviewIntent =new Intent(Booking_Session_Selection.this, Booking_Review.class);
-            reviewIntent.putExtra("date",selectedDate);
-            reviewIntent.putExtra("time",selectedTime);
-            reviewIntent.putExtra("instructor",selectedInstructor);
+        if (selectedTime == null || selectedInstructor.equals("Select Instructor")) {
+            Toast.makeText(this, "Please select instructor and time slot to continue.", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent reviewIntent = new Intent(Booking_Session_Selection.this, Booking_Review.class);
+            reviewIntent.putExtra("date", selectedDate);
+            reviewIntent.putExtra("time", selectedTime);
+            reviewIntent.putExtra("instructor", selectedInstructor);
             startActivity(reviewIntent);
         }
 
     }
 
-    public ArrayList<String> getBookingSlots(){
+    public ArrayList<String> getBookingSlots() {
         ArrayList<String> bookingSlots = new ArrayList<>();
-        for(int i=9; i<17; i++){
-            String time = String.format(Locale.getDefault(),"%02d:00", i);
+        for (int i = 9; i < 17; i++) {
+            String time = String.format(Locale.getDefault(), "%02d:00", i);
             String time1 = String.format(Locale.getDefault(), "%02d:30", i);
             bookingSlots.add(time);
             bookingSlots.add(time1);
@@ -110,16 +108,18 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot bookingSnapshot : dataSnapshot.getChildren()) {
-                    if(bookingSnapshot.child("bookingDate").getValue(String.class).equals(date)
-                            && bookingSnapshot.child("bookingInstructor").getValue(String.class).equals(instructor)){
+                    if (bookingSnapshot.child("bookingDate").getValue(String.class).equals(date)
+                            && bookingSnapshot.child("bookingInstructor").getValue(String.class).equals(instructor)) {
                         String booking = bookingSnapshot.child("bookingTime").getValue(String.class);
                         takenSlots.add(booking);
-                        Log.d("TAG","taken slots: "+ takenSlots.size());
                     }
                 }
             }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {Toast.makeText(getApplicationContext(),"Error Occurred: "+error.getMessage(),Toast.LENGTH_SHORT).show();}
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Error Occurred: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
         return takenSlots;
     }
@@ -131,7 +131,6 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
                 for (DataSnapshot instructorSnapshot : dataSnapshot.getChildren()) {
                     Instructor instructor = instructorSnapshot.getValue(Instructor.class);
                     instructorNames.add(instructor.instructorFullName());
-                    Log.d("TAG","instructor name:" +instructor.instructorFullName());
                 }
                 ArrayAdapter<String> aa = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, instructorNames);
                 aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -145,7 +144,7 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
         });
     }
 
-    public void setRecyclerview(){
+    public void setRecyclerview() {
         rv.setHasFixedSize(true);
         itemClickListener = new ItemClickListener() {
             @Override
@@ -167,7 +166,7 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
     }
 
     public void backToDate(View view) {
-        Intent intent =  new Intent(Booking_Session_Selection.this, Booking_Date_Selection.class);
+        Intent intent = new Intent(Booking_Session_Selection.this, Booking_Date_Selection.class);
         startActivity(intent);
 
     }

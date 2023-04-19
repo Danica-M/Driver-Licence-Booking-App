@@ -34,6 +34,7 @@ public class Instructor_Home extends AppCompatActivity {
     Controller controller;
     String todayDate;
     FirebaseDatabase firebaseDB;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +46,12 @@ public class Instructor_Home extends AppCompatActivity {
         String dateFormat = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         todayDate = sdf.format(calendar.getTime());
-        instructorBookedTest(Controller.getCurrentInstructor().instructorFullName(),todayDate);
+        instructorBookedTest(Controller.getCurrentInstructor().instructorFullName(), todayDate);
         controller = new Controller();
         setContentView(R.layout.instructor_home);
         wMessage = findViewById(R.id.i_welMessage);
         tv_booked = findViewById(R.id.booked);
-        wMessage.setText("Kia Ora, Instructor "+ Controller.getCurrentInstructor().instructorFullName());
+        wMessage.setText("Kia Ora, Instructor " + Controller.getCurrentInstructor().instructorFullName());
     }
 
 
@@ -86,15 +87,13 @@ public class Instructor_Home extends AppCompatActivity {
 
                 for (DataSnapshot bookingItem : snapshot.getChildren()) {
                     Booking booking = bookingItem.getValue(Booking.class);
-                    if (booking != null && booking.getBookingDate().equals(bookingDate) && booking.getBookingInstructor().equals(instructorName)){
+                    if (booking != null && booking.getBookingDate().equals(bookingDate) && booking.getBookingInstructor().equals(instructorName)) {
                         bookedTest.add(booking);
-                        Log.d("TAG","booking id "+booking.getBookingInstructor());
-                        Log.d("TAG","booking id "+booking.getBookingDate());
                     }
                 }
-                tv_booked.setText("You have "+ bookedTest.size() + " test/s booked today!");
-                Log.d("TAG","list id "+ bookedTest.size());
+                tv_booked.setText("You have " + bookedTest.size() + " test/s booked today!");
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -104,17 +103,16 @@ public class Instructor_Home extends AppCompatActivity {
 
     public void graph(View view) {
         Intent bIntent = new Intent(this, Histogram.class);
-        bIntent.putExtra("userType","instructor");
+        bIntent.putExtra("userType", "instructor");
         startActivity(bIntent);
     }
 
 
     public void scheduledTests(View view) {
         Intent bIntent = new Intent(this, Instructor_Tests.class);
-        bIntent.putExtra("date",todayDate);
+        bIntent.putExtra("date", todayDate);
         startActivity(bIntent);
     }
-
 
 
 }

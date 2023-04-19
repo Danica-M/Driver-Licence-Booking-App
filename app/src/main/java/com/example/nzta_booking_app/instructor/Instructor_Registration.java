@@ -15,12 +15,18 @@ import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Controller;
 import com.example.nzta_booking_app.models.Instructor;
 
+import com.example.nzta_booking_app.models.User;
 import com.example.nzta_booking_app.user.Normal_Registration;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Instructor_Registration extends AppCompatActivity {
     EditText ed_fname, ed_lname, ed_licence, ed_email, ed_pass, ed_pass2;
@@ -55,42 +61,64 @@ public class Instructor_Registration extends AppCompatActivity {
                 pass = ed_pass.getText().toString();
                 pass2 = ed_pass2.getText().toString();
 
-                if (TextUtils.isEmpty(fname) || TextUtils.isEmpty(lname)|| TextUtils.isEmpty(licence) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(licence)) {
+                if (TextUtils.isEmpty(fname) || TextUtils.isEmpty(lname) || TextUtils.isEmpty(licence) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(licence)) {
                     Toast.makeText(Instructor_Registration.this, "Registration form incomplete", Toast.LENGTH_SHORT).show();
-                } else if (!controller.instructorLicenceValidation(licence)) {
-                    Toast.makeText(Instructor_Registration.this, "Looks like this licence is already in the system.", Toast.LENGTH_SHORT).show();
-                }else if (!pass.equals(pass2)) {
+                } else if (!controller.validateLicence(licence)) {
+                    Toast.makeText(Instructor_Registration.this, "Invalid licence format", Toast.LENGTH_SHORT).show();
+                } else if (!pass.equals(pass2)) {
                     Toast.makeText(Instructor_Registration.this, "Password does not match", Toast.LENGTH_SHORT).show();
                 } else {
-                    mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    DatabaseReference instructorsRef = FirebaseDatabase.getInstance().getReference().child("instructors");
+                    instructorsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            int licenceCount = 0;
+                            for (DataSnapshot instructorItems : snapshot.getChildren()) {
+                                Instructor instructor = instructorItems.getValue(Instructor.class);
+                                if (instructor != null && instructor.getInstructorLicenceNum().equals(licence)) {
+                                    licenceCount++;
+                                }
+                            }
+                            if (licenceCount > 0) {
+                                Toast.makeText(Instructor_Registration.this, "Looks like this licence is already in the system.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
                                 /*instructor object instructorID is the same as the authentication userid
                                   if instructor is successfully added using the registerInstructor method in controller
                                   user will be redirected to the login page
                                  */
-                                String userid = mAuth.getCurrentUser().getUid();
-                                Instructor newInstructor = controller.registerInstructor(userid, fname, lname, licence, email, pass);
-                                if (newInstructor != null) {
-                                    Toast.makeText(Instructor_Registration.this, "Registration Successful.", Toast.LENGTH_SHORT).show();
-                                    FirebaseAuth.getInstance().signOut();
-                                    Intent nlIntent = new Intent(Instructor_Registration.this, Instructor_Login.class);
-                                    startActivity(nlIntent);
-                                }
-                                else{
-                                    Toast.makeText(Instructor_Registration.this, "Registration failed.", Toast.LENGTH_SHORT).show();
-                                    mAuth.getCurrentUser().delete();}
-                            } else {
-                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                    // Display Toast message if email is already registered
-                                    Toast.makeText(Instructor_Registration.this, "Email already registered", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(Instructor_Registration.this, "Invalid Email or Password.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
+                                            String userid = mAuth.getCurrentUser().getUid();
+                                            Instructor newInstructor = controller.registerInstructor(userid, fname, lname, licence, email, pass);
+                                            if (newInstructor != null) {
+                                                Toast.makeText(Instructor_Registration.this, "Registration Successful.", Toast.LENGTH_SHORT).show();
+                                                FirebaseAuth.getInstance().signOut();
+                                                Intent nlIntent = new Intent(Instructor_Registration.this, Instructor_Login.class);
+                                                startActivity(nlIntent);
+                                            } else {
+                                                Toast.makeText(Instructor_Registration.this, "Registration failed.", Toast.LENGTH_SHORT).show();
+                                                mAuth.getCurrentUser().delete();
+                                            }
+                                        } else {
+                                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                                // Display Toast message if email is already registered
+                                                Toast.makeText(Instructor_Registration.this, "Email already registered", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                // If sign in fails, display a message to the user.
+                                                Toast.makeText(Instructor_Registration.this, "Invalid Email or Password.",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }
+                                });
                             }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getApplication(), "Error Occured: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

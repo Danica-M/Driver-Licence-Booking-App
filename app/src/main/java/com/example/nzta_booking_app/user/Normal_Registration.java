@@ -26,11 +26,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Normal_Registration extends AppCompatActivity {
     EditText ed_fname, ed_lname, ed_email, ed_pass, ed_pass2, ed_licence;
     Button registerBtn, cancelBtn;
     Controller controller;
     FirebaseAuth mAuth;
+    boolean bool;
 
 
     @Override
@@ -52,8 +56,6 @@ public class Normal_Registration extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                Toast.makeText(Normal_Registration.this, "Clicked", Toast.LENGTH_SHORT).show();
                 String fname, lname, licence, email, pass, pass2;
                 fname = ed_fname.getText().toString().toUpperCase().trim();
                 lname = ed_lname.getText().toString().toUpperCase().trim();
@@ -64,42 +66,63 @@ public class Normal_Registration extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(fname) || TextUtils.isEmpty(lname) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(licence)) {
                     Toast.makeText(Normal_Registration.this, "Registration form incomplete", Toast.LENGTH_SHORT).show();
-                } else if (!controller.userLicenceValidation(licence)) {
-                    Toast.makeText(Normal_Registration.this, "Looks like this licence is already in the system.", Toast.LENGTH_SHORT).show();
+                } else if (!controller.validateLicence(licence)) {
+                    Toast.makeText(Normal_Registration.this, "Invalid licence format", Toast.LENGTH_SHORT).show();
                 } else if (!pass.equals(pass2)) {
                     Toast.makeText(Normal_Registration.this, "Password does not match", Toast.LENGTH_SHORT).show();
                 } else {
-                    mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users");
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                        /*
-                                          user object userid is the same as the authentication userid
-                                          if user is successfully added using the registerUser method in controller
-                                          user will be redirected to the login page
-                                         */
-                                String userid = mAuth.getCurrentUser().getUid();
-                                User newUser = controller.registerUser(userid, fname, lname, licence, email, pass);
-                                if (newUser != null) {
-                                    Toast.makeText(Normal_Registration.this, "Registration Successful.", Toast.LENGTH_SHORT).show();
-                                    FirebaseAuth.getInstance().signOut();
-                                    Intent nlIntent = new Intent(Normal_Registration.this, Normal_Login.class);
-                                    startActivity(nlIntent);
-                                } else {
-                                    Toast.makeText(Normal_Registration.this, "Registration failed.", Toast.LENGTH_SHORT).show();
-                                    mAuth.getCurrentUser().delete();
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            int licenceCount = 0;
+                            for (DataSnapshot userItems : snapshot.getChildren()) {
+                                User user = userItems.getValue(User.class);
+                                if (user != null && user.getLicenceNum().equals(licence)) {
+                                    licenceCount++;
                                 }
-                            } else {
-                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                    // Display Toast message if email is already registered
-                                    Toast.makeText(getApplicationContext(), "Email already registered", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(Normal_Registration.this, "Invalid Email or Password.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-
                             }
+                            if (licenceCount > 0) {
+                                Toast.makeText(Normal_Registration.this, "Looks like this licence is already in the system.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            /*
+                                              user object userid is the same as the authentication userid
+                                              if user is successfully added using the registerUser method in controller
+                                              user will be redirected to the login page
+                                            */
+                                            String userid = mAuth.getCurrentUser().getUid();
+                                            User newUser = controller.registerUser(userid, fname, lname, licence, email, pass);
+                                            if (newUser != null) {
+                                                Toast.makeText(Normal_Registration.this, "Registration Successful.", Toast.LENGTH_SHORT).show();
+                                                FirebaseAuth.getInstance().signOut();
+                                                Intent nlIntent = new Intent(Normal_Registration.this, Normal_Login.class);
+                                                startActivity(nlIntent);
+                                            } else {
+                                                Toast.makeText(Normal_Registration.this, "Registration failed.", Toast.LENGTH_SHORT).show();
+                                                mAuth.getCurrentUser().delete();
+                                            }
+                                        } else {
+                                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                                // Display Toast message if email is already registered
+                                                Toast.makeText(getApplicationContext(), "Email already registered", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                // If sign in fails, display a message to the user.
+                                                Toast.makeText(Normal_Registration.this, "Invalid Email or Password.",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getApplication(), "Error Occured: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

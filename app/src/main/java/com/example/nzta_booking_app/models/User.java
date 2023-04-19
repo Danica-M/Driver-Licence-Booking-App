@@ -1,6 +1,6 @@
 package com.example.nzta_booking_app.models;
 
-public class User{
+public class User {
     private String userID;
     private String firstName;
     private String lastName;
@@ -61,6 +61,6 @@ public class User{
     }
 
     public String userFullName() {
-        return firstName+" "+lastName;
+        return firstName + " " + lastName;
     }
 }

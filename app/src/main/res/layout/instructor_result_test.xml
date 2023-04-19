@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark"
+    android:background="@drawable/background_image"
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".instructor.Instructor_Result_Test">
@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/dark">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -28,8 +29,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@color/accent2"
-            app:cardBackgroundColor="@color/dark"
-            >
+            app:cardBackgroundColor="@android:color/transparent">
 
 
             <LinearLayout
@@ -78,7 +78,6 @@
             android:textStyle="bold" />
 
 
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,7 +91,8 @@
                 android:textAllCaps="true"
                 android:textColor="@color/dark"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/dark"
                 android:textSize="18sp"
-                android:id="@+id/resDate"/>
+                android:id="@+id/resDate" />
         </LinearLayout>
 
         <LinearLayout
@@ -115,7 +115,8 @@
                 android:textAllCaps="true"
                 android:textColor="@color/dark"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,7 +124,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/dark"
                 android:textSize="18sp"
-                android:id="@+id/resTime"/>
+                android:id="@+id/resTime" />
         </LinearLayout>
 
         <LinearLayout
@@ -138,7 +139,8 @@
                 android:textAllCaps="true"
                 android:textColor="@color/dark"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -146,7 +148,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/dark"
                 android:textSize="18sp"
-                android:id="@+id/resApplicant"/>
+                android:id="@+id/resApplicant" />
         </LinearLayout>
 
         <LinearLayout
@@ -161,7 +163,8 @@
                 android:textAllCaps="true"
                 android:textColor="@color/dark"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,9 +172,8 @@
                 android:textAllCaps="true"
                 android:textColor="@color/dark"
                 android:textSize="18sp"
-                android:id="@+id/resDl"/>
+                android:id="@+id/resDl" />
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -179,6 +181,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -187,7 +190,7 @@
                 android:textColor="@color/dark"
                 android:textSize="18sp"
                 android:layout_marginRight="50dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:id="@+id/radioResult"
@@ -205,7 +208,7 @@
                     android:textAllCaps="true"
                     android:textAlignment="center"
                     android:button="@android:color/transparent"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="20dp" />
 
                 <RadioButton
                     android:id="@+id/radioFail"
@@ -216,12 +219,13 @@
                     android:textSize="18sp"
                     android:textAllCaps="true"
                     android:textAlignment="center"
-                    android:button="@android:color/transparent"/>
+                    android:button="@android:color/transparent" />
 
             </RadioGroup>
 
 
         </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -230,7 +234,8 @@
             android:textColor="@color/dark"
             android:textSize="18sp"
             android:layout_marginRight="50dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -243,7 +248,8 @@
             android:minLines="4"
             android:scrollbars="vertical"
             android:id="@+id/resComment"
-            android:padding="5dp"/>
+            android:padding="5dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -261,25 +267,21 @@
                 android:layout_margin="10dp"
                 android:textSize="18sp"
                 android:id="@+id/cancelRes"
-                android:onClick="CancelResult"/>
+                android:onClick="CancelResult" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save"
-                android:onClick="saveResults"
                 android:textAllCaps="true"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:background="@drawable/filled_green"
                 android:layout_margin="10dp"
-                android:id="@+id/saveRes"/>
-
+                android:id="@+id/saveRes" />
 
 
         </LinearLayout>
-
-
-
 
 
     </LinearLayout>

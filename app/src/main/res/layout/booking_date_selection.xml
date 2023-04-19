@@ -11,8 +11,9 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:src="@drawable/white_logo"/>
+        android:layout_height="150dp"
+        android:src="@drawable/white_logo" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +22,8 @@
         android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/light"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginTop="-20dp"
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -29,7 +31,7 @@
         android:text="Select your preferred date:"
         android:textSize="18sp"
         android:textAlignment="textStart"
-        android:textColor="@color/light"/>
+        android:textColor="@color/light" />
 
     <CalendarView
         android:id="@+id/calendarView"
@@ -40,7 +42,7 @@
         android:dateTextAppearance="@style/TextAppearance.AppCompat.Body2"
         android:showWeekNumber="true"
         android:weekNumberColor="@color/dark"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,6 +51,7 @@
         android:gravity="bottom"
         android:layout_weight="1"
         android:layout_margin="10dp">
+
         <Button
             android:layout_width="40dp"
             android:layout_height="60dp"
@@ -58,7 +61,8 @@
             android:textSize="20sp"
             android:textColor="@color/light"
             android:layout_marginRight="20dp"
-            android:layout_weight="2"/>
+            android:layout_weight="2" />
+
         <Button
             android:layout_width="40dp"
             android:layout_height="60dp"
@@ -69,9 +73,8 @@
             android:layout_marginLeft="20dp"
             android:onClick="bookingSession"
             android:layout_weight="2"
-            android:id="@+id/nextBtn"/>
+            android:id="@+id/nextBtn" />
     </LinearLayout>
-
 
 
 </LinearLayout>

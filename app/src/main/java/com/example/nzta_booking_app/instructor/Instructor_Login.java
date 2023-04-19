@@ -29,9 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Instructor_Login extends AppCompatActivity {
 
-    EditText l_email , l_pass;
+    EditText l_email, l_pass;
     Button login;
     FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +51,13 @@ public class Instructor_Login extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
                     Toast.makeText(Instructor_Login.this, "Login form incomplete", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 checkLoggedInInstructor();
-                            }else{
+                            } else {
                                 Toast.makeText(Instructor_Login.this, "Incorrect Email or Password", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -66,7 +67,7 @@ public class Instructor_Login extends AppCompatActivity {
         });
     }
 
-    public void checkLoggedInInstructor(){
+    public void checkLoggedInInstructor() {
         String instructorID = mAuth.getCurrentUser().getUid();
 
         DatabaseReference insRef = FirebaseDatabase.getInstance().getReference().child("instructors").child(instructorID);
@@ -74,16 +75,19 @@ public class Instructor_Login extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Controller.setCurrentInstructor(dataSnapshot.getValue(Instructor.class));
-                if (Controller.getCurrentInstructor() != null){
+                if (Controller.getCurrentInstructor() != null) {
                     // retrieve the instructor object
                     finishAffinity();
                     Intent intent = new Intent(Instructor_Login.this, Instructor_Home.class);
                     startActivity(intent);
-                    Toast.makeText(Instructor_Login.this,"You are logged in successfully!",Toast.LENGTH_LONG).show();
-                }else{ Toast.makeText(Instructor_Login.this, "Instructor account does not exist", Toast.LENGTH_SHORT).show();}
+                    Toast.makeText(Instructor_Login.this, "You are logged in successfully!", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(Instructor_Login.this, "Instructor account does not exist", Toast.LENGTH_SHORT).show();
+                }
 
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(Instructor_Login.this, "Error Occurred: " + error.getMessage(), Toast.LENGTH_LONG).show();
@@ -97,19 +101,15 @@ public class Instructor_Login extends AppCompatActivity {
         Intent nrIntent = new Intent(this, Normal_Registration.class);
         startActivity(nrIntent);
     }
+
     public void normalLogin(View view) {
         Intent nrIntent = new Intent(this, Normal_Login.class);
         startActivity(nrIntent);
     }
+
     public void instructorRegister(View view) {
         Intent irIntent = new Intent(this, Instructor_Registration.class);
         startActivity(irIntent);
     }
-//
-//    public void instructorLogin(View view) {
-//        Intent nlIntent = new Intent(this, Instructor_Home.class);
-//        startActivity(nlIntent);
-//    }
-
 
 }

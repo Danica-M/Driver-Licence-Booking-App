@@ -51,7 +51,7 @@
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:textSize="20sp"
-            android:contentDescription="@string/enter_your_email_address"/>
+            android:contentDescription="@string/enter_your_email_address" />
 
         <TextView
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             android:background="@drawable/rounded_edittext"
             android:inputType="textPassword"
             android:padding="10dp"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/loginBtn"
@@ -101,7 +101,7 @@
             android:text="@string/normal_register"
             android:textAlignment="center"
             android:textColor="@color/dark"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
 

@@ -27,7 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-
 public class Instructor_Tests extends AppCompatActivity {
     ArrayList<Booking> instructorTests;
     RecyclerView rv_test;
@@ -45,7 +44,7 @@ public class Instructor_Tests extends AppCompatActivity {
         Intent intent = getIntent();
         testDate = intent.getStringExtra("date");
         scheTest = findViewById(R.id.scheDate);
-        scheTest.setText("Scheduled Tests - "+testDate);
+        scheTest.setText("Scheduled Tests - " + testDate);
         rv_test = findViewById(R.id.recyclerTest);
         rv_test.setHasFixedSize(true);
         rv_lm = new LinearLayoutManager(this);
@@ -54,9 +53,9 @@ public class Instructor_Tests extends AppCompatActivity {
     }
 
 
-    public void getScheduleTests(){
+    public void getScheduleTests() {
         DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference().child("bookings");
-        String fName= Controller.getCurrentInstructor().instructorFullName();
+        String fName = Controller.getCurrentInstructor().instructorFullName();
         Query query = bookingsRef.orderByChild("bookingTime");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -66,19 +65,21 @@ public class Instructor_Tests extends AppCompatActivity {
                 for (DataSnapshot bookingSnapshot : snapshot.getChildren()) {
                     Booking booking = bookingSnapshot.getValue(Booking.class);
 
-                    if(booking != null && booking.getBookingInstructor().equals(fName) && booking.getBookingDate().equals(testDate)){
+                    if (booking != null && booking.getBookingInstructor().equals(fName) && booking.getBookingDate().equals(testDate)) {
                         instructorTests.add(booking);
                     }
                 }
                 rv_testAdapter = new TestAdapter(getApplicationContext(), instructorTests);
                 rv_test.setAdapter(rv_testAdapter);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
+
     public void home(View view) {
         Intent bIntent = new Intent(this, Instructor_Home.class);
         startActivity(bIntent);

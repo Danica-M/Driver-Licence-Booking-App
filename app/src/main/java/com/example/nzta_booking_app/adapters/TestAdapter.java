@@ -22,14 +22,16 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
     Context context;
     ArrayList<Booking> testList;
-    public TestAdapter(Context context, ArrayList<Booking> testList){
+
+    public TestAdapter(Context context, ArrayList<Booking> testList) {
         this.context = context;
         this.testList = testList;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView test_time, test_result, test_user;
         Button resultBtn;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             test_time = itemView.findViewById(R.id.test_time);
@@ -43,22 +45,22 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     @Override
     public TestAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.test_items,parent, false);
+        View view = inflater.inflate(R.layout.test_items, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TestAdapter.ViewHolder holder, int position) {
-        Log.d("TAG","testlist: "+testList.size());
-        holder.test_time.setText("Time: "+testList.get(position).getBookingTime());
-        holder.test_user.setText("Applicant: "+ testList.get(position).getBookingUser());
+        Log.d("TAG", "testlist: " + testList.size());
+        holder.test_time.setText("Time: " + testList.get(position).getBookingTime());
+        holder.test_user.setText("Applicant: " + testList.get(position).getBookingUser());
 
-        if(testList.get(position).getResulted()){
-            holder.test_result.setText("Result: "+testList.get(position).getResults());
+        if (testList.get(position).getResulted()) {
+            holder.test_result.setText("Result: " + testList.get(position).getResults());
             holder.resultBtn.setBackgroundResource(R.drawable.plain_border);
             holder.resultBtn.setText("EDIT");
 
-        } else{
+        } else {
             holder.resultBtn.setBackgroundResource(R.drawable.light_border);
             holder.test_result.setText("Result: Unresulted");
         }
@@ -68,8 +70,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent bIntent = new Intent(context, Instructor_Result_Test.class);
-                bIntent.putExtra("bookingID",testList.get(finalPosition).getBookingID());
-                bIntent.putExtra("instructor",testList.get(finalPosition).getBookingInstructor());
+                bIntent.putExtra("bookingID", testList.get(finalPosition).getBookingID());
+                bIntent.putExtra("instructor", testList.get(finalPosition).getBookingInstructor());
                 bIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(bIntent);
             }
@@ -78,5 +80,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     }
 
     @Override
-    public int getItemCount() {return testList.size();}
+    public int getItemCount() {
+        return testList.size();
+    }
 }

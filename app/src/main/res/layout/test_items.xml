@@ -15,20 +15,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="3">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Time: 9:00am"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:id="@+id/test_time"/>
+            android:id="@+id/test_time" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Applicant: Danica Montano"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:id="@+id/test_user"/>
+            android:id="@+id/test_user" />
 
         <TextView
             android:layout_width="match_parent"
@@ -36,7 +38,7 @@
             android:text="Result: Unresulted"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:id="@+id/test_result"/>
+            android:id="@+id/test_result" />
     </LinearLayout>
 
     <Button
@@ -45,7 +47,7 @@
         android:text="RESULT"
         android:layout_margin="10dp"
         android:background="@drawable/light_border"
-        android:id="@+id/resultBtn"/>
+        android:id="@+id/resultBtn" />
 
 
 </LinearLayout>

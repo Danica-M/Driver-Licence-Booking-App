@@ -28,11 +28,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class Normal_Login extends AppCompatActivity{
+public class Normal_Login extends AppCompatActivity {
 
-    EditText l_email , l_pass;
+    EditText l_email, l_pass;
     Button login;
     FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +52,13 @@ public class Normal_Login extends AppCompatActivity{
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
                     Toast.makeText(Normal_Login.this, "Login form incomplete", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 checkLoggedInUser();
-                            }else{
+                            } else {
                                 Toast.makeText(Normal_Login.this, "Incorrect Email or Password", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -69,8 +70,7 @@ public class Normal_Login extends AppCompatActivity{
     }
 
 
-
-    public void checkLoggedInUser(){
+    public void checkLoggedInUser() {
         String userID = mAuth.getCurrentUser().getUid();
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
@@ -79,18 +79,19 @@ public class Normal_Login extends AppCompatActivity{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Controller.setCurrentUser(dataSnapshot.getValue(User.class));
                 // retrieve the user object
-                if(Controller.getCurrentUser()!=null){
+                if (Controller.getCurrentUser() != null) {
                     finishAffinity();
                     Intent intent = new Intent(Normal_Login.this, Normal_Home.class);
                     startActivity(intent);
-                    Toast.makeText(Normal_Login.this,"you are logged in successfully!",Toast.LENGTH_LONG).show();
-                }else{
+                    Toast.makeText(Normal_Login.this, "you are logged in successfully!", Toast.LENGTH_LONG).show();
+                } else {
                     Toast.makeText(Normal_Login.this, "Road User account does not exist", Toast.LENGTH_SHORT).show();
                     FirebaseAuth.getInstance().signOut();
                 }
 
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(Normal_Login.this, "Error Occurred: " + error.getMessage(), Toast.LENGTH_LONG).show();

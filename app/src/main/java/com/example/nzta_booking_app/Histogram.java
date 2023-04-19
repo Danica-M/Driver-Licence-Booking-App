@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -53,7 +52,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
     int currentWeek, numberOfInstructor;
 
     private DatabaseReference reference;
-    private Button button1, button2 ,button3 ,button4 ,button5;
+    public Button button1, button2, button3, button4, button5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.histogram);
         numberOfInstructor = 0;
 
-        reference=FirebaseDatabase.getInstance().getReference();
+        reference = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
         userType = intent.getStringExtra("userType");
@@ -105,6 +104,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
                 // Do something with the selected date
                 Toast.makeText(getApplicationContext(), "Selected date: " + date, Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onNothingSelected() {
                 // Do nothing
@@ -112,27 +112,26 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
         });
     }
 
-    public void nhome(View view) {
-        if(userType.equals("user")){
+    public void nHome(View view) {
+        if (userType.equals("user")) {
             Intent bIntent = new Intent(this, Normal_Home.class);
             startActivity(bIntent);
-        }else{
+        } else {
             Intent bIntent = new Intent(this, Instructor_Home.class);
             startActivity(bIntent);
         }
 
+
     }
 
 
-    public void loadWeeklyBarChart(){
+    public void loadWeeklyBarChart() {
         getInstructorsNames();
         DatabaseReference databaseRef = reference.child("bookings");
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<BarEntry> entries = new ArrayList<>();
-                Calendar calendar2 = Calendar.getInstance();
-
                 int[] weeklyBookings = new int[5];
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     Booking booking = childSnapshot.getValue(Booking.class);
@@ -146,7 +145,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
                             if (bookingWeekNumber == currentWeek) {
                                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
-                                if (dayOfWeek == 2 || dayOfWeek == 3 ||dayOfWeek == 4 ||dayOfWeek == 5 ||dayOfWeek == 6) {
+                                if (dayOfWeek == 2 || dayOfWeek == 3 || dayOfWeek == 4 || dayOfWeek == 5 || dayOfWeek == 6) {
                                     weeklyBookings[dayOfWeek - 2]++;
                                 }
                             }
@@ -154,7 +153,8 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
                             e.printStackTrace();
                         }
                     }
-                } for (int i = 0; i < 5; i++) {
+                }
+                for (int i = 0; i < 5; i++) {
                     entries.add(new BarEntry(i, weeklyBookings[i]));
                 }
 
@@ -166,12 +166,11 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
 
                 // Customize the chart
                 ArrayList<Integer> colorPalettes = new ArrayList<>();
-                for (int i = 0; i < weeklyBookings.length; i++) {
-                    int bookings = weeklyBookings[i];
+                for (int bookings : weeklyBookings) {
                     int totalSlots = numberOfInstructor * 16;
-                    if (bookings < (totalSlots/4)) {
+                    if (bookings < (totalSlots / 4)) {
                         colorPalettes.add(Color.GREEN);
-                    } else if (bookings >= (totalSlots/4) && bookings < (totalSlots/2)) {
+                    } else if (bookings >= (totalSlots / 4) && bookings < (totalSlots / 2)) {
                         colorPalettes.add(Color.YELLOW);
                     } else {
                         colorPalettes.add(Color.RED);
@@ -192,7 +191,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
                     @Override
 
                     public String getFormattedValue(float value) {
-                        return weekLabels.get((int)value);
+                        return weekLabels.get((int) value);
                     }
                 });
             }
@@ -204,7 +203,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
         });
     }
 
-    public void loadLabel(){
+    public void loadLabel() {
         for (int dayOfWeek = Calendar.MONDAY; dayOfWeek <= Calendar.FRIDAY; dayOfWeek++) {
             calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
             int weekNumber = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -243,7 +242,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
             }
             loadHourlyBarChart(date);
             hourSum.setVisibility(View.VISIBLE);
-            tvHour.setText("Hourly Bookings - "+date);
+            tvHour.setText("Hourly Bookings - " + date);
         }
     }
 
@@ -253,9 +252,12 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot instructorSnapshot : dataSnapshot.getChildren()) {
                     Instructor instructor = instructorSnapshot.getValue(Instructor.class);
-                    numberOfInstructor++;
+                    if (instructor != null) {
+                        numberOfInstructor++;
+                    }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getApplicationContext(), "Error Occurred: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
@@ -264,32 +266,31 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
     }
 
 
-    public void loadHourlyLabels(){
+    public void loadHourlyLabels() {
         hourLabels = new ArrayList<>();
-        for(int i=9; i<17; i++){
-            String time = String.format(Locale.getDefault(),"%02d:00", i);
+        for (int i = 9; i < 17; i++) {
+            String time = String.format(Locale.getDefault(), "%02d:00", i);
             String time1 = String.format(Locale.getDefault(), "%02d:30", i);
             hourLabels.add(time);
             hourLabels.add(time1);
         }
-        Log.d("TAG","pieL: "+ hourLabels.size());
     }
 
-    public void loadHourlyBarChart(String date){
+    public void loadHourlyBarChart(String date) {
         DatabaseReference databaseRef = reference.child("bookings");
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<BarEntry> entries = new ArrayList<>();
-                Log.d("TAG","hour_Date "+ date);
                 int[] hourlyBooking = new int[16];
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     Booking booking = childSnapshot.getValue(Booking.class);
                     if (booking != null && booking.getBookingDate().equals(date)) {
-                       int index = hourLabels.indexOf(booking.getBookingTime());
+                        int index = hourLabels.indexOf(booking.getBookingTime());
                         hourlyBooking[index]++;
                     }
-                } for (int i = 0; i < 16; i++) {
+                }
+                for (int i = 0; i < 16; i++) {
                     entries.add(new BarEntry(i, hourlyBooking[i]));
                 }
 
@@ -316,7 +317,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
                     @Override
 
                     public String getFormattedValue(float value) {
-                        return hourLabels.get((int)value);
+                        return hourLabels.get((int) value);
                     }
                 });
             }

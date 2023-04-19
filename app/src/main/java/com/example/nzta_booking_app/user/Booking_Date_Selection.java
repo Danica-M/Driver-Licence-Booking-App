@@ -25,6 +25,7 @@ public class Booking_Date_Selection extends AppCompatActivity {
     CalendarView calendarView;
     String selectedDate;
     Button nextBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,22 +47,21 @@ public class Booking_Date_Selection extends AppCompatActivity {
             Calendar calendar2 = Calendar.getInstance();
             calendar2.set(year, month, dayOfMonth);
             // checking if date is weekday, if not it will show a message
-           if(calendar2.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar2.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY){
-            Toast.makeText(getApplicationContext(),"Select weekdays only",Toast.LENGTH_SHORT).show();
-            nextBtn.setEnabled(false);
-             }
-           else{
+            if (calendar2.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar2.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+                Toast.makeText(getApplicationContext(), "Select weekdays only", Toast.LENGTH_SHORT).show();
+                nextBtn.setEnabled(false);
+            } else {
                 // Convert the calendar date to a string
-               selectedDate = sdf.format(calendar2.getTime());
-               nextBtn.setEnabled(true);
-           }
+                selectedDate = sdf.format(calendar2.getTime());
+                nextBtn.setEnabled(true);
+            }
 
 
         });
     }
 
 
-    public void cancelBooking(View view){
+    public void cancelBooking(View view) {
         AlertDialog builder = new AlertDialog.Builder(Booking_Date_Selection.this)
                 .setTitle("Booking Cancellation Confirmation")
                 .setMessage("Are you sure you want to cancel booking process?")
@@ -91,16 +91,16 @@ public class Booking_Date_Selection extends AppCompatActivity {
     }
 
 
-    public void setUpCalendar(){
+    public void setUpCalendar() {
         Calendar calendar = Calendar.getInstance();
         // Check if selected date is a weekend day (Saturday or Sunday)
-        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY){
+        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
             // Reset selected date to previous weekday (Friday)
-            calendar.add(Calendar.DAY_OF_MONTH,2);
-        } else if(calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-            calendar.add(Calendar.DAY_OF_MONTH,1);
-        }else{
-            calendar.add(Calendar.DAY_OF_MONTH,0);
+            calendar.add(Calendar.DAY_OF_MONTH, 2);
+        } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        } else {
+            calendar.add(Calendar.DAY_OF_MONTH, 0);
         }
 
         long minD = calendar.getTimeInMillis();

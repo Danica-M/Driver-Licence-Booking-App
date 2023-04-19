@@ -1,7 +1,6 @@
 package com.example.nzta_booking_app.models;
 
 
-
 public class Instructor {
     private String instructorID;
     private String instructorFirstName;
@@ -65,7 +64,8 @@ public class Instructor {
     public void setInstructorPassword(String instructorPassword) {
         this.instructorPassword = instructorPassword;
     }
+
     public String instructorFullName() {
-        return instructorFirstName+" "+instructorLastName;
+        return instructorFirstName + " " + instructorLastName;
     }
 }

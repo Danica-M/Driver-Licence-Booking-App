@@ -18,15 +18,17 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Normal_Home extends AppCompatActivity {
     TextView wMessage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.normal_home);
         wMessage = findViewById(R.id.welMessage);
-        wMessage.setText("Kia Ora, "+ Controller.getCurrentUser().userFullName());
+        wMessage.setText("Kia Ora, " + Controller.getCurrentUser().userFullName());
 
 
     }
+
     public void mBooking(View view) {
         Intent bIntent = new Intent(this, Manage_Booking.class);
         startActivity(bIntent);
@@ -34,7 +36,7 @@ public class Normal_Home extends AppCompatActivity {
 
     public void graph(View view) {
         Intent bIntent = new Intent(this, Histogram.class);
-        bIntent.putExtra("userType","user");
+        bIntent.putExtra("userType", "user");
         startActivity(bIntent);
     }
 

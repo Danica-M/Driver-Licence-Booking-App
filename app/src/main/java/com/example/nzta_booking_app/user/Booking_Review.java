@@ -21,7 +21,7 @@ import com.example.nzta_booking_app.models.User;
 public class Booking_Review extends AppCompatActivity {
 
     TextView tx_date, tx_time, tx_instructor, tx_name, tx_dl;
-    String bookingUser,date,time,instructor, bookingDL;
+    String bookingUser, date, time, instructor, bookingDL;
     Button bookButton, backButton;
     Intent rIntent;
     Controller controller;
@@ -37,15 +37,15 @@ public class Booking_Review extends AppCompatActivity {
         tx_name = findViewById(R.id.reviewName);
         tx_dl = findViewById(R.id.reviewDL);
         backButton = findViewById(R.id.backBtn);
-        bookButton =findViewById(R.id.bookBtn);
+        bookButton = findViewById(R.id.bookBtn);
 
-        User bUser= Controller.getCurrentUser();
+        User bUser = Controller.getCurrentUser();
         rIntent = getIntent();
-        date=rIntent.getStringExtra("date");
-        time=rIntent.getStringExtra("time");
-        instructor=rIntent.getStringExtra("instructor");
+        date = rIntent.getStringExtra("date");
+        time = rIntent.getStringExtra("time");
+        instructor = rIntent.getStringExtra("instructor");
         bookingUser = bUser.userFullName();
-        bookingDL =  bUser.getLicenceNum();
+        bookingDL = bUser.getLicenceNum();
 
 
         tx_name.setText(bookingUser);
@@ -58,9 +58,9 @@ public class Booking_Review extends AppCompatActivity {
         bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
+                try {
                     Log.d("TAG", "user: " + Controller.getCurrentUser().userFullName());
-                    Booking booking = controller.bookTest(date, time, bookingUser,bookingDL, instructor);
+                    Booking booking = controller.bookTest(date, time, bookingUser, bookingDL, instructor);
                     if (booking != null) {
                         AlertDialog builder = new AlertDialog.Builder(Booking_Review.this)
                                 .setTitle("Booking Confirmation")
@@ -79,9 +79,8 @@ public class Booking_Review extends AppCompatActivity {
                         Toast.makeText(Booking_Review.this, "Something went wrong will booking the test", Toast.LENGTH_SHORT).show();
                     }
 
-                }catch (Exception ex){
-                    Toast.makeText(Booking_Review.this, "Error Occurred: "+ ex.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.d("TAG", "error: " +ex.getMessage());
+                } catch (Exception ex) {
+                    Toast.makeText(Booking_Review.this, "Error Occurred: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -89,18 +88,12 @@ public class Booking_Review extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =  new Intent(Booking_Review.this, Booking_Session_Selection.class);
+                Intent intent = new Intent(Booking_Review.this, Booking_Session_Selection.class);
                 intent.putExtra("date", date);
                 startActivity(intent);
             }
         });
     }
-
-    public void backToSession() {
-
-
-    }
-
 
 
 }

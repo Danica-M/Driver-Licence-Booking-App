@@ -29,12 +29,13 @@ public class Instructor_Result_Test extends AppCompatActivity {
     String bookingID, instructor;
     TextView testDate, testTime, testApplicant, testLicence;
     RadioGroup results;
-    RadioButton pass,fail;
+    RadioButton pass, fail;
     Button savebtn, cancelBtn;
     EditText testComment;
 
     FirebaseDatabase firebaseDB;
     DatabaseReference reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,61 +57,61 @@ public class Instructor_Result_Test extends AppCompatActivity {
         getBooking();
         firebaseDB = FirebaseDatabase.getInstance();
         reference = firebaseDB.getReference();
-
-
-
+        savebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (results.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(Instructor_Result_Test.this, "Please select test result.", Toast.LENGTH_SHORT).show();
+                } else {
+                    RadioButton radioButton = findViewById(results.getCheckedRadioButtonId());
+                    String testResult = radioButton.getText().toString();
+                    Booking booking = new Booking(bookingID, testDate.getText().toString(), testTime.getText().toString(), testApplicant.getText().toString(), testLicence.getText().toString(), instructor, true, testResult, testComment.getText().toString());
+                    reference.child("bookings").child(bookingID).setValue(booking);
+                    Toast.makeText(Instructor_Result_Test.this, "Test Resulted Successfully", Toast.LENGTH_SHORT).show();
+                    Intent nlIntent = new Intent(Instructor_Result_Test.this, Instructor_Home.class);
+                    startActivity(nlIntent);
+                    finishAffinity();
+                }
+            }
+        });
     }
 
 
-    public void getBooking(){
-
-        Log.d("TAG","list id "+ bookingID);
-        DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference().child("bookings").child(bookingID);
+    public void getBooking() {
+        DatabaseReference bookingsRef = reference.child("bookings").child(bookingID);
         bookingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot!=null){
+                if (snapshot != null) {
                     Booking booking = snapshot.getValue(Booking.class);
 
                     testDate.setText(booking.getBookingDate());
                     testTime.setText(booking.getBookingTime());
                     testApplicant.setText(booking.getBookingUser());
                     testLicence.setText(booking.getBookingUserDL());
-                    if(booking.getResulted()){
-                        if(booking.getResults().equals("passed")){pass.setChecked(true);}
-                        else{fail.setChecked(true);}
+                    if (booking.getResulted()) {
+                        if (booking.getResults().equals("passed")) {
+                            pass.setChecked(true);
+                        } else {
+                            fail.setChecked(true);
+                        }
                         testComment.setText(booking.getComments());
-                    }else{
+                    } else {
                         results.clearCheck();
                     }
                 }
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getApplicationContext(), "Error Occurred: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void saveResults(View view){
 
-        if (results.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, "Please select test result.", Toast.LENGTH_SHORT).show();
-        } else {
-            RadioButton radioButton = findViewById(results.getCheckedRadioButtonId());
-            String testResult = radioButton.getText().toString();
-            Booking booking = new Booking(bookingID,testDate.getText().toString(), testTime.getText().toString(), testApplicant.getText().toString(), testLicence.getText().toString(), instructor, true, testResult, testComment.getText().toString());
-            reference.child("bookings").child(bookingID).setValue(booking);
-            Toast.makeText(this, "Test Resulted Successfully", Toast.LENGTH_SHORT).show();
-            Intent nlIntent = new Intent(Instructor_Result_Test.this, Instructor_Home.class);
-            startActivity(nlIntent);
-            finishAffinity();
-        }
-
-    }
-
-    public void CancelResult(View view){
+    public void CancelResult(View view) {
         AlertDialog builder = new AlertDialog.Builder(Instructor_Result_Test.this)
                 .setTitle("Result Cancellation Confirmation")
                 .setMessage("Are you sure you want to cancel resulting this test?")

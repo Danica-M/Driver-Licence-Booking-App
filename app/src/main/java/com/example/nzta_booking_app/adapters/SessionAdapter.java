@@ -18,14 +18,14 @@ import com.example.nzta_booking_app.R;
 import java.util.ArrayList;
 
 
-public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHolder>{
+public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHolder> {
     Context context;
-    ArrayList<String>  slots;
+    ArrayList<String> slots;
     ArrayList<String> unavailable_slots;
     int selectedPosition = RecyclerView.NO_POSITION;
     ItemClickListener itemClickListener;
 
-    public SessionAdapter( Context context,  ArrayList<String>  slots, ArrayList<String> unavailable_slots, ItemClickListener itemClickListener) {
+    public SessionAdapter(Context context, ArrayList<String> slots, ArrayList<String> unavailable_slots, ItemClickListener itemClickListener) {
         this.context = context;
         this.slots = slots;
         this.unavailable_slots = unavailable_slots;
@@ -36,7 +36,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.session_items,parent, false);
+        View view = inflater.inflate(R.layout.session_items, parent, false);
         return new ViewHolder(view);
     }
 
@@ -48,7 +48,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
                 holder.session_time.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_unavailable));
                 holder.session_time.setClickable(false);
                 holder.session_time.setEnabled(false);
-            } else{
+            } else {
                 holder.session_time.setEnabled(true);
             }
         }
@@ -57,13 +57,13 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         holder.session_time.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     selectedPosition = holder.getAdapterPosition();
-                    if(unavailable_slots.contains(slots.get(selectedPosition))){
+                    if (unavailable_slots.contains(slots.get(selectedPosition))) {
                         holder.session_time.setBackground(ContextCompat.getDrawable(context, R.drawable.radio_unavailable));
                         holder.session_time.setClickable(false);
                         holder.session_time.setEnabled(false);
-                    }else{
+                    } else {
                         itemClickListener.onClick(holder.session_time.getText().toString());
                     }
                 }
@@ -71,20 +71,22 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         });
     }
 
-    public String getItem(int position){
+    public String getItem(int position) {
         return slots.get(position);
     }
 
-    public int getItemViewType(int position){
+    public int getItemViewType(int position) {
         return position;
     }
+
     @Override
     public int getItemCount() {
         return slots.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         RadioButton session_time;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             session_time = itemView.findViewById(R.id.session_time);

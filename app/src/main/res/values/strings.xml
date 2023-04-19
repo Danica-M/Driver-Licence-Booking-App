@@ -13,10 +13,10 @@
     <string name="normal_txt">ROAD USER</string>
     <string name="instructor_login_txt">LOGIN AS INSTRUCTOR</string>
     <string name="normal_registration_txt">ROAD USER REGISTRATION</string>
-    <string name="fn">First Name:</string>
-    <string name="ln">Last Name:</string>
-    <string name="confirm_pass_lbl">Confirm Password:</string>
-    <string name="dl">Driver Licence Number:</string>
+    <string name="fn">FIRST NAME:</string>
+    <string name="ln">LAST NAME:</string>
+    <string name="confirm_pass_lbl">CONFIRM PASSWORD:</string>
+    <string name="dl">LICENCE NUMBER:</string>
     <string name="instructor_registration">INSTRUCTOR REGISTRATION</string>
     <string name="get_started">Get Started</string>
     <string name="nzta_white_logo">nzta white logo</string>

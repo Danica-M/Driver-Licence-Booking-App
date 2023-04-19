@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark"
+    android:background="@drawable/background_image"
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".user.Manage_Booking">
@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/dark">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -28,7 +29,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@color/accent2"
-            app:cardBackgroundColor="@color/dark"
+            app:cardBackgroundColor="@android:color/transparent"
             android:onClick="home">
 
 
@@ -86,13 +87,13 @@
             <Button
                 android:id="@+id/book"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:background="@drawable/light_border"
                 android:text="BOOK"
                 android:textColor="@color/dark"
                 android:textSize="16sp"
-                android:onClick="bookTest"/>
+                android:onClick="bookTest" />
 
         </LinearLayout>
 
@@ -104,7 +105,7 @@
             android:textSize="18sp"
             android:textAlignment="center"
             android:id="@+id/noCurrent"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -124,25 +125,35 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/booked"
-                android:id="@+id/status_img"/>
+                android:id="@+id/status_img" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="5dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="23/03/2023 9:00am"
+                    android:text="23/03/2023"
                     android:textStyle="bold"
                     android:textSize="18sp"
-                    android:id="@+id/test_date"/>
+                    android:id="@+id/test_date" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="9:00am"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:id="@+id/test_time" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Instructor: Andrew Michaels"
-                    android:id="@+id/txInstructor"/>
+                    android:id="@+id/txInstructor" />
             </LinearLayout>
 
 
