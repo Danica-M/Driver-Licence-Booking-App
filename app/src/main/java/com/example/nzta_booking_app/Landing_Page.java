@@ -15,8 +15,6 @@ public class Landing_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
     }
-
-
     public void getStarted(View view) {
         Intent intent = new Intent(this, Normal_Login.class);
         startActivity(intent);

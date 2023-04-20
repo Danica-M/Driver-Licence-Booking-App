@@ -68,12 +68,9 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
             getTakenSlots(selectedDate, selectedInstructor);
             setRecyclerview();
         }
-        Toast.makeText(this, instructorNames.get(i), Toast.LENGTH_SHORT).show();
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 
     public void nextReview(View view) {
@@ -130,13 +127,11 @@ public class Booking_Session_Selection extends AppCompatActivity implements Adap
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot instructorSnapshot : dataSnapshot.getChildren()) {
                     Instructor instructor = instructorSnapshot.getValue(Instructor.class);
-                    instructorNames.add(instructor.instructorFullName());
-                }
+                    instructorNames.add(instructor.instructorFullName());}
                 ArrayAdapter<String> aa = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, instructorNames);
                 aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spin.setAdapter(aa);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getApplicationContext(), "Error Occurred: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();

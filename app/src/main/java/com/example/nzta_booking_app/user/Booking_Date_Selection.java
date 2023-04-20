@@ -34,14 +34,12 @@ public class Booking_Date_Selection extends AppCompatActivity {
         nextBtn = findViewById(R.id.nextBtn);
         setUpCalendar();
 
-
         // setting the selectedDate in case user clicks next without changing the default selected date
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         // Get the selected date in milliseconds
         long selectedDateInMillis = calendarView.getDate();
         // Convert the date to a string in the desired format
         selectedDate = sdf.format(new Date(selectedDateInMillis));
-
 
         calendarView.setOnDateChangeListener((calendarView, year, month, dayOfMonth) -> {
             Calendar calendar2 = Calendar.getInstance();
@@ -56,11 +54,11 @@ public class Booking_Date_Selection extends AppCompatActivity {
                 nextBtn.setEnabled(true);
             }
 
-
         });
     }
 
 
+    //shows an alert dialog if user clicks cancel
     public void cancelBooking(View view) {
         AlertDialog builder = new AlertDialog.Builder(Booking_Date_Selection.this)
                 .setTitle("Booking Cancellation Confirmation")
@@ -75,22 +73,20 @@ public class Booking_Date_Selection extends AppCompatActivity {
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
+                    public void onClick(DialogInterface dialogInterface, int i) {}
                 }).show();
 
     }
 
+    //opens the second part of the booking process and passes the selected date
     public void bookingSession(View view) {
-
         Intent nlIntent = new Intent(this, Booking_Session_Selection.class);
         nlIntent.putExtra("date", selectedDate);
-
         startActivity(nlIntent);
     }
 
 
+    //sets up the calendar
     public void setUpCalendar() {
         Calendar calendar = Calendar.getInstance();
         // Check if selected date is a weekend day (Saturday or Sunday)
@@ -102,15 +98,10 @@ public class Booking_Date_Selection extends AppCompatActivity {
         } else {
             calendar.add(Calendar.DAY_OF_MONTH, 0);
         }
-
         long minD = calendar.getTimeInMillis();
         calendar.add(Calendar.YEAR, 2);
         long maxDate = calendar.getTimeInMillis();
-
-
         calendarView.setMinDate(minD);
         calendarView.setMaxDate(maxDate);
-
-
     }
 }

@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Booking;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
@@ -28,12 +30,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView test_date;
+        TextView test_time;
         TextView instructor;
         ImageView status_img;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             test_date = itemView.findViewById(R.id.test_date);
+            test_time = itemView.findViewById(R.id.test_time);
             instructor = itemView.findViewById(R.id.txInstructor);
             status_img = itemView.findViewById(R.id.status_img);
         }
@@ -49,8 +53,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.ViewHolder holder, int position) {
-        holder.test_date.setText(bookingList.get(position).getBookingDate() + " - " + bookingList.get(position).getBookingTime());
-        holder.instructor.setText("Instructor: " + bookingList.get(position).getBookingInstructor());
+        holder.test_date.setText("Date: "+bookingList.get(position).getBookingDate());
+        holder.test_time.setText("Time: "+bookingList.get(position).getBookingTime());
+        holder.instructor.setText("Instructor: " +bookingList.get(position).getBookingInstructor());
         if (bookingList.get(position).getResults().equals("Passed")) {
             holder.status_img.setImageResource(R.drawable.pass);
         } else {
@@ -62,6 +67,4 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public int getItemCount() {
         return bookingList.size();
     }
-
-
 }

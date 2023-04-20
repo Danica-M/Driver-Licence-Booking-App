@@ -25,21 +25,22 @@ public class Normal_Home extends AppCompatActivity {
         setContentView(R.layout.normal_home);
         wMessage = findViewById(R.id.welMessage);
         wMessage.setText("Kia Ora, " + Controller.getCurrentUser().userFullName());
-
-
     }
 
+    //opens a manage booking intent
     public void mBooking(View view) {
         Intent bIntent = new Intent(this, Manage_Booking.class);
         startActivity(bIntent);
     }
 
+    //opens up the graph and passes a usertype
     public void graph(View view) {
         Intent bIntent = new Intent(this, Histogram.class);
         bIntent.putExtra("userType", "user");
         startActivity(bIntent);
     }
 
+    //signs out the user after confirming the alert dialog
     public void logout(View view) {
 
         AlertDialog builder = new AlertDialog.Builder(Normal_Home.this)

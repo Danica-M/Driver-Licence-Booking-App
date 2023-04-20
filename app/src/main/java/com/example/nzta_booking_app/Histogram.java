@@ -22,10 +22,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,18 +55,22 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.histogram);
-        numberOfInstructor = 0;
-
         reference = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
         userType = intent.getStringExtra("userType");
 
+        hourSum = findViewById(R.id.hourSummary);
+        tvHour = findViewById(R.id.tvHourly);
         button1 = findViewById(R.id.btn0);
         button2 = findViewById(R.id.btn1);
         button3 = findViewById(R.id.btn2);
         button4 = findViewById(R.id.btn3);
         button5 = findViewById(R.id.btn4);
+
+        // Initialize BarChart view
+        weeklyBarChart = findViewById(R.id.weekBarChart);
+        hourlyBarChart = findViewById(R.id.hourBarChart);
 
         // set onClickListener for each button
         button1.setOnClickListener(this);
@@ -78,55 +79,29 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
         button4.setOnClickListener(this);
         button5.setOnClickListener(this);
 
-        hourSum = findViewById(R.id.hourSummary);
-        tvHour = findViewById(R.id.tvHourly);
 
 
-        // Initialize BarChart view
-        weeklyBarChart = findViewById(R.id.weekBarChart);
-        hourlyBarChart = findViewById(R.id.hourBarChart);
         weekLabels = new ArrayList<>();
 
         calendar = Calendar.getInstance();
         currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
         sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-        loadLabel();
+        loadWeekLabel();
         loadWeeklyBarChart();
-
-        weeklyBarChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                // Get the index of the selected bar
-                int index = (int) e.getX();
-                // Get the date from the labels array using the index
-                String date = weekLabels.get(index);
-                // Do something with the selected date
-                Toast.makeText(getApplicationContext(), "Selected date: " + date, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected() {
-                // Do nothing
-            }
-        });
     }
 
     public void nHome(View view) {
-        if (userType.equals("user")) {
-            Intent bIntent = new Intent(this, Normal_Home.class);
-            startActivity(bIntent);
-        } else {
-            Intent bIntent = new Intent(this, Instructor_Home.class);
-            startActivity(bIntent);
-        }
-
-
+        Intent bIntent;
+        if (userType.equals("user")) bIntent = new Intent(this, Normal_Home.class);
+        else {bIntent = new Intent(this, Instructor_Home.class);}
+        startActivity(bIntent);
     }
 
 
+    //loads the total number of the booked test for each day in the current week into a barchart
     public void loadWeeklyBarChart() {
-        getInstructorsNames();
+        getInstructorsNumber();
         DatabaseReference databaseRef = reference.child("bookings");
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -140,11 +115,9 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
                             String bookingDate = booking.getBookingDate();
                             Date date1 = sdf.parse(bookingDate);
                             calendar.setTime(date1);
-
                             int bookingWeekNumber = calendar.get(Calendar.WEEK_OF_YEAR);
                             if (bookingWeekNumber == currentWeek) {
                                 int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-
                                 if (dayOfWeek == 2 || dayOfWeek == 3 || dayOfWeek == 4 || dayOfWeek == 5 || dayOfWeek == 6) {
                                     weeklyBookings[dayOfWeek - 2]++;
                                 }
@@ -163,6 +136,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
                 BarData barData = new BarData(dataSet);
                 weeklyBarChart.setData(barData);
                 weeklyBarChart.getLegend().setEnabled(false);
+
 
                 // Customize the chart
                 ArrayList<Integer> colorPalettes = new ArrayList<>();
@@ -195,7 +169,6 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
                     }
                 });
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getApplicationContext(), "Error Occurred: " + error.getMessage(), Toast.LENGTH_SHORT).show();
@@ -203,7 +176,8 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
         });
     }
 
-    public void loadLabel() {
+    // date labels for the weekly barchart
+    public void loadWeekLabel() {
         for (int dayOfWeek = Calendar.MONDAY; dayOfWeek <= Calendar.FRIDAY; dayOfWeek++) {
             calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
             int weekNumber = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -214,10 +188,10 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    //adding on click event listerner to all the button in the histogram
     public void onClick(View v) {
         if (v instanceof Button) {
             String buttonText = ((Button) v).getText().toString();
-
             loadHourlyLabels();
             String date;
             switch (buttonText) {
@@ -246,7 +220,10 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    public void getInstructorsNames() {
+    // gets the number of instructor to calculate the total number of possible test slots
+    // calculation = number of instructor * 16 (daily total time slots)
+    public void getInstructorsNumber() {
+        numberOfInstructor = 0;
         reference.child("instructors").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -257,7 +234,6 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getApplicationContext(), "Error Occurred: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
@@ -266,6 +242,8 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
     }
 
 
+    // loads the label for the timeslots
+    //9-5 with 30 mins interval
     public void loadHourlyLabels() {
         hourLabels = new ArrayList<>();
         for (int i = 9; i < 17; i++) {
@@ -276,6 +254,8 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    //loads the hourly number of booking of the specific date into a barchart.
+    //triggered by a button
     public void loadHourlyBarChart(String date) {
         DatabaseReference databaseRef = reference.child("bookings");
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {

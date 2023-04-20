@@ -29,7 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Normal_Login extends AppCompatActivity {
-
     EditText l_email, l_pass;
     Button login;
     FirebaseAuth mAuth;
@@ -64,12 +63,9 @@ public class Normal_Login extends AppCompatActivity {
                         }
                     });
                 }
-
             }
         });
     }
-
-
     public void checkLoggedInUser() {
         String userID = mAuth.getCurrentUser().getUid();
 
@@ -78,7 +74,6 @@ public class Normal_Login extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Controller.setCurrentUser(dataSnapshot.getValue(User.class));
-                // retrieve the user object
                 if (Controller.getCurrentUser() != null) {
                     finishAffinity();
                     Intent intent = new Intent(Normal_Login.this, Normal_Home.class);
@@ -88,15 +83,11 @@ public class Normal_Login extends AppCompatActivity {
                     Toast.makeText(Normal_Login.this, "Road User account does not exist", Toast.LENGTH_SHORT).show();
                     FirebaseAuth.getInstance().signOut();
                 }
-
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(Normal_Login.this, "Error Occurred: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
-
         });
     }
 
