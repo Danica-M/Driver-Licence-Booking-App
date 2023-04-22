@@ -19,7 +19,6 @@ import com.example.nzta_booking_app.models.Booking;
 import java.util.ArrayList;
 
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
-
     Context context;
     ArrayList<Booking> testList;
 
@@ -32,6 +31,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         TextView test_time, test_result, test_user;
         Button resultBtn;
 
+        //initialises all the elements in the holder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             test_time = itemView.findViewById(R.id.test_time);
@@ -49,9 +49,10 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
+
+    //loads the data into the each holder
     @Override
     public void onBindViewHolder(@NonNull TestAdapter.ViewHolder holder, int position) {
-        Log.d("TAG", "testlist: " + testList.size());
         holder.test_time.setText("Time: " + testList.get(position).getBookingTime());
         holder.test_user.setText("Applicant: " + testList.get(position).getBookingUser());
 
@@ -66,6 +67,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         }
 
         final int finalPosition = position;
+        //setting onclick to the result button in each viewholder and passes that holder's booking id
         holder.resultBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +78,6 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                 context.startActivity(bIntent);
             }
         });
-
     }
 
     @Override

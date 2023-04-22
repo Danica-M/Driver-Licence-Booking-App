@@ -84,7 +84,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(Weekly Bookings)"
+                android:text="(Week Booking Summary)"
                 android:textAlignment="center"
                 android:textColor="@color/dark_grey"
                 android:textSize="16sp"
@@ -200,7 +200,7 @@
                 android:id="@+id/tvHourly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(Hourly Bookings)"
+                android:text="(Session Booking Summary)"
                 android:textAlignment="center"
                 android:textColor="@color/dark_grey"
                 android:textSize="16sp"

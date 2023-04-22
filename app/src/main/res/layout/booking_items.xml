@@ -23,26 +23,59 @@
         android:orientation="vertical"
         android:layout_marginLeft="5dp">
 
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="23/03/2023"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:id="@+id/test_date" />
-        <TextView
-            android:layout_width="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date: "
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="23/03/2023"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:id="@+id/test_date" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="9:00am"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:id="@+id/test_time" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Time: "
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="9:00am"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:id="@+id/test_time" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Instructor: "
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Andrew Michaels"
+                android:id="@+id/txInstructor" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Instructor: Andrew Michaels"
-            android:id="@+id/txInstructor" />
+
     </LinearLayout>
 
 

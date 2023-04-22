@@ -40,14 +40,18 @@ public class Booking_Review extends AppCompatActivity {
         bookButton = findViewById(R.id.bookBtn);
 
         User bUser = Controller.getCurrentUser();
+        bookingUser = bUser.userFullName();
+        bookingDL = bUser.getLicenceNum();
+
+        //gets the information from previous activity
         rIntent = getIntent();
         date = rIntent.getStringExtra("date");
         time = rIntent.getStringExtra("time");
         instructor = rIntent.getStringExtra("instructor");
-        bookingUser = bUser.userFullName();
-        bookingDL = bUser.getLicenceNum();
 
 
+
+        //textViews to show booking details
         tx_name.setText(bookingUser);
         tx_dl.setText(bookingDL);
         tx_date.setText(date);
@@ -62,7 +66,7 @@ public class Booking_Review extends AppCompatActivity {
                     Log.d("TAG", "user: " + Controller.getCurrentUser().userFullName());
                     Booking booking = controller.bookTest(date, time, bookingUser, bookingDL, instructor);
                     if (booking != null) {
-                        AlertDialog builder = new AlertDialog.Builder(Booking_Review.this)
+                        new AlertDialog.Builder(Booking_Review.this)
                                 .setTitle("Booking Confirmation")
                                 .setMessage("Your test has been booked successfully!")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -70,15 +74,9 @@ public class Booking_Review extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent nlIntent = new Intent(Booking_Review.this, Manage_Booking.class);
                                         startActivity(nlIntent);
-                                        finishAffinity();
-                                    }
+                                        finishAffinity();}
                                 }).show();
-
-
-                    } else {
-                        Toast.makeText(Booking_Review.this, "Something went wrong will booking the test", Toast.LENGTH_SHORT).show();
-                    }
-
+                    } else {Toast.makeText(Booking_Review.this, "Something went wrong will booking the test", Toast.LENGTH_SHORT).show();}
                 } catch (Exception ex) {
                     Toast.makeText(Booking_Review.this, "Error Occurred: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }

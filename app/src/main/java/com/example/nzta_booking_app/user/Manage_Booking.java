@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +22,6 @@ import com.example.nzta_booking_app.models.Controller;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
@@ -52,27 +53,29 @@ public class Manage_Booking extends AppCompatActivity {
         noCurrent = findViewById(R.id.noCurrent);
         noPast = findViewById(R.id.noPast);
         rv = findViewById(R.id.recyclerBook);
-
+        controller =new Controller();
         fName = Controller.getCurrentUser().userFullName();
+        getBookingHistory(fName);
 
-
+        userBookings = new ArrayList<>();
         rv.setHasFixedSize(true);
         rv_lm = new LinearLayoutManager(this);
         rv.setLayoutManager(rv_lm);
-        controller =new Controller();
-        getBookingHistory(fName);
+        rv_adapter = new HistoryAdapter(getApplicationContext(), userBookings);
+        rv.setAdapter(rv_adapter);
 
     }
 
     //gets all the bookings of the current user from database
     public void getBookingHistory(String fName) {
 
-        DatabaseReference bookingsRef = controller.getReference().child("bookings");
+        DatabaseReference bookingsRef = Controller.getReference().child("bookings");
         Query query = bookingsRef.orderByChild("bookingDate");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userBookings = new ArrayList<>();
+
                 currentBooking = null;
                 for (DataSnapshot bookingSnapshot : snapshot.getChildren()) {
                     Booking booking = bookingSnapshot.getValue(Booking.class);
@@ -111,6 +114,7 @@ public class Manage_Booking extends AppCompatActivity {
 
 
     }
+
 
     //starts the booking process if the user does not have current booking
     public void bookTest(View view) {

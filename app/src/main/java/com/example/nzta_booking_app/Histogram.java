@@ -3,6 +3,7 @@ package com.example.nzta_booking_app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.icu.util.Calendar;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.nzta_booking_app.instructor.Instructor_Home;
 import com.example.nzta_booking_app.models.Booking;
+import com.example.nzta_booking_app.models.Controller;
 import com.example.nzta_booking_app.models.Instructor;
 import com.example.nzta_booking_app.user.Normal_Home;
 import com.github.mikephil.charting.charts.BarChart;
@@ -27,7 +29,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
@@ -44,18 +45,18 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
     private SimpleDateFormat sdf;
     private Calendar calendar;
 
+    Controller controller;
+
     private TextView tvHour;
     private LinearLayout hourSum;
     int currentWeek, numberOfInstructor;
 
-    private DatabaseReference reference;
     public Button button1, button2, button3, button4, button5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.histogram);
-        reference = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
         userType = intent.getStringExtra("userType");
@@ -81,14 +82,23 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
 
 
 
+        controller = new Controller();
         weekLabels = new ArrayList<>();
 
         calendar = Calendar.getInstance();
         currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
-        sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
+        //if today is weekend current week will be incremented
+        int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
+        if(currentDay == 7 || currentDay == 8){
+            currentWeek++;
+        }
+
+        numberOfInstructor = 0;
+        sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        getInstructorsNumber();
         loadWeekLabel();
-        loadWeeklyBarChart();
+
     }
 
     public void nHome(View view) {
@@ -101,8 +111,8 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
 
     //loads the total number of the booked test for each day in the current week into a barchart
     public void loadWeeklyBarChart() {
-        getInstructorsNumber();
-        DatabaseReference databaseRef = reference.child("bookings");
+
+        DatabaseReference databaseRef = Controller.getReference().child("bookings");
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -139,15 +149,20 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
 
 
                 // Customize the chart
+                //setting colors based on the  number of booked test
+
                 ArrayList<Integer> colorPalettes = new ArrayList<>();
                 for (int bookings : weeklyBookings) {
                     int totalSlots = numberOfInstructor * 16;
+
                     if (bookings < (totalSlots / 4)) {
                         colorPalettes.add(Color.GREEN);
                     } else if (bookings >= (totalSlots / 4) && bookings < (totalSlots / 2)) {
                         colorPalettes.add(Color.YELLOW);
+                    } else if (bookings > (totalSlots / 2)) {
+                    colorPalettes.add(Color.RED);
                     } else {
-                        colorPalettes.add(Color.RED);
+                        colorPalettes.add(Color.GRAY);
                     }
                 }
                 dataSet.setColors(colorPalettes);
@@ -184,15 +199,20 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
             if (weekNumber == currentWeek) {
                 String date = sdf.format(calendar.getTime());
                 weekLabels.add(date);
+            }else if(weekNumber < currentWeek){
+                calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                String date = sdf.format(calendar.getTime());
+                weekLabels.add(date);
             }
         }
     }
 
-    //adding on click event listerner to all the button in the histogram
+    //adding on click event listener to all the button in the histogram
+    @SuppressLint("SetTextI18n")
     public void onClick(View v) {
         if (v instanceof Button) {
             String buttonText = ((Button) v).getText().toString();
-            loadHourlyLabels();
+//            loadHourlyLabels();
             String date;
             switch (buttonText) {
                 case "MON":
@@ -223,8 +243,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
     // gets the number of instructor to calculate the total number of possible test slots
     // calculation = number of instructor * 16 (daily total time slots)
     public void getInstructorsNumber() {
-        numberOfInstructor = 0;
-        reference.child("instructors").addListenerForSingleValueEvent(new ValueEventListener() {
+        Controller.getReference().child("instructors").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot instructorSnapshot : dataSnapshot.getChildren()) {
@@ -233,6 +252,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
                         numberOfInstructor++;
                     }
                 }
+                loadWeeklyBarChart();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -241,23 +261,11 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
         });
     }
 
-
-    // loads the label for the timeslots
-    //9-5 with 30 mins interval
-    public void loadHourlyLabels() {
-        hourLabels = new ArrayList<>();
-        for (int i = 9; i < 17; i++) {
-            String time = String.format(Locale.getDefault(), "%02d:00", i);
-            String time1 = String.format(Locale.getDefault(), "%02d:30", i);
-            hourLabels.add(time);
-            hourLabels.add(time1);
-        }
-    }
-
     //loads the hourly number of booking of the specific date into a barchart.
     //triggered by a button
     public void loadHourlyBarChart(String date) {
-        DatabaseReference databaseRef = reference.child("bookings");
+        hourLabels = Controller.getBookingSlots();
+        DatabaseReference databaseRef = Controller.getReference().child("bookings");
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

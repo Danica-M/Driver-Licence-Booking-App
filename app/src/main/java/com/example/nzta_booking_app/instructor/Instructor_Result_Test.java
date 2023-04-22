@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,10 +18,10 @@ import android.widget.Toast;
 
 import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Booking;
+import com.example.nzta_booking_app.models.Controller;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Instructor_Result_Test extends AppCompatActivity {
@@ -30,16 +30,18 @@ public class Instructor_Result_Test extends AppCompatActivity {
     TextView testDate, testTime, testApplicant, testLicence;
     RadioGroup results;
     RadioButton pass, fail;
-    Button savebtn, cancelBtn;
+    Button saveBtn, cancelBtn;
     EditText testComment;
 
-    FirebaseDatabase firebaseDB;
-    DatabaseReference reference;
+    Controller controller;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.instructor_result_test);
+        controller = new Controller();
+
         Intent intent = getIntent();
         bookingID = intent.getStringExtra("bookingID");
         instructor = intent.getStringExtra("instructor");
@@ -49,15 +51,13 @@ public class Instructor_Result_Test extends AppCompatActivity {
         testApplicant = findViewById(R.id.resApplicant);
         testLicence = findViewById(R.id.resDl);
         results = findViewById(R.id.radioResult);
-        savebtn = findViewById(R.id.saveRes);
+        saveBtn = findViewById(R.id.saveRes);
         cancelBtn = findViewById(R.id.cancelRes);
         testComment = findViewById(R.id.resComment);
         pass = findViewById(R.id.radioPass);
         fail = findViewById(R.id.radioFail);
         getBooking();
-        firebaseDB = FirebaseDatabase.getInstance();
-        reference = firebaseDB.getReference();
-        savebtn.setOnClickListener(new View.OnClickListener() {
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (results.getCheckedRadioButtonId() == -1) {
@@ -65,26 +65,27 @@ public class Instructor_Result_Test extends AppCompatActivity {
                 } else {
                     RadioButton radioButton = findViewById(results.getCheckedRadioButtonId());
                     String testResult = radioButton.getText().toString();
-                    Booking booking = new Booking(bookingID, testDate.getText().toString(), testTime.getText().toString(), testApplicant.getText().toString(), testLicence.getText().toString(), instructor, true, testResult, testComment.getText().toString());
-                    reference.child("bookings").child(bookingID).setValue(booking);
-                    Toast.makeText(Instructor_Result_Test.this, "Test Resulted Successfully", Toast.LENGTH_SHORT).show();
-                    Intent nlIntent = new Intent(Instructor_Result_Test.this, Instructor_Home.class);
-                    startActivity(nlIntent);
-                    finishAffinity();
+                    Booking booking = controller.resultTest(bookingID, testDate.getText().toString(), testTime.getText().toString(), testApplicant.getText().toString(), testLicence.getText().toString(), instructor, true, testResult, testComment.getText().toString());
+                    if(booking!=null){
+                        Toast.makeText(Instructor_Result_Test.this, "Test Resulted Successfully", Toast.LENGTH_SHORT).show();
+                        Intent nlIntent = new Intent(Instructor_Result_Test.this, Instructor_Home.class);
+                        startActivity(nlIntent);
+                        finishAffinity();
+                    }else{
+                        Toast.makeText(Instructor_Result_Test.this, "Something went wrong while trying to save the result.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
     }
 
-
     public void getBooking() {
-        DatabaseReference bookingsRef = reference.child("bookings").child(bookingID);
+        DatabaseReference bookingsRef = Controller.getReference().child("bookings").child(bookingID);
         bookingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot != null) {
-                    Booking booking = snapshot.getValue(Booking.class);
-
+                Booking booking = snapshot.getValue(Booking.class);
+                if (booking != null) {
                     testDate.setText(booking.getBookingDate());
                     testTime.setText(booking.getBookingTime());
                     testApplicant.setText(booking.getBookingUser());
@@ -102,7 +103,6 @@ public class Instructor_Result_Test extends AppCompatActivity {
                 }
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getApplicationContext(), "Error Occurred: " + error.getMessage(), Toast.LENGTH_SHORT).show();
@@ -112,7 +112,7 @@ public class Instructor_Result_Test extends AppCompatActivity {
 
 
     public void CancelResult(View view) {
-        AlertDialog builder = new AlertDialog.Builder(Instructor_Result_Test.this)
+        new AlertDialog.Builder(Instructor_Result_Test.this)
                 .setTitle("Result Cancellation Confirmation")
                 .setMessage("Are you sure you want to cancel resulting this test?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -125,9 +125,7 @@ public class Instructor_Result_Test extends AppCompatActivity {
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
+                    public void onClick(DialogInterface dialogInterface, int i) {}
                 }).show();
 
     }

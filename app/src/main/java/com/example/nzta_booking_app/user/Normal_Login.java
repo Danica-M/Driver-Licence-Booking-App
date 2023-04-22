@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 
 public class Normal_Login extends AppCompatActivity {
     EditText l_email, l_pass;
@@ -67,12 +69,12 @@ public class Normal_Login extends AppCompatActivity {
         });
     }
     public void checkLoggedInUser() {
-        String userID = mAuth.getCurrentUser().getUid();
+        String userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Controller.setCurrentUser(dataSnapshot.getValue(User.class));
                 if (Controller.getCurrentUser() != null) {
                     finishAffinity();

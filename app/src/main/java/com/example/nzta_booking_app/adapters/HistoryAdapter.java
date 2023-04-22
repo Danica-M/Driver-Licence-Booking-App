@@ -53,9 +53,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.ViewHolder holder, int position) {
-        holder.test_date.setText("Date: "+bookingList.get(position).getBookingDate());
-        holder.test_time.setText("Time: "+bookingList.get(position).getBookingTime());
-        holder.instructor.setText("Instructor: " +bookingList.get(position).getBookingInstructor());
+        holder.test_date.setText(bookingList.get(position).getBookingDate());
+        holder.test_time.setText(bookingList.get(position).getBookingTime());
+        holder.instructor.setText(bookingList.get(position).getBookingInstructor());
         if (bookingList.get(position).getResults().equals("Passed")) {
             holder.status_img.setImageResource(R.drawable.pass);
         } else {

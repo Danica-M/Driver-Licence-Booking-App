@@ -3,6 +3,7 @@ package com.example.nzta_booking_app.user;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +13,13 @@ import android.widget.TextView;
 import com.example.nzta_booking_app.Histogram;
 import com.example.nzta_booking_app.Landing_Page;
 import com.example.nzta_booking_app.R;
-import com.example.nzta_booking_app.instructor.Instructor_Home;
 import com.example.nzta_booking_app.models.Controller;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Normal_Home extends AppCompatActivity {
     TextView wMessage;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +43,7 @@ public class Normal_Home extends AppCompatActivity {
 
     //signs out the user after confirming the alert dialog
     public void logout(View view) {
-
-        AlertDialog builder = new AlertDialog.Builder(Normal_Home.this)
+        new AlertDialog.Builder(Normal_Home.this)
                 .setTitle("Exit Confirmation")
                 .setMessage("Are you sure you want to log out?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

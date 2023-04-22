@@ -82,9 +82,7 @@ public class Booking {
         this.bookingUser = bookingUser;
     }
 
-    public void setBookingInstructor(String bookingInstructor) {
-        this.bookingInstructor = bookingInstructor;
-    }
+    public void setBookingInstructor(String bookingInstructor) {this.bookingInstructor = bookingInstructor;}
 
     public void setResulted(Boolean resulted) {
         this.isResulted = resulted;

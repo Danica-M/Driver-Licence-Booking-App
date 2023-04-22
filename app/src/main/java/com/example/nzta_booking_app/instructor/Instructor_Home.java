@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,34 +19,29 @@ import com.example.nzta_booking_app.models.Controller;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 
 public class Instructor_Home extends AppCompatActivity {
     TextView wMessage, tv_booked;
-    Controller controller;
     String todayDate;
-    FirebaseDatabase firebaseDB;
+    ArrayList<Booking> bookedTest;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList<Booking> bookedTest = new ArrayList<>();
-        firebaseDB = FirebaseDatabase.getInstance();
+        bookedTest = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
-        String dateFormat = "dd/MM/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-        todayDate = sdf.format(calendar.getTime());
+//        String dateFormat = "dd/MM/yyyy";
+//        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        todayDate = Controller.getSdf().format(calendar.getTime());
         instructorBookedTest(Controller.getCurrentInstructor().instructorFullName(), todayDate);
-        controller = new Controller();
         setContentView(R.layout.instructor_home);
         wMessage = findViewById(R.id.i_welMessage);
         tv_booked = findViewById(R.id.booked);
@@ -79,9 +73,9 @@ public class Instructor_Home extends AppCompatActivity {
     }
 
     public void instructorBookedTest(String instructorName, String bookingDate) {
-        ArrayList<Booking> bookedTest = new ArrayList<>();
-        Query query = firebaseDB.getReference().child("bookings");
+        Query query = Controller.getReference().child("bookings");
         query.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 

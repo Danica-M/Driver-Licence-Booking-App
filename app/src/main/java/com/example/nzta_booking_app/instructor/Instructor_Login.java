@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class Instructor_Login extends AppCompatActivity {
 
     EditText l_email, l_pass;
@@ -68,12 +70,12 @@ public class Instructor_Login extends AppCompatActivity {
     }
 
     public void checkLoggedInInstructor() {
-        String instructorID = mAuth.getCurrentUser().getUid();
+        String instructorID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
         DatabaseReference insRef = FirebaseDatabase.getInstance().getReference().child("instructors").child(instructorID);
         insRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Controller.setCurrentInstructor(dataSnapshot.getValue(Instructor.class));
                 if (Controller.getCurrentInstructor() != null) {
                     // retrieve the instructor object

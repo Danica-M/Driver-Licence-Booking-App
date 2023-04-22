@@ -14,10 +14,10 @@ import android.widget.CalendarView;
 import android.widget.Toast;
 
 import com.example.nzta_booking_app.R;
+import com.example.nzta_booking_app.models.Controller;
 
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
-import java.util.Locale;
 
 
 public class Booking_Date_Selection extends AppCompatActivity {
@@ -34,12 +34,10 @@ public class Booking_Date_Selection extends AppCompatActivity {
         nextBtn = findViewById(R.id.nextBtn);
         setUpCalendar();
 
-        // setting the selectedDate in case user clicks next without changing the default selected date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         // Get the selected date in milliseconds
         long selectedDateInMillis = calendarView.getDate();
         // Convert the date to a string in the desired format
-        selectedDate = sdf.format(new Date(selectedDateInMillis));
+        selectedDate = Controller.getSdf().format(new Date(selectedDateInMillis));
 
         calendarView.setOnDateChangeListener((calendarView, year, month, dayOfMonth) -> {
             Calendar calendar2 = Calendar.getInstance();
@@ -50,7 +48,7 @@ public class Booking_Date_Selection extends AppCompatActivity {
                 nextBtn.setEnabled(false);
             } else {
                 // Convert the calendar date to a string
-                selectedDate = sdf.format(calendar2.getTime());
+                selectedDate = Controller.getSdf().format(calendar2.getTime());
                 nextBtn.setEnabled(true);
             }
 
@@ -60,7 +58,7 @@ public class Booking_Date_Selection extends AppCompatActivity {
 
     //shows an alert dialog if user clicks cancel
     public void cancelBooking(View view) {
-        AlertDialog builder = new AlertDialog.Builder(Booking_Date_Selection.this)
+        new AlertDialog.Builder(Booking_Date_Selection.this)
                 .setTitle("Booking Cancellation Confirmation")
                 .setMessage("Are you sure you want to cancel booking process?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

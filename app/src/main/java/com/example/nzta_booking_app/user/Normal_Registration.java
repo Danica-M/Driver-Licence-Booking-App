@@ -25,9 +25,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 
 public class Normal_Registration extends AppCompatActivity {
-    EditText ed_fname, ed_lname, ed_email, ed_pass, ed_pass2, ed_licence;
+    EditText edNameF, edNameL, edEmail, edPass, edPass2, edLicence;
     Button registerBtn, cancelBtn;
     Controller controller;
     FirebaseAuth mAuth;
@@ -36,12 +38,12 @@ public class Normal_Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.normal_registration);
-        ed_fname = findViewById(R.id.fname);
-        ed_lname = findViewById(R.id.lname);
-        ed_email = findViewById(R.id.email);
-        ed_pass = findViewById(R.id.pass);
-        ed_pass2 = findViewById(R.id.pass2);
-        ed_licence = findViewById(R.id.licence);
+        edNameF = findViewById(R.id.fname);
+        edNameL = findViewById(R.id.lname);
+        edEmail = findViewById(R.id.email);
+        edPass = findViewById(R.id.pass);
+        edPass2 = findViewById(R.id.pass2);
+        edLicence = findViewById(R.id.licence);
         registerBtn = findViewById(R.id.registerBtn);
         cancelBtn = findViewById(R.id.cancelBtn);
         mAuth = FirebaseAuth.getInstance();
@@ -51,22 +53,26 @@ public class Normal_Registration extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String fname, lname, licence, email, pass, pass2;
-                fname = ed_fname.getText().toString().toUpperCase().trim();
-                lname = ed_lname.getText().toString().toUpperCase().trim();
-                licence = ed_licence.getText().toString().toUpperCase().trim();
-                email = ed_email.getText().toString();
-                pass = ed_pass.getText().toString();
-                pass2 = ed_pass2.getText().toString();
+                String fName, lName, licence, email, pass, pass2;
+                fName = edNameF.getText().toString().toUpperCase().trim();
+                lName = edNameL.getText().toString().toUpperCase().trim();
+                licence = edLicence.getText().toString().toUpperCase().trim();
+                email = edEmail.getText().toString();
+                pass = edPass.getText().toString();
+                pass2 = edPass2.getText().toString();
 
-                if (TextUtils.isEmpty(fname) || TextUtils.isEmpty(lname) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(licence)) {
+                if (TextUtils.isEmpty(fName) || TextUtils.isEmpty(lName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(licence)) {
                     Toast.makeText(Normal_Registration.this, "Registration form incomplete", Toast.LENGTH_SHORT).show();
-                } else if (!controller.validateLicence(licence)) {
+                } else if(!Controller.validateString(fName)){
+                    Toast.makeText(Normal_Registration.this, "Invalid character in firstname field", Toast.LENGTH_SHORT).show();
+                }else if(!Controller.validateString(lName)){
+                    Toast.makeText(Normal_Registration.this, "Invalid character in lastname field", Toast.LENGTH_SHORT).show();
+                } else if (!Controller.validateLicence(licence)) {
                     Toast.makeText(Normal_Registration.this, "Invalid licence format", Toast.LENGTH_SHORT).show();
                 } else if (!pass.equals(pass2)) {
                     Toast.makeText(Normal_Registration.this, "Password does not match", Toast.LENGTH_SHORT).show();
                 } else {
-                   registerInstructor(fname, lname, licence, email, pass);
+                   registerUser(fName, lName, licence, email, pass);
                 }
             }
         });
@@ -80,8 +86,8 @@ public class Normal_Registration extends AppCompatActivity {
 
     //checks if the user inputted licence is already in the system
     //otherwise will register as new user
-    public void registerInstructor(String fname,String lname, String licence,String email, String pass){
-        DatabaseReference userRef = controller.getReference().child("users");
+    public void registerUser(String fName, String lName, String licence, String email, String pass){
+        DatabaseReference userRef = Controller.getReference().child("users");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -104,11 +110,12 @@ public class Normal_Registration extends AppCompatActivity {
                                   if user is successfully added using the registerUser method in controller
                                   user will be redirected to the login page
                                 */
-                                String userid = mAuth.getCurrentUser().getUid();
-                                User newUser = controller.registerUser(userid, fname, lname, licence, email, pass);
+                                String userid = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+                                User newUser = controller.registerUser(userid, fName, lName, licence, email, pass);
                                 if (newUser != null) {
                                     Toast.makeText(Normal_Registration.this, "Registration Successful.", Toast.LENGTH_SHORT).show();
                                     FirebaseAuth.getInstance().signOut();
+                                    finishAffinity();
                                     Intent nlIntent = new Intent(Normal_Registration.this, Normal_Login.class);
                                     startActivity(nlIntent);
                                 } else {
