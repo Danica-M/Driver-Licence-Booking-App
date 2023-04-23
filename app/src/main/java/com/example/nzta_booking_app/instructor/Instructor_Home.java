@@ -39,7 +39,7 @@ public class Instructor_Home extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         todayDate = Controller.getSdf().format(calendar.getTime());
-        todayDate = "24/04/2023";
+//        todayDate = "24/04/2023";
         instructorBookedTest(Controller.getCurrentInstructor().instructorFullName(), todayDate);
         setContentView(R.layout.instructor_home);
         wMessage = findViewById(R.id.i_welMessage);
