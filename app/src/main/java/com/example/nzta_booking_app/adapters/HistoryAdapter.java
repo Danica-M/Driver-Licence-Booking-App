@@ -1,7 +1,6 @@
 package com.example.nzta_booking_app.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nzta_booking_app.R;
 import com.example.nzta_booking_app.models.Booking;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 

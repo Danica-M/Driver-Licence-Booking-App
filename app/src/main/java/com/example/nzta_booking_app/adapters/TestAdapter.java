@@ -1,8 +1,8 @@
 package com.example.nzta_booking_app.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +51,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
 
     //loads the data into the each holder
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TestAdapter.ViewHolder holder, int position) {
         holder.test_time.setText("Time: " + testList.get(position).getBookingTime());
@@ -63,11 +64,11 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
         } else {
             holder.resultBtn.setBackgroundResource(R.drawable.light_border);
-            holder.test_result.setText("Result: Unresulted");
+            holder.test_result.setText("Result: not resulted");
         }
 
         final int finalPosition = position;
-        //setting onclick to the result button in each viewholder and passes that holder's booking id
+        //setting onclick to the result button in each view holder and passes that holder's booking id
         holder.resultBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

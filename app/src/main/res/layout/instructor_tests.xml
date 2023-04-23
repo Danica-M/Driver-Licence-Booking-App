@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".instructor.Instructor_Tests"
     android:orientation="vertical"
-    android:background="@drawable/background_image"
+    android:background="@drawable/background_image2"
     android:padding="20dp">
 
     <LinearLayout

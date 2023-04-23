@@ -71,9 +71,6 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         });
     }
 
-    public String getItem(int position) {
-        return slots.get(position);
-    }
 
     public int getItemViewType(int position) {
         return position;
@@ -84,7 +81,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         return slots.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         RadioButton session_time;
 
         public ViewHolder(@NonNull View itemView) {
@@ -92,16 +89,4 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
             session_time = itemView.findViewById(R.id.session_time);
         }
     }
-
-
-    private boolean isAvailableTimeSlot(String timeSlot) {
-
-        for (String item : unavailable_slots) {
-            if (item.equals(timeSlot)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 }

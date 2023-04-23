@@ -38,7 +38,7 @@ public class Manage_Booking extends AppCompatActivity {
     ImageView status_img;
     LinearLayout holder;
     Controller controller;
-    String fName;
+    String userLicenceNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +54,8 @@ public class Manage_Booking extends AppCompatActivity {
         noPast = findViewById(R.id.noPast);
         rv = findViewById(R.id.recyclerBook);
         controller =new Controller();
-        fName = Controller.getCurrentUser().userFullName();
-        getBookingHistory(fName);
+        userLicenceNo = Controller.getCurrentUser().getLicenceNum();
+        getBookingHistory(userLicenceNo);
 
         userBookings = new ArrayList<>();
         rv.setHasFixedSize(true);
@@ -67,7 +67,7 @@ public class Manage_Booking extends AppCompatActivity {
     }
 
     //gets all the bookings of the current user from database
-    public void getBookingHistory(String fName) {
+    public void getBookingHistory(String userLicenceNo) {
 
         DatabaseReference bookingsRef = Controller.getReference().child("bookings");
         Query query = bookingsRef.orderByChild("bookingDate");
@@ -80,7 +80,7 @@ public class Manage_Booking extends AppCompatActivity {
                 for (DataSnapshot bookingSnapshot : snapshot.getChildren()) {
                     Booking booking = bookingSnapshot.getValue(Booking.class);
 
-                    if (booking != null && booking.getBookingUser().equals(fName)) {
+                    if (booking != null && booking.getBookingUserDL().equals(userLicenceNo)) {
                         if (booking.getResulted()) {
                             userBookings.add(booking);
                         } else {

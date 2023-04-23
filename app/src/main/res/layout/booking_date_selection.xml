@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,72 +9,81 @@
     android:padding="20dp"
     tools:context=".user.Booking_Date_Selection">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/white_logo" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="PRACTICAL TEST BOOKING"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:textColor="@color/light"
-        android:layout_marginTop="-20dp"
-        android:layout_marginBottom="10dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Select your preferred date:"
-        android:textSize="18sp"
-        android:textAlignment="textStart"
-        android:textColor="@color/light" />
-
-    <CalendarView
-        android:id="@+id/calendarView"
-        style="@android:style/Widget.DeviceDefault.CalendarView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/light"
-        android:dateTextAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:showWeekNumber="true"
-        android:weekNumberColor="@color/dark"
-        android:layout_marginTop="10dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="bottom"
-        android:layout_weight="1"
-        android:layout_margin="10dp">
+        android:orientation="vertical">
 
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:background="@drawable/plain_border"
-            android:text="CANCEL"
-            android:onClick="cancelBooking"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/white_logo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/practical_test_booking"
             android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
             android:textColor="@color/light"
-            android:layout_marginRight="20dp"
-            android:layout_weight="2" />
+            android:layout_marginTop="-20dp"
+            android:layout_marginBottom="10dp" />
 
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:background="@drawable/plain_border"
-            android:text="NEXT"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:layout_marginLeft="20dp"
-            android:onClick="bookingSession"
-            android:layout_weight="2"
-            android:id="@+id/nextBtn" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_your_preferred_date"
+            android:textSize="18sp"
+            android:textAlignment="textStart"
+            android:textColor="@color/light" />
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            style="@android:style/Widget.DeviceDefault.CalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light"
+            android:dateTextAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:showWeekNumber="true"
+            android:weekNumberColor="@color/dark"
+            android:layout_marginTop="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="59dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="2"
+                android:background="@drawable/plain_border"
+                android:onClick="cancelBooking"
+                android:text="@string/cancel_btn"
+                android:textColor="@color/light"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/nextBtn"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_weight="2"
+                android:background="@drawable/plain_border"
+                android:onClick="bookingSession"
+                android:text="@string/next_btn"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
 
-</LinearLayout>
+
+</ScrollView>

@@ -236,7 +236,7 @@ public class Histogram extends AppCompatActivity implements View.OnClickListener
             }
             loadHourlyBarChart(date);
             hourSum.setVisibility(View.VISIBLE);
-            tvHour.setText("Hourly Bookings - " + date);
+            tvHour.setText("Session Booking Summary - " + date);
         }
     }
 

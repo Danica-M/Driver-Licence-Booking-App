@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,147 +8,152 @@
     android:orientation="vertical"
     tools:context=".user.Normal_Login">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/img_desc"
-        android:padding="10dp"
-        app:srcCompat="@drawable/colored_logo" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/normal_login_txt"
-        android:textAlignment="center"
-        android:textColor="@color/blue"
-        android:textSize="20sp"
-        android:layout_marginTop="-30dp"
-        android:textStyle="bold" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            android:layout_width="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/email_lbl"
-            android:textColor="@color/dark"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:autofillHints="emailAddress"
-            android:background="@drawable/rounded_edittext"
-            android:inputType="textEmailAddress"
+            android:contentDescription="@string/img_desc"
             android:padding="10dp"
-            android:textSize="20sp"
-            android:contentDescription="@string/enter_your_email_address" />
+            app:srcCompat="@drawable/colored_logo" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/pass_lbl"
-            android:textColor="@color/dark"
+            android:text="@string/normal_login_txt"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
             android:textSize="20sp"
+            android:layout_marginTop="-30dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/pass"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:autofillHints="password"
-            android:background="@drawable/rounded_edittext"
-            android:inputType="textPassword"
-            android:padding="10dp"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/loginBtn"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/light_border"
-            android:text="@string/login_btn"
-            android:textColor="@color/dark"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/cancelBtn"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/plain_border"
-            android:onClick="landingPage"
-            android:text="@string/cancel_btn"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:onClick="normalRegister"
-            android:text="@string/normal_register"
-            android:textAlignment="center"
-            android:textColor="@color/dark"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:background="@drawable/border"
-        android:layout_margin="10dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/instructor_txt"
-            android:textAlignment="center"
-            android:textColor="@color/dark"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <Button
+
+            <EditText
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
-                android:background="@drawable/plain_border"
-                android:onClick="instructorLogin"
+                android:autofillHints="emailAddress"
+                android:background="@drawable/rounded_edittext"
+                android:inputType="textEmailAddress"
+                android:hint="EMAIL"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                style="@style/Widget.AppCompat.AutoCompleteTextView"
+                android:drawableLeft="@drawable/icon_email"/>
+
+
+            <EditText
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:autofillHints="password"
+                android:background="@drawable/rounded_edittext"
+                android:inputType="textPassword"
+                android:hint="PASSWORD"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                style="@style/Widget.AppCompat.AutoCompleteTextView"
+                android:drawableLeft="@drawable/icon_password"/>
+
+            <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/light_border"
                 android:text="@string/login_btn"
-                android:textColor="@color/light"
-                android:textSize="16sp" />
+                android:textColor="@color/dark"
+                android:textSize="20sp" />
 
             <Button
+                android:id="@+id/cancelBtn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/plain_border"
-                android:onClick="instructorRegister"
-                android:text="@string/register_txt"
-                android:textColor="@color/light"
-                android:textSize="16sp" />
+                android:onClick="landingPage"
+                android:text="@string/cancel_btn"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="normalRegister"
+                android:text="@string/normal_register"
+                android:textAlignment="center"
+                android:textColor="@color/dark"
+                android:textSize="20sp" />
+
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="31dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"
+            android:background="@drawable/border"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/instructor_txt"
+                android:textAlignment="center"
+                android:textColor="@color/dark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:gravity="bottom">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/plain_border"
+                    android:onClick="instructorLogin"
+                    android:text="@string/login_btn"
+                    android:textColor="@color/light"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/plain_border"
+                    android:onClick="instructorRegister"
+                    android:text="@string/register_txt"
+                    android:textColor="@color/light"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+
+</ScrollView>

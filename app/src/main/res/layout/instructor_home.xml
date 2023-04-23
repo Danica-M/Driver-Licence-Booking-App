@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:layout_margin="20dp"
-        app:cardBackgroundColor="@color/accent1"
+        app:cardBackgroundColor="@color/light"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
         android:layout_weight="1">
@@ -66,14 +66,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/schedule" />
+                android:src="@drawable/booked" />
 
             <TextView
                 android:id="@+id/booked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10 Tests Booked today"
-                android:textColor="@color/light"
+                android:textColor="@color/dark"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

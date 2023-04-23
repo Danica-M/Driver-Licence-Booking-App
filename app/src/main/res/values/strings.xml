@@ -25,4 +25,7 @@
     <string name="dashboard">DASHBOARD</string>
     <string name="booking">BOOKING</string>
     <string name="hi_instructor">Hi, Instructor</string>
+    <string name="practical_test_booking">PRACTICAL TEST BOOKING</string>
+    <string name="select_your_preferred_date">Select your preferred date:</string>
+    <string name="next_btn">NEXT</string>
 </resources>

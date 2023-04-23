@@ -2,15 +2,14 @@ package com.example.nzta_booking_app;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.example.nzta_booking_app.models.Controller;
 
 import org.junit.Test;
 
+public class controllerTesting {
 
-public class UnitTesting {
 
     @Test
     public void licenceValidation_positiveTest(){
