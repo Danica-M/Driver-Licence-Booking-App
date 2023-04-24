@@ -32,45 +32,47 @@ public class Landing_Page extends AppCompatActivity {
         controller = new Controller();
 
         //optional! this method results all booking from past dates as failed and non-appearance
-        autoResult();
+//        autoResult();
     }
     public void getStarted(View view) {
         Intent intent = new Intent(this, Normal_Login.class);
         startActivity(intent);
     }
 
-    public void autoResult() {
-        DatabaseReference bookRef = Controller.getReference().child("bookings");
-        bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot bookingItems:snapshot.getChildren()){
-                    Booking booking = bookingItems.getValue(Booking.class);
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                    try{
 
-                        if (booking != null) {
-                            date = sdf.parse(booking.getBookingDate());
-                        }
-
-                        Date date2 = new Date();
-
-                        if (date != null && booking != null) {
-                            if(!(date.compareTo(date2)<0)){
-                                controller.resultTest(booking.getBookingID(), booking.getBookingDate(), booking.getBookingTime(), booking.getBookingUser(), booking.getBookingUserDL(), booking.getBookingInstructor(), true, "failed", "non-appearance");
-                            }
-
-                        }
-                    }catch(ParseException e) {
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
+    //needs fixing
+//    public void autoResult() {
+//        DatabaseReference bookRef = Controller.getReference().child("bookings");
+//        bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot bookingItems:snapshot.getChildren()){
+//                    Booking booking = bookingItems.getValue(Booking.class);
+//                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+//                    try{
+//
+//                        if (booking != null) {
+//                            date = sdf.parse(booking.getBookingDate());
+//                        }
+//
+//                        Date date2 = new Date();
+//
+//                        if (date != null && booking != null) {
+//                            if(!(date.compareTo(date2)<0)){
+//                                controller.resultTest(booking.getBookingID(), booking.getBookingDate(), booking.getBookingTime(), booking.getBookingUser(), booking.getBookingUserDL(), booking.getBookingInstructor(), true, "failed", "non-appearance");
+//                            }
+//
+//                        }
+//                    }catch(ParseException e) {
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 
 }
