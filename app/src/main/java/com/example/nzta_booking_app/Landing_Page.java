@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.nzta_booking_app.models.Booking;
@@ -51,8 +52,14 @@ public class Landing_Page extends AppCompatActivity {
                         if (booking != null) {
                             date = sdf.parse(booking.getBookingDate());
                         }
-                        if (date != null && booking != null && date.before(new Date())) {
-                            controller.resultTest(booking.getBookingID(), booking.getBookingDate(), booking.getBookingTime(), booking.getBookingUser(), booking.getBookingUserDL(), booking.getBookingInstructor(), true, "failed", "non-appearance");
+
+                        Date date2 = new Date();
+
+                        if (date != null && booking != null) {
+                            if(!(date.compareTo(date2)<0)){
+                                controller.resultTest(booking.getBookingID(), booking.getBookingDate(), booking.getBookingTime(), booking.getBookingUser(), booking.getBookingUserDL(), booking.getBookingInstructor(), true, "failed", "non-appearance");
+                            }
+
                         }
                     }catch(ParseException e) {
                     }
